@@ -1,0 +1,52 @@
+<div class="auth-main">
+  <div class="auth-block">
+    <h1>{{ 'SIGN_UP.BOX_TITLE' | translate }}</h1>
+    <a routerLink="/login" class="auth-link">{{ 'SIGN_UP.LOG_IN_LINK_TEXT' | translate }}</a>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-horizontal">
+      <div class="form-group row" [ngClass]="{'has-error': (!name.valid && name.touched), 'has-success': (name.valid && name.touched)}">
+        <label for="inputName3" class="col-sm-2 control-label">{{ 'GLOBAL.NAME' | translate }}</label>
+
+        <div class="col-sm-10">
+          <input [formControl]="name" type="text" class="form-control" id="inputName3" placeholder="{{ 'GLOBAL.FULL_NAME' | translate }}">
+        </div>
+      </div>
+      <div class="form-group row" [ngClass]="{'has-error': (!email.valid && email.touched), 'has-success': (email.valid && email.touched)}">
+        <label for="inputEmail3" class="col-sm-2 control-label">{{ 'GLOBAL.EMAIL' | translate }}</label>
+
+        <div class="col-sm-10">
+          <input [formControl]="email" type="email" class="form-control" id="inputEmail3" placeholder="{{ 'GLOBAL.EMAIL' | translate }}">
+        </div>
+      </div>
+      <div class="form-group row" [ngClass]="{'has-error': (!password.valid && password.touched), 'has-success': (password.valid && password.touched)}">
+        <label for="inputPassword3" class="col-sm-2 control-label">{{ 'GLOBAL.PASSWORD' | translate }}</label>
+
+        <div class="col-sm-10">
+          <input [formControl]="password" type="password" class="form-control" id="inputPassword3" placeholder="{{ 'GLOBAL.PASSWORD' | translate }}">
+        </div>
+      </div>
+      <div class="form-group row" [ngClass]="{'has-error': (!repeatPassword.valid && repeatPassword.touched), 'has-success': (repeatPassword.valid && repeatPassword.touched)}">
+        <label for="inputPassword4" class="col-sm-2 control-label">{{ 'SIGN_UP.CONFIRM_PASSWORD' | translate }}</label>
+
+        <div class="col-sm-10">
+          <input [formControl]="repeatPassword" type="password" class="form-control" id="inputPassword4" placeholder="{{ 'SIGN_UP.CONFIRM_PASSWORD' | translate }}">
+          <span *ngIf="!passwords.valid && (password.touched || repeatPassword.touched)" class="help-block sub-little-text">{{ 'SIGN_UP.ERROR_PASSWORD_DONT_MATCH' | translate }}</span>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="offset-sm-2 col-sm-10">
+          <button [disabled]="!form.valid" type="submit" class="btn btn-default btn-auth">{{ 'SIGN_UP.SUBMIT_BUTTON_TEXT' | translate }}</button>
+        </div>
+      </div>
+    </form>
+
+    <div class="auth-sep"><span><span>{{ 'SIGN_UP.SIGN_UP_WITH_THIRD_PARTY_ACCOUNT' | translate }}</span></span></div>
+
+    <div class="al-share-auth">
+      <ul class="al-share clearfix">
+        <li><facebook-login title="{{ 'SIGN_UP.SIGN_UP_WITH_FACEBOOK' | translate }}"></facebook-login></li>
+        <li><i class="socicon socicon-google" title="{{ 'SIGN_UP.SIGN_UP_WITH_GOOGLE' | translate }}"></i></li>
+      </ul>
+    </div>
+  </div>
+</div>

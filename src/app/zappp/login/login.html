@@ -1,0 +1,78 @@
+<!-- <div class="auth-main">
+  <div class="auth-block">
+    <h1>{{ 'LOG_IN.BOX_TITLE' | translate }}</h1>
+    <a routerLink="/register" class="auth-link">{{ 'LOG_IN.SIGN_UP_LINK_TEXT' | translate }}</a>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-horizontal">
+      <div class="form-group row" [ngClass]="{'has-error': (!email.valid && email.touched), 'has-success': (email.valid && email.touched)}">
+        <label for="inputEmail3" class="col-sm-2 control-label">{{ 'GLOBAL.EMAIL' |translate }}</label>
+
+        <div class="col-sm-10">
+          <input [formControl]="email" type="email" class="form-control" id="inputEmail3" placeholder="{{ 'GLOBAL.EMAIL' |translate }}">
+        </div>
+      </div>
+      <div class="form-group row" [ngClass]="{'has-error': (!password.valid && password.touched), 'has-success': (password.valid && password.touched)}">
+        <label for="inputPassword3" class="col-sm-2 control-label">{{ 'GLOBAL.PASSWORD' | translate }}</label>
+
+        <div class="col-sm-10">
+          <input [formControl]="password" type="password" class="form-control" id="inputPassword3" placeholder="{{ 'GLOBAL.PASSWORD' | translate }}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button [disabled]="!form.valid" type="submit" class="btn btn-default btn-auth">{{ 'LOG_IN.SUBMIT_BUTTON_TEXT' | translate }}</button>
+          <a routerLink="/login" class="forgot-pass">{{ 'LOG_IN.FORGOT_PASSWORD' | translate }}</a>
+        </div>
+      </div>
+    </form>
+
+    <div class="auth-sep"><span><span>{{ 'LOG_IN.SIGN_IN_WITH_THIRD_PARTY_ACCOUNT' | translate }}</span></span></div>
+
+    <div class="al-share-auth">
+      <ul class="al-share clearfix">
+        <li><facebook-login title="{{ 'LOG_IN.SIGN_IN_WITH_FACEBOOK' | translate }}"></facebook-login></li>
+        <li><google-login title="{{ 'LOG_IN.SIGN_IN_WITH_GOOGLE' | translate }}"></google-login></li>
+      </ul>
+    </div>
+  </div>
+</div> -->
+
+<div class="auth-main">
+  <div class="auth-block" [hidden]="isShowStepTwoLoginByPhoneForm">
+    <h1>{{ 'LOG_IN.BOX_TITLE' | translate }}</h1>
+
+    <form [formGroup]="stepOneLoginByPhoneForm" (ngSubmit)="getPinCode(stepOneLoginByPhoneForm.value)" class="form-horizontal">
+      <div class="form-group row" [ngClass]="{'has-error': (!phoneNumber.valid && phoneNumber.touched), 'has-success': (phoneNumber.valid && phoneNumber.touched)}">
+        <label for="inputPhoneNumber" class="col-md-3 col-xs-5 control-label">{{ 'GLOBAL.PHONE_NUMBER' |translate }}</label>
+
+        <div class="col-md-9 col-xs-7">
+          <input [formControl]="phoneNumber" type="text" class="form-control" id="inputPhoneNumber" placeholder="{{ 'GLOBAL.PHONE_NUMBER' |translate }}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button [disabled]="!stepOneLoginByPhoneForm.valid" type="submit" class="btn btn-default btn-auth">{{ 'LOGIN_BY_PHONE.SEND_PIN' | translate }}</button>
+          <a class="forgot-pass" href="#" (click)="showStepTwoLoginByPhoneForm($event)">{{ 'LOGIN_BY_PHONE.ALREADY_GOT_PIN_CODE' | translate }}</a>        </div>
+      </div>
+    </form>
+  </div>
+  <div class="auth-block" [hidden]="!isShowStepTwoLoginByPhoneForm">
+    <h1>{{ 'LOG_IN.BOX_TITLE' | translate }}</h1>
+
+    <form [formGroup]="stepTwoLoginByPhoneStepTwoForm" (ngSubmit)="sendPinCode(stepTwoLoginByPhoneStepTwoForm.value)" class="form-horizontal">
+      <div class="form-group row" [ngClass]="{'has-error': (!pinCode.valid && pinCode.touched), 'has-success': (pinCode.valid && pinCode.touched)}">
+        <label for="inputPinCode" class="col-md-3 col-xs-5 control-label">{{ 'GLOBAL.PIN' |translate }}</label>
+
+        <div class="col-md-9 col-xs-7">
+          <input [formControl]="pinCode" type="text" class="form-control" id="inputPinCode" placeholder="{{ 'GLOBAL.PIN' |translate }}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button [disabled]="!stepTwoLoginByPhoneStepTwoForm.valid" type="submit" class="btn btn-default btn-auth">{{ 'LOG_IN.SUBMIT_BUTTON_TEXT' | translate }}</button>
+          <a class="forgot-pass" href="#" (click)="hideStepTwoLoginByPhoneForm($event)">{{ 'GLOBAL.BACK' | translate }}</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

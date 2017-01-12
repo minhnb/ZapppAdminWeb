@@ -1,0 +1,39 @@
+{
+    "GLOBAL": {
+        "EMAIL": "Email",
+        "PASSWORD": "Password",
+        "NAME": "Name",
+        "FULL_NAME": "Full Name",
+        "PHONE_NUMBER": "Phone Number",
+        "PIN": "PIN",
+        "BACK": "Back"
+    },
+    "LOG_IN": {
+        "BOX_TITLE": "Sign in to Zappp",
+        "SIGN_UP_LINK_TEXT": "New to Zappp? Sign up!",
+        "SUBMIT_BUTTON_TEXT": "Sign in",
+        "FORGOT_PASSWORD": "Forgot password?",
+        "SIGN_IN_WITH_THIRD_PARTY_ACCOUNT": "or Sign in with one click",
+        "SIGN_IN_WITH_FACEBOOK": "Sign in with Facebook",
+        "SIGN_IN_WITH_GOOGLE": "Sign in with Google Plus"
+    },
+    "SIGN_UP": {
+        "BOX_TITLE": "Sign up to Zappp",
+        "LOG_IN_LINK_TEXT": "Already have an Zappp account? Sign in!",
+        "CONFIRM_PASSWORD": "Repeat",
+        "SUBMIT_BUTTON_TEXT": "Sign up",
+        "SIGN_UP_WITH_THIRD_PARTY_ACCOUNT": "or Sign up with one click",
+        "SIGN_UP_WITH_FACEBOOK": "Sign up with Facebook",
+        "SIGN_UP_WITH_GOOGLE": "Sign up with Google Plus",
+        "ERROR_PASSWORD_DONT_MATCH": "Passwords don't match."
+    },
+    "LOGIN_BY_PHONE": {
+        "SEND_PIN": "Send PIN",
+        "ALREADY_GOT_PIN_CODE": "I already got PIN code"
+    },
+    "ERROR": {
+        "LOGIN_BY_PHONE": {
+            "BAD_REQUEST": "Couldn't send PIN code to your phone number. Please double check."
+        }
+    }
+}
