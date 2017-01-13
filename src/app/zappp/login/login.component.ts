@@ -1,6 +1,6 @@
 import { ZapppBaseComponent } from '../baseComponent/base.component';
 
-import { Component, Injector, ViewEncapsulation, ViewContainerRef } from '@angular/core';
+import { Component, Injector, ViewEncapsulation, ViewContainerRef, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { EmailValidator } from '../../theme/validators';
 import { UserService } from '../../services/user';
@@ -27,7 +27,9 @@ export class Login extends ZapppBaseComponent {
 
 	public isShowStepTwoLoginByPhoneForm: boolean = false;
 
-	requestId: string;
+	@ViewChild('inputPhoneNumber') inputPhoneNumber: ElementRef;
+	@ViewChild('inputPinCode') inputPinCode: ElementRef;
+
 	formattedPhoneNumber: string;
 
 	constructor(private injector: Injector, private userService: UserService, fb: FormBuilder) {
@@ -35,6 +37,10 @@ export class Login extends ZapppBaseComponent {
 		// this.prepareLoginByEmailForm(fb);
 		this.prepareStepOneLoginByPhoneForm(fb);
 		this.prepareStepTwoLoginByPhoneForm(fb);
+	}
+
+	ngAfterViewInit() {
+		this.setFocusInput(this.inputPhoneNumber);
 	}
 
 	prepareLoginByEmailForm(fb: FormBuilder) {
@@ -84,9 +90,8 @@ export class Login extends ZapppBaseComponent {
 			let countryCode = "VN";
 			this.userService.getPinCode(phoneNumber, countryCode).subscribe(
 				res => {
-					this.requestId = res.request_id;
 					this.formattedPhoneNumber = res.phone_number;
-					this.isShowStepTwoLoginByPhoneForm = true;
+					this.showStepTwoLoginByPhoneForm();
 				},
 				error => {
 					let errorMessage = error.message;
@@ -99,10 +104,10 @@ export class Login extends ZapppBaseComponent {
 	}
 
 	public sendPinCode(values: Object): void {
-		if (this.stepOneLoginByPhoneForm.valid) {
+		if (this.stepTwoLoginByPhoneStepTwoForm.valid) {
 			let pinCode = this.pinCode.value;
 			let countryCode = "VN";
-			this.userService.logInPhone(this.formattedPhoneNumber, this.requestId, pinCode).subscribe(
+			this.userService.logInPhone(this.formattedPhoneNumber, pinCode).subscribe(
 				res => {
 					this.router.navigateByUrl('/dashboard');
 				},
@@ -112,13 +117,20 @@ export class Login extends ZapppBaseComponent {
 		}
 	}
 
-	public showStepTwoLoginByPhoneForm(event) {
+	public showStepTwoLoginByPhoneForm(event?) {
 		this.isShowStepTwoLoginByPhoneForm = true;
-		event.preventDefault();
+		this.pinCode.reset();
+		this.setFocusInput(this.inputPinCode);
+		if (event) {
+			event.preventDefault();
+		}
 	}
 
-	public hideStepTwoLoginByPhoneForm(event) {
+	public hideStepTwoLoginByPhoneForm(event?) {
 		this.isShowStepTwoLoginByPhoneForm = false;
-		event.preventDefault();
+		this.setFocusInput(this.inputPhoneNumber);
+		if (event) {
+			event.preventDefault();
+		}
 	}
 }
