@@ -48,7 +48,7 @@ export class Login extends ZapppBaseComponent {
 
 	prepareStepOneLoginByPhoneForm(fb: FormBuilder) {
 		this.stepOneLoginByPhoneForm = fb.group({
-			'phoneNumber': ['', Validators.compose([Validators.required, Validators.minLength(6)])]
+			'phoneNumber': ['', Validators.compose([Validators.required, Validators.pattern('^(0|[1-9][0-9]*)$'), Validators.minLength(6)])]
 		});
 
 		this.phoneNumber = this.stepOneLoginByPhoneForm.controls['phoneNumber'];
@@ -56,7 +56,7 @@ export class Login extends ZapppBaseComponent {
 
 	prepareStepTwoLoginByPhoneForm(fb: FormBuilder) {
 		this.stepTwoLoginByPhoneStepTwoForm = fb.group({
-			'pinCode': ['', Validators.compose([Validators.required, Validators.minLength(4)])]
+			'pinCode': ['', Validators.compose([Validators.required, Validators.pattern('^(0|[1-9][0-9]*)$'), Validators.minLength(4)])]
 		});
 
 		this.pinCode = this.stepTwoLoginByPhoneStepTwoForm.controls['pinCode'];
