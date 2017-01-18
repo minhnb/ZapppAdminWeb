@@ -18,6 +18,7 @@ export class UserService {
 		let expiredAt = data.expired_at;
 		localStorage.setItem(ZapppConstant.ACCESS_TOKEN, data.access_token);
 		localStorage.setItem(ZapppConstant.REFRESH_TOKEN, data.refresh_token);
+		localStorage.setItem(ZapppConstant.EXPIRED_AT, data.expired_at);
 	}
 
 	clearLocalStorage() {
@@ -56,9 +57,8 @@ export class UserService {
 		return this.zapppHttp.post(this.userUrl + '/request_phone_code', phoneRequest);
 	}
 
-	logInPhone(phoneNumber: string, requestId: string, code: string): Observable<any> {
+	logInPhone(phoneNumber: string, code: string): Observable<any> {
 		let loginPhone = {
-			request_id: requestId,
 			code: code
 		};
 		return this.zapppHttp.post(this.userUrl + '/login_phone/' + phoneNumber, loginPhone)

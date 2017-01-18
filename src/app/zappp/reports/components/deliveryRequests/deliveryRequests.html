@@ -1,0 +1,31 @@
+<div class="widgets">
+  <div class="row">
+    <div class="col-md-12">
+      <ba-card baCardClass="with-scroll table-panel">
+          <div class="table-responsive">
+            <table class="table">
+              <tr>
+                <th>#</th>
+                <th>{{ 'REPORTS.SENDER_NAME' | translate }}</th>
+                <th>{{ 'REPORTS.DELIVERER_NAME' | translate }}</th>
+                <th>{{ 'REPORTS.PICK_UP_PLACE' | translate }}</th>
+                <th>{{ 'REPORTS.DESTINATION' | translate }}</th>
+                <th>{{ 'REPORTS.FARE' | translate }}</th>
+                <th>{{ 'REPORTS.STATUS' | translate }}</th>
+              </tr>
+              <tr *ngFor="let item of tableData; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ item.sender.name }}</td>
+                <td>{{ item.deliverer.name }}</td>
+                <td>{{ item.pick_up_place }}</td>
+                <td>{{ item.destination }}</td>
+                <td>{{ item.fare }}</td>
+                <td>{{ item.status }}</td>
+              </tr>
+            </table>
+          </div>
+      </ba-card>
+    </div>
+  </div>
+
+</div>

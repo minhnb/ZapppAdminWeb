@@ -6,7 +6,7 @@ export const PAGES_MENU = [
 				path: 'dashboard',
 				data: {
 					menu: {
-						title: 'Dashboard',
+						title: 'MENU.DASHBOARD',
 						icon: 'ion-android-home',
 						selected: false,
 						expanded: false,
@@ -15,10 +15,10 @@ export const PAGES_MENU = [
 				}
 			},
 			{
-				path: 'tables',
+				path: 'reports',
 				data: {
 					menu: {
-						title: 'Tables',
+						title: 'MENU.REPORTS',
 						icon: 'ion-grid',
 						selected: false,
 						expanded: false,
@@ -27,69 +27,99 @@ export const PAGES_MENU = [
 				},
 				children: [
 					{
-						path: 'basictables',
+						path: 'delivery-accounts',
 						data: {
 							menu: {
-								title: 'Basic Tables',
+								title: 'MENU.DELIVERY_ACCOUNTS',
 							}
 						}
 					},
 					{
-						path: 'smarttables',
+						path: 'delivery-requests',
 						data: {
 							menu: {
-								title: 'Smart Tables',
+								title: 'MENU.DELIVERY_REQUESTS',
 							}
 						}
 					}
 				]
 			},
-			{
-				path: 'maps',
-				data: {
-					menu: {
-						title: 'Maps',
-						icon: 'ion-ios-location-outline',
-						selected: false,
-						expanded: false,
-						order: 600,
-					}
-				},
-				children: [
-					{
-						path: 'googlemaps',
-						data: {
-							menu: {
-								title: 'Google Maps',
-							}
-						}
-					},
-					{
-						path: 'leafletmaps',
-						data: {
-							menu: {
-								title: 'Leaflet Maps',
-							}
-						}
-					},
-					{
-						path: 'bubblemaps',
-						data: {
-							menu: {
-								title: 'Bubble Maps',
-							}
-						}
-					},
-					{
-						path: 'linemaps',
-						data: {
-							menu: {
-								title: 'Line Maps',
-							}
-						}
-					}
-				]
-			}
+			// {
+			// 	path: 'tables',
+			// 	data: {
+			// 		menu: {
+			// 			title: 'Tables',
+			// 			icon: 'ion-grid',
+			// 			selected: false,
+			// 			expanded: false,
+			// 			order: 500,
+			// 		}
+			// 	},
+			// 	children: [
+			// 		{
+			// 			path: 'basictables',
+			// 			data: {
+			// 				menu: {
+			// 					title: 'Basic Tables',
+			// 				}
+			// 			}
+			// 		},
+			// 		{
+			// 			path: 'smarttables',
+			// 			data: {
+			// 				menu: {
+			// 					title: 'Smart Tables',
+			// 				}
+			// 			}
+			// 		}
+			// 	]
+			// },
+			// {
+			// 	path: 'maps',
+			// 	data: {
+			// 		menu: {
+			// 			title: 'Maps',
+			// 			icon: 'ion-ios-location-outline',
+			// 			selected: false,
+			// 			expanded: false,
+			// 			order: 600,
+			// 		}
+			// 	},
+			// 	children: [
+			// 		{
+			// 			path: 'googlemaps',
+			// 			data: {
+			// 				menu: {
+			// 					title: 'Google Maps',
+			// 				}
+			// 			}
+			// 		},
+			// 		{
+			// 			path: 'leafletmaps',
+			// 			data: {
+			// 				menu: {
+			// 					title: 'Leaflet Maps',
+			// 				}
+			// 			}
+			// 		},
+			// 		{
+			// 			path: 'bubblemaps',
+			// 			data: {
+			// 				menu: {
+			// 					title: 'Bubble Maps',
+			// 				}
+			// 			}
+			// 		},
+			// 		{
+			// 			path: 'linemaps',
+			// 			data: {
+			// 				menu: {
+			// 					title: 'Line Maps',
+			// 				}
+			// 			}
+			// 		}
+			// 	]
+			// }
 		]
 	}
 ];

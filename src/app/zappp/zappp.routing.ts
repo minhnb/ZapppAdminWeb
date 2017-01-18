@@ -28,6 +28,10 @@ const routes: Routes = [
 				loadChildren: () => System.import('./dashboard/dashboard.module')
 			},
 			{
+				path: 'reports',
+				loadChildren: () => System.import('./reports/reports.module')
+			},
+			{
 				path: 'tables',
 				loadChildren: () => System.import('./tables/tables.module')
 			},

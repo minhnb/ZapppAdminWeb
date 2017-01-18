@@ -35,5 +35,20 @@
         "LOGIN_BY_PHONE": {
             "BAD_REQUEST": "Couldn't send PIN code to your phone number. Please double check."
         }
+    },
+    "MENU": {
+        "HOME": "Home",
+        "DASHBOARD": "Dashboard",
+        "REPORTS": "Reports",
+        "DELIVERY_ACCOUNTS": "Delivery Accounts",
+        "DELIVERY_REQUESTS": "Delivery Requests"
+    },
+    "REPORTS": {
+        "SENDER_NAME": "Sender Name",
+        "DELIVERER_NAME": "Deliverer Name",
+        "PICK_UP_PLACE": "Pick-up Place",
+        "DESTINATION": "Destination",
+        "FARE": "Fare",
+        "STATUS": "Status"
     }
 }
