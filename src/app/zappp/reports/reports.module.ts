@@ -5,7 +5,7 @@ import { NgaModule } from '../../theme/nga.module';
 
 import { routing } from './reports.routing';
 import { Reports } from './reports.component';
-import { DeliveryAccounts } from './components/deliveryAccounts/deliveryAccounts.component';
+import { DelivererAccounts } from './components/delivererAccounts/delivererAccounts.component';
 import { DeliveryRequests } from './components/deliveryRequests/deliveryRequests.component';
 
 @NgModule({
@@ -17,7 +17,7 @@ import { DeliveryRequests } from './components/deliveryRequests/deliveryRequests
 	],
 	declarations: [
 		Reports,
-		DeliveryAccounts,
+		DelivererAccounts,
 		DeliveryRequests
 	],
 	providers: [

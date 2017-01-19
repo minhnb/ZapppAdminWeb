@@ -10,8 +10,8 @@ export class DeliveryService {
 	private serviceUrl = AppConfig.API_URL + 'admin';
 	constructor(private zapppHttp: ZapppHttp) { }
 
-	listDeliveryAccounts(): Observable<any> {
-		return this.zapppHttp.get(this.serviceUrl + '/delivery_accounts');
+	listDelivererAccounts(): Observable<any> {
+		return this.zapppHttp.get(this.serviceUrl + '/deliverers');
 	}
 
 	listDeliveryRequests(): Observable<any> {

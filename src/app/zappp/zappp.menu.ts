@@ -27,10 +27,10 @@ export const PAGES_MENU = [
 				},
 				children: [
 					{
-						path: 'delivery-accounts',
+						path: 'deliverer-accounts',
 						data: {
 							menu: {
-								title: 'MENU.DELIVERY_ACCOUNTS',
+								title: 'MENU.DELIVERER_ACCOUNTS',
 							}
 						}
 					},

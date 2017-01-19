@@ -40,8 +40,12 @@
         "HOME": "Home",
         "DASHBOARD": "Dashboard",
         "REPORTS": "Reports",
-        "DELIVERY_ACCOUNTS": "Delivery Accounts",
+        "DELIVERER_ACCOUNTS": "Deliverer Accounts",
         "DELIVERY_REQUESTS": "Delivery Requests"
+    },
+    "BUTTONS": {
+        "ACTIVATE": "Activate",
+        "DEACTIVATE": "Deactivate"
     },
     "REPORTS": {
         "SENDER_NAME": "Sender Name",
