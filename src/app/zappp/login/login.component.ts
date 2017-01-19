@@ -22,6 +22,7 @@ export class Login extends ZapppBaseComponent {
 
 	public stepOneLoginByPhoneForm: FormGroup;
 	public phoneNumber: AbstractControl;
+	public countryCode: AbstractControl;
 	public stepTwoLoginByPhoneStepTwoForm: FormGroup;
 	public pinCode: AbstractControl;
 
@@ -55,10 +56,13 @@ export class Login extends ZapppBaseComponent {
 
 	prepareStepOneLoginByPhoneForm(fb: FormBuilder) {
 		this.stepOneLoginByPhoneForm = fb.group({
-			'phoneNumber': ['', Validators.compose([Validators.required, Validators.pattern(ZapppConstant.PATTERN.ONLY_DIGIT), Validators.minLength(6)])]
+			'phoneNumber': ['', Validators.compose([Validators.required, Validators.pattern(ZapppConstant.PATTERN.ONLY_DIGIT), Validators.minLength(6)])],
+			'countryCode': ['', Validators.compose([Validators.required])]
 		});
 
 		this.phoneNumber = this.stepOneLoginByPhoneForm.controls['phoneNumber'];
+		this.countryCode = this.stepOneLoginByPhoneForm.controls['countryCode'];
+		this.countryCode.setValue("HKG");
 	}
 
 	prepareStepTwoLoginByPhoneForm(fb: FormBuilder) {
@@ -87,7 +91,7 @@ export class Login extends ZapppBaseComponent {
 	public getPinCode(values: Object): void {
 		if (this.stepOneLoginByPhoneForm.valid) {
 			let phoneNumber = this.phoneNumber.value;
-			let countryCode = "VN";
+			let countryCode = this.countryCode.value;
 			this.userService.getPinCode(phoneNumber, countryCode).subscribe(
 				res => {
 					this.formattedPhoneNumber = res.phone_number;
