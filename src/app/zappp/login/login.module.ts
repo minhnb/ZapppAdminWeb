@@ -6,8 +6,8 @@ import { TranslateModule } from 'ng2-translate';
 
 import { Login } from './login.component';
 import { routing } from './login.routing';
-import { FacebookLoginModule } from '../../helper/facebook/facebooklogin.module';
-import { GoogleLoginModule } from '../../helper/google/googlelogin.module';
+// import { FacebookLoginModule } from '../../helper/facebook/facebooklogin.module';
+// import { GoogleLoginModule } from '../../helper/google/googlelogin.module';
 
 
 @NgModule({
@@ -17,8 +17,8 @@ import { GoogleLoginModule } from '../../helper/google/googlelogin.module';
 		FormsModule,
 		NgaModule,
 		TranslateModule,
-		FacebookLoginModule,
-		GoogleLoginModule,
+		// FacebookLoginModule,
+		// GoogleLoginModule,
 		routing
 	],
 	declarations: [

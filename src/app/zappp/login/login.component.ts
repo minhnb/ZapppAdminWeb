@@ -15,11 +15,6 @@ import { ZapppConstant } from '../../helper/zapppConstant';
 })
 export class Login extends ZapppBaseComponent {
 
-	public form: FormGroup;
-	public email: AbstractControl;
-	public password: AbstractControl;
-	public submitted: boolean = false;
-
 	public stepOneLoginByPhoneForm: FormGroup;
 	public phoneNumber: AbstractControl;
 	public countryCode: AbstractControl;
@@ -35,23 +30,12 @@ export class Login extends ZapppBaseComponent {
 
 	constructor(private injector: Injector, private userService: UserService, fb: FormBuilder) {
 		super(injector);
-		// this.prepareLoginByEmailForm(fb);
 		this.prepareStepOneLoginByPhoneForm(fb);
 		this.prepareStepTwoLoginByPhoneForm(fb);
 	}
 
 	ngAfterViewInit() {
 		this.setFocusInput(this.inputPhoneNumber);
-	}
-
-	prepareLoginByEmailForm(fb: FormBuilder) {
-		this.form = fb.group({
-			'email': ['', Validators.compose([Validators.required, EmailValidator.validate])],
-			'password': ['', Validators.compose([Validators.required, Validators.minLength(4)])]
-		});
-
-		this.email = this.form.controls['email'];
-		this.password = this.form.controls['password'];
 	}
 
 	prepareStepOneLoginByPhoneForm(fb: FormBuilder) {
@@ -71,21 +55,6 @@ export class Login extends ZapppBaseComponent {
 		});
 
 		this.pinCode = this.stepTwoLoginByPhoneStepTwoForm.controls['pinCode'];
-	}
-
-	public onSubmit(values: Object): void {
-		this.submitted = true;
-		if (this.form.valid) {
-			let email = this.email.value;
-			let password = this.password.value;
-			this.userService.logIn(email, password).subscribe(
-				res => {
-					this.router.navigateByUrl('/dashboard');
-				},
-				error => {
-					this.zapppAlert.showError(error.message);
-				});
-		}
 	}
 
 	public getPinCode(values: Object): void {
