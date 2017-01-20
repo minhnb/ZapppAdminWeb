@@ -1,11 +1,11 @@
 import { NgModule, ApplicationRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 
-import { TranslateModule } from 'ng2-translate';
+import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 
@@ -51,7 +51,11 @@ type StoreType = {
 		FormsModule,
 		ReactiveFormsModule,
 		NgaModule.forRoot(),
-		TranslateModule.forRoot(),
+		TranslateModule.forRoot({
+			provide: TranslateLoader,
+            useFactory: (http: Http) => new TranslateStaticLoader(http, '/assets/i18n', '.json'),
+            deps: [Http]
+		}),
 		ModalModule.forRoot(),
 		BootstrapModalModule,
 		SharedModule,
