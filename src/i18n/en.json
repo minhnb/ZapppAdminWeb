@@ -10,6 +10,7 @@
     },
     "LOG_IN": {
         "BOX_TITLE": "Sign in to Zappp",
+        "ADMIN_BOX_TITLE": "Sign in to Zappp Admin",
         "SIGN_UP_LINK_TEXT": "New to Zappp? Sign up!",
         "SUBMIT_BUTTON_TEXT": "Sign in",
         "FORGOT_PASSWORD": "Forgot password?",

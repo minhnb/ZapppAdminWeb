@@ -41,7 +41,7 @@ export class UserService {
 			username: email,
 			password: password
 		};
-		return this.zapppHttp.post(this.userUrl + '/login', user)
+		return this.zapppHttp.post(this.userUrl + '/login_email', user)
 			.map(this.handleLoginSuccess.bind(this));
 	}
 

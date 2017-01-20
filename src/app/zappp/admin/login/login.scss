@@ -1,0 +1,28 @@
+@import '../../../theme/sass/auth';
+
+.phone-number-group {
+    position: relative;
+}
+.phone-number-group > select {
+    position: absolute;
+    background-color: #2F4959;
+    color: inherit;;
+    border: none;
+    width: 60px;
+    margin-left: 16px;
+    z-index: 10;
+    padding: 7px 2px;
+    top: 1px;
+    left: 0;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    outline: none;
+}
+
+.phone-number-group > select:focus, .phone-number-group > select:active {
+    outline: none;
+}
+
+.phone-number-group > input {
+    padding-left: 70px;
+}

@@ -10,6 +10,11 @@ const routes: Routes = [
 		loadChildren: () => System.import('./login/login.module')
 	},
 	{
+		path: 'admin/login',
+		canActivate: [AuthLoggedIn],
+		loadChildren: () => System.import('./admin/login/login.module')
+	},
+	{
 		path: 'register',
 		canActivate: [AuthLoggedIn],
 		loadChildren: () => System.import('./register/register.module')
