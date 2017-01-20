@@ -46,7 +46,7 @@
         <label for="inputPhoneNumber" class="col-md-3 col-xs-5 control-label">{{ 'GLOBAL.PHONE_NUMBER' |translate }}</label>
         <div class="phone-number-group col-md-9 col-xs-7">
             <select #selectCountryCode [formControl]="countryCode" id="selectCountryCode">
-              <option value="HKG">+852</option>
+              <option value="HK">+852</option>
               <option value="VN">+84</option>
             </select>
             <input #inputPhoneNumber [formControl]="phoneNumber" type="text" class="form-control" id="inputPhoneNumber" placeholder="{{ 'GLOBAL.PHONE_NUMBER' |translate }}">

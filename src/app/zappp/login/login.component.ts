@@ -62,7 +62,7 @@ export class Login extends ZapppBaseComponent {
 
 		this.phoneNumber = this.stepOneLoginByPhoneForm.controls['phoneNumber'];
 		this.countryCode = this.stepOneLoginByPhoneForm.controls['countryCode'];
-		this.countryCode.setValue("HKG");
+		this.countryCode.setValue("HK");
 	}
 
 	prepareStepTwoLoginByPhoneForm(fb: FormBuilder) {
