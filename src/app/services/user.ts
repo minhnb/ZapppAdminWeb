@@ -14,11 +14,12 @@ export class UserService {
 
 	}
 
-	saveUserAccessTokenToLocalStorage(data: any) {
+	saveUserAccessTokenToLocalStorage(data: any, role: string) {
 		let expiredAt = data.expired_at;
 		localStorage.setItem(ZapppConstant.ACCESS_TOKEN, data.access_token);
 		localStorage.setItem(ZapppConstant.REFRESH_TOKEN, data.refresh_token);
 		localStorage.setItem(ZapppConstant.EXPIRED_AT, data.expired_at);
+		localStorage.setItem(ZapppConstant.ROLE, role);
 	}
 
 	clearLocalStorage() {
@@ -26,7 +27,12 @@ export class UserService {
 	}
 
 	handleLoginSuccess(data: any): any {
-		this.saveUserAccessTokenToLocalStorage(data);
+		this.saveUserAccessTokenToLocalStorage(data, 'user');
+		return data;
+	}
+
+	handleAdminLoginSuccess(data: any): any {
+		this.saveUserAccessTokenToLocalStorage(data, 'admin');
 		return data;
 	}
 
@@ -42,7 +48,7 @@ export class UserService {
 			password: password
 		};
 		return this.zapppHttp.post(this.userUrl + '/login_email', user)
-			.map(this.handleLoginSuccess.bind(this));
+			.map(this.handleAdminLoginSuccess.bind(this));
 	}
 
 	signUp(user: Object): Observable<any> {

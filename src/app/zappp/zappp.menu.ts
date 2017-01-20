@@ -12,7 +12,8 @@ export const PAGES_MENU = [
 						expanded: false,
 						order: 0
 					}
-				}
+				},
+				roles: ['all']
 			},
 			{
 				path: 'reports',
@@ -25,6 +26,7 @@ export const PAGES_MENU = [
 						order: 500,
 					}
 				},
+				roles: ['admin'],
 				children: [
 					{
 						path: 'deliverer-accounts',
