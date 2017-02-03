@@ -42,7 +42,9 @@
         "DASHBOARD": "Dashboard",
         "REPORTS": "Reports",
         "DELIVERER_ACCOUNTS": "Deliverer Accounts",
-        "DELIVERY_REQUESTS": "Delivery Requests"
+        "DELIVERY_REQUESTS": "Delivery Requests",
+        "TRACK": "Track",
+        "DELIVERERS": "Deliverers"
     },
     "BUTTONS": {
         "ACTIVATE": "Activate",
@@ -55,5 +57,8 @@
         "DESTINATION": "Destination",
         "FARE": "Fare",
         "STATUS": "Status"
+    },
+    "MAP": {
+        "YOU_ARE_HERE": "You're here"
     }
 }

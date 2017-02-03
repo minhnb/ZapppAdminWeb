@@ -23,7 +23,7 @@ export const PAGES_MENU = [
 						icon: 'ion-grid',
 						selected: false,
 						expanded: false,
-						order: 500,
+						order: 1,
 					}
 				},
 				roles: ['admin'],
@@ -45,6 +45,19 @@ export const PAGES_MENU = [
 						}
 					}
 				]
+			},
+			{
+				path: 'track',
+				data: {
+					menu: {
+						title: 'MENU.TRACK',
+						icon: 'ion-ios-location-outline',
+						selected: false,
+						expanded: false,
+						order: 2
+					}
+				},
+				roles: ['admin']
 			},
 			// {
 			// 	path: 'tables',

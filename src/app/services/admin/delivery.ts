@@ -17,4 +17,13 @@ export class DeliveryService {
 	listDeliveryRequests(): Observable<any> {
 		return this.zapppHttp.get(this.serviceUrl + '/delivery_requests');
 	}
+
+	listDelivererNearBy(latitude: number, longitude: number, maxDistance: number): Observable<any> {
+		let params = {
+			lat: latitude,
+			long: longitude,
+			max_distance: maxDistance
+		}
+		return this.zapppHttp.get(this.serviceUrl + '/deliverer_location', params);
+	}
 }
