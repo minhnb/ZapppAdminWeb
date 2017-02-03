@@ -41,8 +41,8 @@ const routes: Routes = [
 				loadChildren: () => System.import('./tables/tables.module')
 			},
 			{
-				path: 'maps',
-				loadChildren: () => System.import('./maps/maps.module')
+				path: 'track',
+				loadChildren: () => System.import('./track/track.module')
 			}
 		]
 	}

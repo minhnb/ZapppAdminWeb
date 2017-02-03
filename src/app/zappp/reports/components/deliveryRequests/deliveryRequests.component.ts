@@ -15,6 +15,9 @@ export class DeliveryRequests extends ZapppBaseComponent {
 
 	constructor(private injector: Injector, private deliveryService: DeliveryService) {
 		super(injector);
+	}
+
+	ngAfterViewInit() {
 		this.listDeliveryRequests();
 	}
 
