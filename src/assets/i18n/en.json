@@ -37,6 +37,9 @@
             "BAD_REQUEST": "Couldn't send PIN code to your phone number. Please double check."
         }
     },
+    "CONFIRM": {
+        "DEACTIVATE_DELIVERER": "Are you sure you want to deactivate deliverer {{name}} ?"
+    },
     "MENU": {
         "HOME": "Home",
         "DASHBOARD": "Dashboard",
@@ -60,5 +63,10 @@
     },
     "MAP": {
         "YOU_ARE_HERE": "You're here"
+    },
+    "DIALOG": {
+        "ERROR": "Error",
+        "INFO": "Information",
+        "WARNING": "Warning"
     }
 }

@@ -1,10 +1,11 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
 import { Overlay } from 'angular2-modal';
 import { Modal } from 'angular2-modal/plugins/bootstrap';
+import { TranslateService } from 'ng2-translate';
 
 @Injectable()
 export class ZapppAlert {
-    constructor(public modal: Modal, public overlay: Overlay) {
+    constructor(public modal: Modal, public overlay: Overlay, private translate: TranslateService) {
 
     }
 
@@ -12,27 +13,43 @@ export class ZapppAlert {
         this.overlay.defaultViewContainer = vcRef;
     }
 
-    showError(message: string, title?: string) {
+    showError(message: string, title?: string): any {
         if (!title) {
-            title = 'Error';
+            title = this.translate.instant('DIALOG.ERROR');
         }
-        this.modal.alert()
+        return this.modal.alert()
 			.size('lg')
 			.showClose(true)
-			.title('Error')
+			.title(title)
 			.body(message)
 			.open();
     }
 
-    showInfo(message: string, title?: string) {
+    showInfo(message: string, title?: string): any {
         if (!title) {
-            title = 'Info';
+            title = this.translate.instant('DIALOG.INFO');
         }
-        this.modal.alert()
+        return this.modal.alert()
 			.size('lg')
 			.showClose(true)
-			.title('Info')
+			.title(title)
 			.body(message)
 			.open();
+    }
+
+    showConfirm(message: string, title?: string): any {
+        if (!title) {
+            title = this.translate.instant('DIALOG.WARNING');
+        }
+        return this.modal.confirm()
+			.size('lg')
+            .showClose(true)
+            .title(title)
+            .body(message)
+            .open()
+            .catch(err => {
+				console.log(err);
+			})
+			.then(dialog => dialog.result);
     }
 }
