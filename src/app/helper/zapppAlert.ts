@@ -50,6 +50,6 @@ export class ZapppAlert {
             .catch(err => {
 				console.log(err);
 			})
-			.then(dialog => dialog.result);
+			.then((dialog: any) => dialog.result);
     }
 }
