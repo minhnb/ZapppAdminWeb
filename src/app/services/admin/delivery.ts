@@ -26,4 +26,12 @@ export class DeliveryService {
 		}
 		return this.zapppHttp.get(this.serviceUrl + '/deliverer_location', params);
 	}
+
+	approveDeliverer(delivererId: string, approved: Boolean): Observable<any> {
+		let body = {
+			approved: approved
+		};
+		let url = this.serviceUrl + '/users/' + delivererId + '/roles/' + ZapppConstant.USER_ROLE.DELIVERER;
+		return this.zapppHttp.put(url, body);
+	}
 }

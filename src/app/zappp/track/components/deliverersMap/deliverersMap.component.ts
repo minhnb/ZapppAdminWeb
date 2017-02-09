@@ -1,4 +1,4 @@
-import { Component, ElementRef, Injector } from '@angular/core';
+import { Component, ElementRef, Injector, OnDestroy } from '@angular/core';
 import { ZapppBaseComponent } from '../../../baseComponent/base.component';
 import { DeliveryService } from '../../../../services/admin/delivery';
 import { GoogleMapsLoader } from './googleMaps.loader';
@@ -10,15 +10,18 @@ import { GoogleMapsLoader } from './googleMaps.loader';
 	providers: [DeliveryService]
 })
 
-export class DeliverersMap extends ZapppBaseComponent {
+export class DeliverersMap extends ZapppBaseComponent implements OnDestroy {
 
 	map: any;
 	googleMapsElement: any;
 	markers: Array<any>;
 	google: any;
 
+	destroyed: Boolean;
+
 	constructor(private injector: Injector, private deliveryService: DeliveryService, private _elementRef: ElementRef) {
 		super(injector);
+		this.destroyed = false;
 	}
 
 	ngAfterViewInit() {
@@ -41,6 +44,10 @@ export class DeliverersMap extends ZapppBaseComponent {
         } else {
 			console.log("Browser doesn't support Geolocation");
         }
+	}
+
+	ngOnDestroy() {
+		this.destroyed = true;
 	}
 
 	createDeliverersMap(latitude: number, longitude: number) {
@@ -121,6 +128,9 @@ export class DeliverersMap extends ZapppBaseComponent {
 	updateDelivererMarker(latitude: number, longitude: number) {
 		this.loadListDelivererNearBy(latitude, longitude);
 		setTimeout(() => {
+			if (this.destroyed) {
+				return;
+			}
 			this.updateDelivererMarker(latitude, longitude);
 		}, 60000);
 	}

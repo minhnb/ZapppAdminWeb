@@ -15,12 +15,14 @@
                 <td>{{ item.name }}</td>
                 <td>
                     <div class="button-wrapper">
-                      <button type="button" class="btn btn-success" disabled="disabled">{{ 'BUTTONS.ACTIVATE' | translate }}</button>
+                      <button type="button" class="btn btn-success" [disabled]="item.approved"
+                      (click)="activateDeliverer(item)">{{ 'BUTTONS.ACTIVATE' | translate }}</button>
                     </div>
                 </td>
                 <td>
                     <div class="button-wrapper">
-                      <button type="button" class="btn btn-danger" disabled="disabled">{{ 'BUTTONS.DEACTIVATE' | translate }}</button>
+                      <button type="button" class="btn btn-danger" [disabled]="!item.approved"
+                      (click)="deactivateDeliverer(item)">{{ 'BUTTONS.DEACTIVATE' | translate }}</button>
                     </div>
                 </td>
               </tr>
