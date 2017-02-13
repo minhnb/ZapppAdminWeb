@@ -1,10 +1,11 @@
-import { Component, ElementRef, Injector, OnDestroy } from '@angular/core';
+import { Component, ElementRef, ViewEncapsulation, Injector, OnDestroy } from '@angular/core';
 import { ZapppBaseComponent } from '../../../baseComponent/base.component';
 import { DeliveryService } from '../../../../services/admin/delivery';
 import { GoogleMapsLoader } from './googleMaps.loader';
 
 @Component({
 	selector: 'deliverers-map',
+	encapsulation: ViewEncapsulation.None,
 	styles: [require('./deliverersMap.scss')],
 	template: require('./deliverersMap.html'),
 	providers: [DeliveryService]
@@ -17,11 +18,11 @@ export class DeliverersMap extends ZapppBaseComponent implements OnDestroy {
 	markers: Array<any>;
 	google: any;
 
-	destroyed: Boolean;
+	updateTimer: any;
 
 	constructor(private injector: Injector, private deliveryService: DeliveryService, private _elementRef: ElementRef) {
 		super(injector);
-		this.destroyed = false;
+		this.updateTimer = null;
 	}
 
 	ngAfterViewInit() {
@@ -47,7 +48,7 @@ export class DeliverersMap extends ZapppBaseComponent implements OnDestroy {
 	}
 
 	ngOnDestroy() {
-		this.destroyed = true;
+		clearTimeout(this.updateTimer);
 	}
 
 	createDeliverersMap(latitude: number, longitude: number) {
@@ -56,19 +57,31 @@ export class DeliverersMap extends ZapppBaseComponent implements OnDestroy {
 	}
 
 	initMap(latitude: number, longitude: number) {
+		let self = this;
 		GoogleMapsLoader.load((google) => {
-			this.google = google;
-			this.map = new google.maps.Map(this.googleMapsElement, {
+			self.google = google;
+			self.map = new google.maps.Map(self.googleMapsElement, {
 				center: new google.maps.LatLng(latitude, longitude),
 				zoom: 15,
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			});
-			this.createCurrentMarker(latitude, longitude);
+			self.createCurrentMarker(latitude, longitude);
+
+			google.maps.event.addListener(self.map, 'dragend', function() {
+				let center = this.getCenter();
+				let lat = center.lat();
+				let long = center.lng();
+				if (self.updateTimer) {
+					clearTimeout(self.updateTimer);
+					self.updateTimer = null;
+				}
+				self.updateDelivererMarker(lat, long);
+			});
 		});
 	}
 
 	loadListDelivererNearBy(latitude: number, longitude: number) {
-		let maxDistance = 5000;
+		let maxDistance = 10000;
 		this.deliveryService.listDelivererNearBy(latitude, longitude, maxDistance).subscribe(
 			res => {
 				this.removeAllDelivererMarkers();
@@ -100,12 +113,7 @@ export class DeliverersMap extends ZapppBaseComponent implements OnDestroy {
 	}
 
 	createCurrentMarker(latitude: number, longitude: number) {
-		let title = this.translate.instant('MAP.YOU_ARE_HERE');
-		let marker = new this.google.maps.Marker({
-			position: new this.google.maps.LatLng(latitude, longitude),
-			title: title,
-			map: this.map
-		});
+		this.googleMapsElement.insertAdjacentHTML('beforeend', '<div class="center-marker"></div>');
 	}
 
 	createDelivererMarker(latitude: number, longitude: number, title: string) {
@@ -127,10 +135,7 @@ export class DeliverersMap extends ZapppBaseComponent implements OnDestroy {
 
 	updateDelivererMarker(latitude: number, longitude: number) {
 		this.loadListDelivererNearBy(latitude, longitude);
-		setTimeout(() => {
-			if (this.destroyed) {
-				return;
-			}
+		this.updateTimer = setTimeout(() => {
 			this.updateDelivererMarker(latitude, longitude);
 		}, 60000);
 	}
