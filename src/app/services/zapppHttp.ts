@@ -111,29 +111,37 @@ export class ZapppHttp {
         return this.http.request(refreshTokenUrl, refreshTokenOptions)
             .toPromise()
             .then((res: Response) => {
-                return self.afterRefreshToken(res, url, options);
+                let response = res.json() || {};
+				this.updateLocalStorage(response);
+                return this.resendRequest(url, options);
             })
             .catch(this.handleErrorRefreshToken.bind(this));
     }
 
-    afterRefreshToken(res: Response, url: string, options: RequestOptions) {
-        let response = res.json() || {};
-
-		localStorage.setItem(ZapppConstant.ACCESS_TOKEN, response.access_token);
-		localStorage.setItem(ZapppConstant.EXPIRED_AT, response.expired_at);
-
+    resendRequest(url: string, options: RequestOptions) {
         let newOptions = this.getRequestOptions(options.method);
         newOptions.search = options.search;
 
         return this.http.request(url, newOptions)
             .toPromise()
 			.then(this.extractData.bind(this))
-			.catch(this.handleErrorRefreshToken.bind(this));
+			.catch(this.handleErrorAfterResendRequest.bind(this));
+    }
+
+    updateLocalStorage(response: any) {
+        localStorage.setItem(ZapppConstant.ACCESS_TOKEN, response.access_token);
+		localStorage.setItem(ZapppConstant.EXPIRED_AT, response.expired_at);
+    }
+
+    handleErrorAfterResendRequest(error: Response | any) {
+        this._spinner.hide();
+        let errMsg = this.jsonError(error);
+        return Observable.throw(errMsg);
     }
 
     handleErrorRefreshToken(error: Response | any) {
-        let errMsg = this.jsonError(error);
         this._spinner.hide();
+        let errMsg = this.jsonError(error);
         let role = localStorage.getItem(ZapppConstant.ROLE);
         localStorage.clear();
         if (role == 'admin') {
