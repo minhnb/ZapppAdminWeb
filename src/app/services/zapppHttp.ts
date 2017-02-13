@@ -79,7 +79,7 @@ export class ZapppHttp {
 		return response;
     }
 
-    handleError(error: Response | any, url: string, options: RequestOptions) {
+    handleError(error: Response | any, url: string, options: RequestOptions): any {
 		let errMsg = this.jsonError(error);
         if (errMsg.status == 401) {
             return this.refreshToken(url, options);
