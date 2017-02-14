@@ -16,35 +16,30 @@ export const PAGES_MENU = [
 				roles: ['all']
 			},
 			{
-				path: 'reports',
+				path: 'reports/deliverer-accounts',
 				data: {
 					menu: {
-						title: 'MENU.REPORTS',
+						title: 'MENU.DELIVERER_ACCOUNTS',
 						icon: 'ion-grid',
 						selected: false,
 						expanded: false,
 						order: 1,
 					}
 				},
-				roles: ['admin'],
-				children: [
-					{
-						path: 'deliverer-accounts',
-						data: {
-							menu: {
-								title: 'MENU.DELIVERER_ACCOUNTS',
-							}
-						}
-					},
-					{
-						path: 'delivery-requests',
-						data: {
-							menu: {
-								title: 'MENU.DELIVERY_REQUESTS',
-							}
-						}
+				roles: ['admin']
+			},
+			{
+				path: 'reports/delivery-requests',
+				data: {
+					menu: {
+						title: 'MENU.DELIVERY_REQUESTS',
+						icon: 'ion-grid',
+						selected: false,
+						expanded: false,
+						order: 1,
 					}
-				]
+				},
+				roles: ['admin']
 			},
 			{
 				path: 'track',
@@ -58,83 +53,7 @@ export const PAGES_MENU = [
 					}
 				},
 				roles: ['admin']
-			},
-			// {
-			// 	path: 'tables',
-			// 	data: {
-			// 		menu: {
-			// 			title: 'Tables',
-			// 			icon: 'ion-grid',
-			// 			selected: false,
-			// 			expanded: false,
-			// 			order: 500,
-			// 		}
-			// 	},
-			// 	children: [
-			// 		{
-			// 			path: 'basictables',
-			// 			data: {
-			// 				menu: {
-			// 					title: 'Basic Tables',
-			// 				}
-			// 			}
-			// 		},
-			// 		{
-			// 			path: 'smarttables',
-			// 			data: {
-			// 				menu: {
-			// 					title: 'Smart Tables',
-			// 				}
-			// 			}
-			// 		}
-			// 	]
-			// },
-			// {
-			// 	path: 'maps',
-			// 	data: {
-			// 		menu: {
-			// 			title: 'Maps',
-			// 			icon: 'ion-ios-location-outline',
-			// 			selected: false,
-			// 			expanded: false,
-			// 			order: 600,
-			// 		}
-			// 	},
-			// 	children: [
-			// 		{
-			// 			path: 'googlemaps',
-			// 			data: {
-			// 				menu: {
-			// 					title: 'Google Maps',
-			// 				}
-			// 			}
-			// 		},
-			// 		{
-			// 			path: 'leafletmaps',
-			// 			data: {
-			// 				menu: {
-			// 					title: 'Leaflet Maps',
-			// 				}
-			// 			}
-			// 		},
-			// 		{
-			// 			path: 'bubblemaps',
-			// 			data: {
-			// 				menu: {
-			// 					title: 'Bubble Maps',
-			// 				}
-			// 			}
-			// 		},
-			// 		{
-			// 			path: 'linemaps',
-			// 			data: {
-			// 				menu: {
-			// 					title: 'Line Maps',
-			// 				}
-			// 			}
-			// 		}
-			// 	]
-			// }
+			}
 		]
 	}
 ];
