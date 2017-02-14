@@ -67,19 +67,7 @@
       -webkit-animation-delay: -0.16s;
       animation-delay: -0.16s;
 
-      border-radius: 50%;
-      width: 1.5em;
-      height: 1.5em;
-      -webkit-animation-fill-mode: both;
-      animation-fill-mode: both;
-      -webkit-animation: loading 1.8s infinite ease-in-out;
-      animation: loading 1.8s infinite ease-in-out;
-
-    &:before, &:after {
-        content: '';
-        position: absolute;
-        top: 0;
-
+    &, &:before, &:after {
         border-radius: 50%;
         width: 1.5em;
         height: 1.5em;
@@ -87,7 +75,13 @@
         animation-fill-mode: both;
         -webkit-animation: loading 1.8s infinite ease-in-out;
         animation: loading 1.8s infinite ease-in-out;
-    },
+    }
+
+    &:before, &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+    }
     &:before {
         left: -2.5em;
         -webkit-animation-delay: -0.32s;
