@@ -15,6 +15,10 @@ html, body {
   min-width: $resMin;
 }
 
+body {
+    background: $sidebar;
+}
+
 main {
   min-height: 100%;
   position: relative;
