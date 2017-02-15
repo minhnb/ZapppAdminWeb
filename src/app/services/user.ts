@@ -15,7 +15,7 @@ export class UserService {
 	}
 
 	saveUserAccessTokenToLocalStorage(data: any, role: string) {
-		let expiredAt = data.expired_at;
+		// let expiredAt = data.expired_at;
 		localStorage.setItem(ZapppConstant.ACCESS_TOKEN, data.access_token);
 		localStorage.setItem(ZapppConstant.REFRESH_TOKEN, data.refresh_token);
 		localStorage.setItem(ZapppConstant.EXPIRED_AT, data.expired_at);
@@ -44,7 +44,6 @@ export class UserService {
 	logIn(email: string, password: string): Observable<any> {
 		let user = {
 			email: email,
-			username: email,
 			password: password
 		};
 		return this.zapppHttp.post(this.userUrl + '/login_email', user)
