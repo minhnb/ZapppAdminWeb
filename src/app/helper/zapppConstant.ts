@@ -10,5 +10,10 @@ export const ZapppConstant = {
     },
     PATTERN: {
         ONLY_DIGIT: '^[0-9]*$'
+    },
+    KEYCODE: {
+        UP: 38,
+        DOWN: 40,
+        ENTER: 13
     }
 };

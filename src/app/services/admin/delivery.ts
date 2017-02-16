@@ -34,4 +34,15 @@ export class DeliveryService {
 		let url = this.serviceUrl + '/users/' + delivererId + '/roles/' + ZapppConstant.USER_ROLE.DELIVERER;
 		return this.zapppHttp.put(url, body);
 	}
+
+	searchDeliverer(keyword: string): Observable<any> {
+		let params = {
+			query: keyword
+		}
+		return this.zapppHttp.get(this.serviceUrl + '/deliverer_location', params);
+	}
+
+	getDelivererLocation(delivererId: string) {
+		return this.zapppHttp.get(this.serviceUrl + '/deliverers/' + delivererId);
+	}
 }
