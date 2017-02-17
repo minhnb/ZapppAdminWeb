@@ -59,7 +59,12 @@
         "PICK_UP_PLACE": "Pick-up Place",
         "DESTINATION": "Destination",
         "FARE": "Fare",
-        "STATUS": "Status"
+        "STATUS": "Status",
+        "DELIVERERS_MAPS": {
+            "SEARCH_PLACEHOLDER": "Deliverer name or phone number",
+            "REMOVE_SEARCH": "Remove search",
+            "USER_INVISIBLE": "This user is invisible"
+        }
     },
     "MAP": {
         "YOU_ARE_HERE": "You're here"
@@ -68,5 +73,8 @@
         "ERROR": "Error",
         "INFO": "Information",
         "WARNING": "Warning"
+    },
+    "INFORM": {
+        "NO_RESULT_FOUND": "No result found"
     }
 }
