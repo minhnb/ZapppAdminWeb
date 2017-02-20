@@ -95,20 +95,32 @@ export class DeliverersMap extends ZapppBaseComponent implements OnDestroy {
 			});
 			self.createCurrentMarker(latitude, longitude);
 
-			google.maps.event.addListener(self.map, 'center_changed', function() {
-				if (!self.showCenterMarker) {
-					return;
-				}
-				let center = this.getCenter();
-				let lat = center.lat();
-				let long = center.lng();
-				self.clearAllTimer();
-				self.autoUpdateDeliverersMap(lat, long);
+			google.maps.event.addListener(self.map, 'dragend', function() {
+				self.reloadMapAfterCenterPointChanged();
+			});
 
-				this.lat = lat;
-				this.long = long;
+			google.maps.event.addListener(self.map, 'zoom_changed', function() {
+				self.reloadMapAfterCenterPointChanged();
 			});
 		});
+	}
+
+	reloadMapAfterCenterPointChanged() {
+		if (!this.showCenterMarker) {
+			return;
+		}
+		let center = this.map.getCenter();
+		let lat = center.lat();
+		let long = center.lng();
+
+		if (this.lat == lat && this.long == long) {
+			return;
+		}
+		this.clearAllTimer();
+		this.autoUpdateDeliverersMap(lat, long);
+
+		this.lat = lat;
+		this.long = long;
 	}
 
 	loadListDelivererNearBy(latitude: number, longitude: number) {

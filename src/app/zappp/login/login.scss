@@ -13,7 +13,7 @@
         -webkit-appearance: none;
         -webkit-user-select: none;
         background-color: #2f4959;
-        background-image: url("http://i62.tinypic.com/15xvbd5.png"), linear-gradient(#2f4959, #2f4959 40%, #2f4959);
+        background-image: url($images-root + 'zappp/select-arrow-down.png'), linear-gradient(#2f4959, #2f4959 40%, #2f4959);
         background-position: 85% center;
         background-repeat: no-repeat;
         background-size: auto 100%;
