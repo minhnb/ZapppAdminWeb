@@ -91,7 +91,6 @@ export class ZapppHttp {
 
     jsonError(error: Response | any): any {
         let errMsg: any;
-        console.log(error);
 		if (error instanceof Response) {
             if (error.status == 0) {
                 let message = this.translate.instant('ERROR.CONNECTION');
