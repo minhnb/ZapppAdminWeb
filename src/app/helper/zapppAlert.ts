@@ -5,8 +5,11 @@ import { TranslateService } from 'ng2-translate';
 
 @Injectable()
 export class ZapppAlert {
-    constructor(public modal: Modal, public overlay: Overlay, private translate: TranslateService) {
 
+    isShowingError: Boolean;
+
+    constructor(public modal: Modal, public overlay: Overlay, private translate: TranslateService) {
+        this.isShowingError = false;
     }
 
     setDefaultViewContainer(vcRef: ViewContainerRef) {
@@ -14,15 +17,29 @@ export class ZapppAlert {
     }
 
     showError(message: string, title?: string): any {
+        if (this.isShowingError) {
+            return;
+        }
         if (!title) {
             title = this.translate.instant('DIALOG.ERROR');
         }
+        if (!message) {
+            message = this.translate.instant('ERROR.UNKNOWN');
+        }
+        this.isShowingError = true;
         return this.modal.alert()
 			.size('lg')
 			.showClose(true)
 			.title(title)
 			.body(message)
-			.open();
+			.open()
+            .catch(err => {
+				console.log(err);
+			})
+			.then((dialog: any) => dialog.result)
+            .then(result => {
+                this.isShowingError = false;
+            });
     }
 
     showInfo(message: string, title?: string): any {
