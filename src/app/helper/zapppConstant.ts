@@ -15,5 +15,9 @@ export const ZapppConstant = {
         UP: 38,
         DOWN: 40,
         ENTER: 13
-    }
+    },
+    FORMAT_DATETIME: 'MM/DD/YYYY HH:mm',
+    FORMAT_DATE: 'MM/DD/YYYY',
+    FORMAT_TIME: 'HH:mm',
+    FORMAT_TIME_FULL: 'HH:mm:ss'
 };

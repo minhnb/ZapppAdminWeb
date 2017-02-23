@@ -45,4 +45,14 @@ export class DeliveryService {
 	getDelivererLocation(delivererId: string) {
 		return this.zapppHttp.get(this.serviceUrl + '/deliverers/' + delivererId);
 	}
+
+	getDeliveryRequestLocation(deliveryRequestId: string, timestamp?: number) {
+		let params = {};
+		if (timestamp) {
+			params = {
+				from: timestamp
+			}
+		}
+		return this.zapppHttp.get(this.serviceUrl + '/delivery_requests/' + deliveryRequestId + '/delivery_path', params);
+	}
 }
