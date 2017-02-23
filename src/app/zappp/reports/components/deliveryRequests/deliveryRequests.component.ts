@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, Injector, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, ViewEncapsulation, Injector, ViewChild, ElementRef } from '@angular/core';
 import { ZapppBaseComponent } from '../../../baseComponent/base.component';
 import { DeliveryService } from '../../../../services/admin/delivery';
 import { ZapppConstant } from '../../../../helper/zapppConstant';
@@ -29,7 +29,7 @@ export class DeliveryRequests extends ZapppBaseComponent {
 	lastUpdate: number;
 	selectedDeliveryRequest: any;
 
-	constructor(private injector: Injector, private deliveryService: DeliveryService, private _elementRef: ElementRef, private ngZone: NgZone) {
+	constructor(private injector: Injector, private deliveryService: DeliveryService, private _elementRef: ElementRef) {
 		super(injector);
 		this.mapIsLoaded = false;
 		this.trackDelivererTimer = null;
