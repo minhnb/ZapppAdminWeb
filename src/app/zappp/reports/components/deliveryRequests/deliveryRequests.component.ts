@@ -22,12 +22,14 @@ export class DeliveryRequests extends ZapppBaseComponent {
 	map: any;
 	poly: any;
 	google: any;
+	geocoder: any;
 	googleMapsElement: any;
 	mapIsLoaded: Boolean;
 	trackDelivererTimer: any;
 	points: Array<any>;
 	lastUpdate: number;
 	selectedDeliveryRequest: any;
+	infoWindow: any;
 
 	constructor(private injector: Injector, private deliveryService: DeliveryService, private _elementRef: ElementRef) {
 		super(injector);
@@ -145,6 +147,7 @@ export class DeliveryRequests extends ZapppBaseComponent {
 		}
 		GoogleMapsLoader.load((google) => {
 			self.google = google;
+			self.geocoder = new google.maps.Geocoder();
 			self.map = new google.maps.Map(self.googleMapsElement, {
 				center: new google.maps.LatLng(lat, long),
 				zoom: 15,
@@ -157,6 +160,9 @@ export class DeliveryRequests extends ZapppBaseComponent {
 				strokeWeight: 5
 			});
 			self.poly.setMap(self.map);
+			self.infoWindow = new this.google.maps.InfoWindow({
+				content: ''
+			});
 			self.drawStartEndPoint(deliveryRequest);
 			self.trackDeliverer(deliveryRequest.id);
 		});
@@ -198,7 +204,7 @@ export class DeliveryRequests extends ZapppBaseComponent {
 		}, 30000);
 	}
 
-	createMarker(latitude: number, longitude: number, markerImage: any, title: string): any {
+	createMarker(latitude: number, longitude: number, markerImage: any, title: string, infoWindowContent?: string): any {
 		var markerParams = {
 			position: new this.google.maps.LatLng(latitude, longitude),
 			title: title,
@@ -209,48 +215,82 @@ export class DeliveryRequests extends ZapppBaseComponent {
 		};
 
 		let marker = new this.google.maps.Marker(markerParams);
+		marker.infoWindowContent = infoWindowContent;
 		this.points.push(marker);
+		if (infoWindowContent) {
+			this.addInfoWindow(marker, infoWindowContent);
+		}
 		return marker;
 	}
 
-	createDelivererMarker(latitude: number, longitude: number, title: string): any {
+	createDelivererMarker(latitude: number, longitude: number, title: string, infoWindowContent?: string): any {
 		let markerImage = {
 			path: this.google.maps.SymbolPath.CIRCLE,
 			strokeColor: '#186A3B',
             scale: 8
 		};
-		let marker = this.createMarker(latitude, longitude, markerImage, title);
+		let marker = this.createMarker(latitude, longitude, markerImage, title, infoWindowContent);
 		return marker;
 	}
 
-	createDeliveryPoint(latitude: number, longitude: number, title: string): any {
+	createDeliveryPoint(latitude: number, longitude: number, title: string, infoWindowContent?: string): any {
 		let markerImage = {
 			path: this.google.maps.SymbolPath.CIRCLE,
 			strokeColor: '#5DADE2',
             scale: 4
 		};
-		let marker = this.createMarker(latitude, longitude, markerImage, title);
+		let marker = this.createMarker(latitude, longitude, markerImage, title, infoWindowContent);
 		return marker;
 	}
 
-	createDeliveryStartEndPoint(latitude: number, longitude: number, title: string): any {
+	createDeliveryStartEndPoint(latitude: number, longitude: number, title: string, infoWindowContent?: string): any {
 		let markerImage = {
 			path: this.google.maps.SymbolPath.CIRCLE,
 			strokeColor: '#F1C40F',
             scale: 8
 		};
-		let marker = this.createMarker(latitude, longitude, markerImage, title);
+		let marker = this.createMarker(latitude, longitude, markerImage, title, infoWindowContent);
 		return marker;
+	}
+
+	addInfoWindow(marker: any, content: string) {
+		let self = this;
+		marker.addListener('click', function() {
+			if (marker.needGetAddress) {
+				self.getAddress(marker.position, (address) => {
+					if (address) {
+						marker.infoWindowContent = marker.infoWindowContent + '<br/>' + address;
+						marker.needGetAddress = false;
+					} else {
+						marker.infoWindowContent = marker.infoWindowContent + '<br/>' + self.translate.instant('MAP.COULDNT_GET_ADDRESS');
+					}
+					self.showInfoWindow(marker);
+				});
+			} else {
+				self.showInfoWindow(marker);
+			}
+        });
+	}
+
+	showInfoWindow(marker: any) {
+		this.infoWindow.setContent(this.generateInfoWindowContent(marker.infoWindowContent));
+		this.infoWindow.open(this.map, marker);
+	}
+
+	generateInfoWindowContent(content: string): string {
+		return '<div class="info-window">' + content + '<div>';
 	}
 
 	drawStartEndPoint(deliveryRequest: any) {
 		if (deliveryRequest.pickup_location) {
 			let title = this.translate.instant('REPORTS.PICK_UP_PLACE');
-			this.createDeliveryStartEndPoint(deliveryRequest.pickup_location.lat, deliveryRequest.pickup_location.long, title);
+			let infoWindowContent = title + ': <br/>' + deliveryRequest.pick_up_place;
+			this.createDeliveryStartEndPoint(deliveryRequest.pickup_location.lat, deliveryRequest.pickup_location.long, title, infoWindowContent);
 		}
 		if (deliveryRequest.destination_location) {
 			let title = this.translate.instant('REPORTS.DESTINATION');
-			this.createDeliveryStartEndPoint(deliveryRequest.destination_location.lat, deliveryRequest.destination_location.long, title);
+			let infoWindowContent = title + ': <br/>' + deliveryRequest.destination;
+			this.createDeliveryStartEndPoint(deliveryRequest.destination_location.lat, deliveryRequest.destination_location.long, title, infoWindowContent);
 		}
 	}
 
@@ -260,9 +300,12 @@ export class DeliveryRequests extends ZapppBaseComponent {
 			let point = new this.google.maps.LatLng(path.lat, path.long);
 			polyPath.push(point);
 			let title = moment.unix(path.created_at).format(ZapppConstant.FORMAT_TIME_FULL);
-			this.createDeliveryPoint(path.lat, path.long, title);
+			let infoWindowContent = moment.unix(path.created_at).format(ZapppConstant.FORMAT_DATETIME_WITH_SECOND);
+			let marker = this.createDeliveryPoint(path.lat, path.long, title, infoWindowContent);
+			marker.needGetAddress = true;
 			if (index == paths.length - 1) {
-				this.createDelivererMarker(path.lat, path.long, title);
+				let currentMarker = this.createDelivererMarker(path.lat, path.long, title, infoWindowContent);
+				currentMarker.needGetAddress = true;
 				this.map.setCenter(point);
 				this.lastUpdate = path.created_at;
 			}
@@ -310,5 +353,26 @@ export class DeliveryRequests extends ZapppBaseComponent {
 		this.points = [];
 		this.lastUpdate = 0;
 		this.map.setZoom(15);
+	}
+
+	getAddress(point: any, callback: (address: string) => void) {
+		this._spinner.show();
+		let self = this;
+		this.geocoder.geocode({
+			'latLng': point
+		}, function(results, status) {
+			self._spinner.hide();
+			if (status === this.google.maps.GeocoderStatus.OK) {
+				if (results.length > 0) {
+					callback(results[0].formatted_address);
+				} else {
+					let address = self.translate.instant('MAP.UNKNOWN_ADDRESS');
+					callback(address);
+				}
+			} else {
+				console.log('Geocoder failed: ' + status);
+				callback('');
+			}
+		});
 	}
 }

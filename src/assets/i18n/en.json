@@ -70,7 +70,9 @@
         }
     },
     "MAP": {
-        "YOU_ARE_HERE": "You're here"
+        "YOU_ARE_HERE": "You're here",
+        "UNKNOWN_ADDRESS": "Unknown address",
+        "COULDNT_GET_ADDRESS": "Couldn't get address"
     },
     "DIALOG": {
         "ERROR": "Error",
