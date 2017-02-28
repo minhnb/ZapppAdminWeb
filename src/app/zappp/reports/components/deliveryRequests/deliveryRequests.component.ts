@@ -18,6 +18,9 @@ export class DeliveryRequests extends ZapppBaseComponent {
 
 	@ViewChild('trackModal') trackModal: ModalDirective;
 	tableData = [];
+	pageSize: number;
+	totalItem: number;
+	currentPage: number;
 
 	map: any;
 	poly: any;
@@ -38,6 +41,8 @@ export class DeliveryRequests extends ZapppBaseComponent {
 		this.points = [];
 		this.lastUpdate = 0;
 		this.selectedDeliveryRequest = null;
+		this.pageSize = ZapppConstant.TABLE_PAGINATION.ITEM_PER_PAGE;
+		this.currentPage = 1;
 	}
 
 	ngAfterViewInit() {
@@ -45,10 +50,11 @@ export class DeliveryRequests extends ZapppBaseComponent {
 		this.googleMapsElement = this._elementRef.nativeElement.querySelector('.google-maps');
 	}
 
-	listDeliveryRequests() {
-		this.deliveryService.listDeliveryRequests().subscribe(
+	listDeliveryRequests(start?: number) {
+		this.deliveryService.listDeliveryRequests(true, this.pageSize, start).subscribe(
 			res => {
-				this.tableData = this.deliveryRequestsToDisplay(res);
+				this.totalItem = res.total;
+				this.tableData = this.deliveryRequestsToDisplay(res.data);
 			},
 			error => {
 				this.zapppAlert.showError(error.message);
@@ -89,8 +95,8 @@ export class DeliveryRequests extends ZapppBaseComponent {
 				}
 			}
 
-			deliveryRequest.pick_up_place = this.getAddressLocation(deliveryRequest.pickup_location);
-			deliveryRequest.destination = this.getAddressLocation(deliveryRequest.destination_location);
+			deliveryRequest.pick_up_place = deliveryRequest.pickup_location.full_address;
+			deliveryRequest.destination = deliveryRequest.destination_location.full_address;
 
 
 			deliveryRequest.fare = "";
@@ -374,5 +380,10 @@ export class DeliveryRequests extends ZapppBaseComponent {
 				callback('');
 			}
 		});
+	}
+
+	pageChanged(event) {
+		this.currentPage = event;
+		this.listDeliveryRequests((this.currentPage - 1) * this.pageSize);
 	}
 }

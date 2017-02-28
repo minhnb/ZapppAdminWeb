@@ -5,3 +5,19 @@
     margin-left: 15px;
     border-color: #e5e5e5;
 }
+
+ul.ng2-pagination {
+    padding: 0;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    margin-top: 15px;
+
+    li {
+        cursor: pointer;
+
+        a:hover, button:hover {
+            background: #999999;
+        }
+    }
+}

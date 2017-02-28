@@ -10,8 +10,8 @@
                 <th></th>
                 <th></th>
               </tr>
-              <tr *ngFor="let item of tableData; let i = index">
-                <td>{{ i+1 }}</td>
+              <tr *ngFor="let item of tableData | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalItem }; let i = index">
+                <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
                 <td>{{ item.name }}</td>
                 <td>
                     <div class="button-wrapper">
@@ -27,6 +27,14 @@
                 </td>
               </tr>
             </table>
+            <pagination-controls
+                      (pageChange)="pageChanged($event)"
+                      maxSize="7"
+                      directionLinks="true"
+                      autoHide="true"
+                      previousLabel=""
+                      nextLabel="">
+            </pagination-controls>
           </div>
       </ba-card>
     </div>
