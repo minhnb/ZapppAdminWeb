@@ -1,3 +1,24 @@
 .status-button {
   width: 60px;
 }
+#trackModal {
+    .modal-dialog {
+        margin-top: 66px;
+        .modal-header.no-title {
+            padding: 15px 15px 0 0;
+            border: none;
+            & > span {
+                margin-left: 15px;
+                color: #333333;
+            }
+        }
+        .google-maps {
+            width: 100%;
+            height: calc(100vh - 177px);
+
+            .info-window {
+                color: #333333;
+            }
+        }
+    }
+}

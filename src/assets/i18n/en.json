@@ -35,7 +35,9 @@
     "ERROR": {
         "LOGIN_BY_PHONE": {
             "BAD_REQUEST": "Couldn't send PIN code to your phone number. Please double check."
-        }
+        },
+        "CONNECTION": "Couldn't connect to server. Please double check and try again.",
+        "UNKNOWN": "Unknown error. Please try again later."
     },
     "CONFIRM": {
         "DEACTIVATE_DELIVERER": "Are you sure you want to deactivate deliverer {{name}} ?"
@@ -51,7 +53,8 @@
     },
     "BUTTONS": {
         "ACTIVATE": "Activate",
-        "DEACTIVATE": "Deactivate"
+        "DEACTIVATE": "Deactivate",
+        "TRACK": "Track"
     },
     "REPORTS": {
         "SENDER_NAME": "Sender Name",
@@ -67,7 +70,9 @@
         }
     },
     "MAP": {
-        "YOU_ARE_HERE": "You're here"
+        "YOU_ARE_HERE": "You're here",
+        "UNKNOWN_ADDRESS": "Unknown address",
+        "COULDNT_GET_ADDRESS": "Couldn't get address"
     },
     "DIALOG": {
         "ERROR": "Error",

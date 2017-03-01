@@ -10,12 +10,28 @@ export class DeliveryService {
 	private serviceUrl = AppConfig.API_URL + 'admin';
 	constructor(private zapppHttp: ZapppHttp) { }
 
-	listDelivererAccounts(): Observable<any> {
-		return this.zapppHttp.get(this.serviceUrl + '/deliverers');
+	listDelivererAccounts(paging?: Boolean, limit?: number, offset?: number): Observable<any> {
+		let params = {};
+		if (paging) {
+			params = {
+				paging: true,
+				limit: limit,
+				offset: offset
+			}
+		}
+		return this.zapppHttp.get(this.serviceUrl + '/deliverers', params);
 	}
 
-	listDeliveryRequests(): Observable<any> {
-		return this.zapppHttp.get(this.serviceUrl + '/delivery_requests');
+	listDeliveryRequests(paging?: Boolean, limit?: number, offset?: number): Observable<any> {
+		let params = {};
+		if (paging) {
+			params = {
+				paging: true,
+				limit: limit,
+				offset: offset
+			}
+		}
+		return this.zapppHttp.get(this.serviceUrl + '/delivery_requests', params);
 	}
 
 	listDelivererNearBy(latitude: number, longitude: number, maxDistance: number): Observable<any> {
@@ -44,5 +60,15 @@ export class DeliveryService {
 
 	getDelivererLocation(delivererId: string) {
 		return this.zapppHttp.get(this.serviceUrl + '/deliverers/' + delivererId);
+	}
+
+	getDeliveryRequestLocation(deliveryRequestId: string, timestamp?: number) {
+		let params = {};
+		if (timestamp) {
+			params = {
+				from: timestamp
+			}
+		}
+		return this.zapppHttp.get(this.serviceUrl + '/delivery_requests/' + deliveryRequestId + '/delivery_path', params);
 	}
 }

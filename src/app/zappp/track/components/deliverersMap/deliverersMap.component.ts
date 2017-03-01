@@ -3,7 +3,7 @@ import { ZapppBaseComponent } from '../../../baseComponent/base.component';
 import { DeliveryService } from '../../../../services/admin/delivery';
 import { ZapppUtil } from '../../../../helper/zapppUtil';
 import { ZapppConstant } from '../../../../helper/zapppConstant';
-import { GoogleMapsLoader } from './googleMaps.loader';
+import { GoogleMapsLoader } from '../../../googleMaps.loader';
 
 @Component({
 	selector: 'deliverers-map',

@@ -12,20 +12,52 @@
                 <th>{{ 'REPORTS.DESTINATION' | translate }}</th>
                 <th>{{ 'REPORTS.FARE' | translate }}</th>
                 <th>{{ 'REPORTS.STATUS' | translate }}</th>
+                <th></th>
               </tr>
-              <tr *ngFor="let item of tableData; let i = index">
-                <td>{{ i + 1 }}</td>
+              <tr *ngFor="let item of tableData | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalItem }; let i = index">
+                <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
                 <td>{{ item.sender.name }}</td>
                 <td>{{ item.deliverer.name }}</td>
                 <td>{{ item.pick_up_place }}</td>
                 <td>{{ item.destination }}</td>
                 <td>{{ item.fare }}</td>
                 <td>{{ item.status }}</td>
+                <td>
+                    <div class="button-wrapper">
+                      <button type="button" class="btn btn-primary" [disabled]="!isDeliveringRequest(item) && !isCompletedRequest(item)"
+                      (click)="showTrackPopUp(item)">{{ 'BUTTONS.TRACK' | translate }}</button>
+                    </div>
+                </td>
               </tr>
             </table>
+            <pagination-controls
+                      (pageChange)="pageChanged($event)"
+                      maxSize="7"
+                      directionLinks="true"
+                      autoHide="true"
+                      previousLabel=""
+                      nextLabel="">
+            </pagination-controls>
           </div>
       </ba-card>
     </div>
   </div>
+</div>
 
+
+<div bsModal #trackModal="bs-modal" id="trackModal" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="trackModalLabel" aria-hidden="true" (onHide)="onCloseTrackModal($event)">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header no-title">
+          <span>{{ selectedDeliveryRequest ? selectedDeliveryRequest.status : '' }}</span>
+          <button type="button" class="close pull-right" (click)="trackModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+          <div class="google-maps"></div>
+      </div>
+    </div>
+  </div>
 </div>

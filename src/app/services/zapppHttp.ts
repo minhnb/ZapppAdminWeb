@@ -10,10 +10,11 @@ import 'rxjs/add/operator/toPromise';
 import { BaThemeSpinner } from '../theme/services';
 import { ZapppConstant } from '../helper/zapppConstant';
 import { AppConfig } from '../app.config';
+import { TranslateService } from 'ng2-translate';
 
 @Injectable()
 export class ZapppHttp {
-    constructor(private http: Http, private _spinner: BaThemeSpinner, private router: Router) { }
+    constructor(private http: Http, private _spinner: BaThemeSpinner, private router: Router, private translate: TranslateService) { }
 
     private getRequestOptionsByToken(method: string | RequestMethod, accessToken: string): RequestOptions {
         let jwt = 'JWT ' + accessToken;
@@ -90,8 +91,17 @@ export class ZapppHttp {
 
     jsonError(error: Response | any): any {
         let errMsg: any;
+        console.log(error);
 		if (error instanceof Response) {
-			errMsg = error.json();
+            if (error.status == 0) {
+                let message = this.translate.instant('ERROR.CONNECTION');
+                errMsg = {
+                    status: error.status,
+                    message: message
+                }
+            } else {
+                errMsg = error.json();
+            }
 		} else {
 			errMsg = error.message ? error.message : error.toString();
 		}

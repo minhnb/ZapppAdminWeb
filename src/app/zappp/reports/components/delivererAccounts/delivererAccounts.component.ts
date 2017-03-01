@@ -13,19 +13,25 @@ import { ZapppConstant } from '../../../../helper/zapppConstant';
 export class DelivererAccounts extends ZapppBaseComponent {
 
 	tableData = [];
+	pageSize: number;
+	totalItem: number;
+	currentPage: number;
 
 	constructor(private injector: Injector, private deliveryService: DeliveryService) {
 		super(injector);
+		this.pageSize = ZapppConstant.TABLE_PAGINATION.ITEM_PER_PAGE;
+		this.currentPage = 1;
 	}
 
 	ngAfterViewInit() {
 		this.listDelivererAccounts();
 	}
 
-	listDelivererAccounts() {
-		this.deliveryService.listDelivererAccounts().subscribe(
+	listDelivererAccounts(start?: number) {
+		this.deliveryService.listDelivererAccounts(true, this.pageSize, start).subscribe(
 			res => {
-				this.tableData = this.delivererAccountsToDisplay(res);
+				this.totalItem = res.total;
+				this.tableData = this.delivererAccountsToDisplay(res.data);
 			},
 			error => {
 				this.zapppAlert.showError(error.message);
@@ -80,5 +86,10 @@ export class DelivererAccounts extends ZapppBaseComponent {
 			.catch(err => {
 
 			})
+	}
+
+	pageChanged(event) {
+		this.currentPage = event;
+		this.listDelivererAccounts((this.currentPage - 1) * this.pageSize);
 	}
 }
