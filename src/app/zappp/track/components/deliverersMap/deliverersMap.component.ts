@@ -311,7 +311,7 @@ export class DeliverersMap extends ZapppBaseComponent implements OnDestroy {
 		let transformedDeliverer: any = {};
 		transformedDeliverer.id = deliverer.deliverer.id;
 		transformedDeliverer.name = deliverer.deliverer.name || '';
-		transformedDeliverer.phone = deliverer.deliverer.phone_profile.number;
+		transformedDeliverer.phone = deliverer.deliverer.phone_profile ? deliverer.deliverer.phone_profile.number : '';
 		transformedDeliverer.location = deliverer.location;
 		transformedDeliverer.selected = false;
 		return transformedDeliverer;
