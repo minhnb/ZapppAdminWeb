@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation, Injector } from '@angular/core';
 import { ZapppBaseComponent } from '../../../baseComponent/base.component';
 import { DeliveryService } from '../../../../services/admin/delivery';
 import { ZapppConstant } from '../../../../helper/zapppConstant';
+var moment = require('moment');
 
 @Component({
 	selector: 'delivery-accounts',
@@ -41,6 +42,7 @@ export class DelivererAccounts extends ZapppBaseComponent {
 
 	delivererAccountsToDisplay(delivererAccounts: Array<any>): Array<any> {
 		return delivererAccounts.map(delivererAccount => {
+			delivererAccount.formated_created_at = moment.unix(delivererAccount.created_at).format(ZapppConstant.FORMAT_DATETIME);;
 			delivererAccount.approved = this.isApprovedDeliverer(delivererAccount);
 			return delivererAccount;
 		});
