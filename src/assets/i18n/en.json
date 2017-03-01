@@ -63,6 +63,8 @@
         "DESTINATION": "Destination",
         "FARE": "Fare",
         "STATUS": "Status",
+        "PHONE_NUMBER": "Phone Number",
+        "CREATED_TIME": "Created Time",
         "DELIVERERS_MAPS": {
             "SEARCH_PLACEHOLDER": "Deliverer name or phone number",
             "REMOVE_SEARCH": "Remove search",

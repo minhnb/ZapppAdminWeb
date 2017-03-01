@@ -95,6 +95,7 @@ export class DeliveryRequests extends ZapppBaseComponent {
 				}
 			}
 
+			deliveryRequest.formated_created_at = moment.unix(deliveryRequest.created_at).format(ZapppConstant.FORMAT_DATETIME);
 			deliveryRequest.pick_up_place = deliveryRequest.pickup_location.full_address;
 			deliveryRequest.destination = deliveryRequest.destination_location.full_address;
 
