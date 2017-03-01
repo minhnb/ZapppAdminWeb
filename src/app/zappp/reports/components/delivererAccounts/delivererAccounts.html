@@ -7,21 +7,35 @@
               <tr>
                 <th>#</th>
                 <th>{{ 'REPORTS.DELIVERER_NAME' | translate }}</th>
-                <th></th>
+                <th>{{ 'REPORTS.PHONE_NUMBER' | translate }}</th>
+                <th>{{ 'REPORTS.CREATED_TIME' | translate }}</th>
+                <!-- <th></th> -->
                 <th></th>
               </tr>
               <tr *ngFor="let item of tableData | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalItem }; let i = index">
                 <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
                 <td>{{ item.name }}</td>
-                <td>
+                <td>{{ item.phone_profile.number }}</td>
+                <td>{{ item.formated_created_at }}</td>
+                <!-- <td>
                     <div class="button-wrapper">
-                      <button type="button" class="btn btn-success" [disabled]="item.approved"
+                      <button type="button" class="btn btn-success action-button" [disabled]="item.approved"
                       (click)="activateDeliverer(item)">{{ 'BUTTONS.ACTIVATE' | translate }}</button>
                     </div>
                 </td>
                 <td>
                     <div class="button-wrapper">
-                      <button type="button" class="btn btn-danger" [disabled]="!item.approved"
+                      <button type="button" class="btn btn-danger action-button" [disabled]="!item.approved"
+                      (click)="deactivateDeliverer(item)">{{ 'BUTTONS.DEACTIVATE' | translate }}</button>
+                    </div>
+                </td> -->
+                <td>
+                    <div class="button-wrapper" [hidden]="item.approved">
+                      <button type="button" class="btn btn-success action-button" [disabled]="item.approved"
+                      (click)="activateDeliverer(item)">{{ 'BUTTONS.ACTIVATE' | translate }}</button>
+                    </div>
+                    <div class="button-wrapper" [hidden]="!item.approved">
+                      <button type="button" class="btn btn-danger action-button" [disabled]="!item.approved"
                       (click)="deactivateDeliverer(item)">{{ 'BUTTONS.DEACTIVATE' | translate }}</button>
                     </div>
                 </td>
