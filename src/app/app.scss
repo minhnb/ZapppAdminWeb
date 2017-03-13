@@ -21,3 +21,36 @@ ul.ng2-pagination {
         }
     }
 }
+
+select {
+    -moz-appearance: none;
+    -moz-user-select: none;
+    -webkit-appearance: none;
+    -webkit-user-select: none;
+    background-color: #67a0d3;
+    background-image: url($images-root + 'zappp/select-arrow-down.png'), linear-gradient(#67a0d3, #67a0d3 40%, #67a0d3);
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    border: solid 1px rgba(255, 255, 255, 0.6);
+    border-radius: 4px;
+    color: inherit;
+    font-size: inherit;
+    height: 33px;
+    left: 0;
+    outline: none;
+    overflow: hidden;
+    padding: 0.5rem 0.75rem;
+    position: relative;
+    text-overflow: ellipsis;
+    top: 1px;
+    white-space: nowrap;
+    width: 100%;
+    z-index: 10;
+
+
+    &:focus, &:active {
+        outline: none;
+        color: inherit;
+    }
+}

@@ -2,9 +2,11 @@ import { Component, ViewEncapsulation, Injector, ViewChild, ElementRef } from '@
 import { ZapppBaseComponent } from '../../../baseComponent/base.component';
 import { DeliveryService } from '../../../../services/admin/delivery';
 import { ZapppConstant } from '../../../../helper/zapppConstant';
+import { DateTimePicker } from '../../../../helper/datetimepicker';
 
 import { ModalDirective } from 'ng2-bootstrap';
 import { GoogleMapsLoader } from '../../../googleMaps.loader';
+
 var moment = require('moment');
 
 @Component({
@@ -17,6 +19,8 @@ var moment = require('moment');
 export class DeliveryRequests extends ZapppBaseComponent {
 
 	@ViewChild('trackModal') trackModal: ModalDirective;
+	@ViewChild('fromDateTimePicker') fromDateTimePicker: DateTimePicker;
+	@ViewChild('toDateTimePicker') toDateTimePicker: DateTimePicker;
 	tableData = [];
 	pageSize: number;
 	totalItem: number;
@@ -34,6 +38,14 @@ export class DeliveryRequests extends ZapppBaseComponent {
 	selectedDeliveryRequest: any;
 	infoWindow: any;
 
+	formatDateTime: String;
+	fromDate: Date;
+	toDate: Date;
+	senderName: String;
+	delivererName: String;
+	deliveryStatus: String = '';
+	searchQuery: any = {};
+
 	constructor(private injector: Injector, private deliveryService: DeliveryService, private _elementRef: ElementRef) {
 		super(injector);
 		this.mapIsLoaded = false;
@@ -43,6 +55,9 @@ export class DeliveryRequests extends ZapppBaseComponent {
 		this.selectedDeliveryRequest = null;
 		this.pageSize = ZapppConstant.TABLE_PAGINATION.ITEM_PER_PAGE;
 		this.currentPage = 1;
+		this.totalItem = 0;
+
+		this.formatDateTime = ZapppConstant.FORMAT_DATETIME;
 	}
 
 	ngAfterViewInit() {
@@ -51,8 +66,12 @@ export class DeliveryRequests extends ZapppBaseComponent {
 	}
 
 	listDeliveryRequests(start?: number) {
-		this.deliveryService.listDeliveryRequests(true, this.pageSize, start).subscribe(
+		let sortBy = '';
+		this.deliveryService.listDeliveryRequests(this.searchQuery, sortBy, true, this.pageSize, start).subscribe(
 			res => {
+				if (!start) {
+					this.currentPage = 1;
+				}
 				this.totalItem = res.total;
 				this.tableData = this.deliveryRequestsToDisplay(res.data);
 			},
@@ -386,5 +405,47 @@ export class DeliveryRequests extends ZapppBaseComponent {
 	pageChanged(event) {
 		this.currentPage = event;
 		this.listDeliveryRequests((this.currentPage - 1) * this.pageSize);
+	}
+
+	getToday(): Date {
+		return new Date();
+	}
+
+	clearSearch() {
+		this.fromDateTimePicker.reset();
+		this.toDateTimePicker.reset();
+		this.senderName = '';
+		this.delivererName = '';
+		this.deliveryStatus = '';
+
+		if (Object.keys(this.searchQuery).length > 0) {
+			this.searchQuery = {};
+			this.listDeliveryRequests();
+		}
+	}
+
+	searchDelivererRequest() {
+		this.searchQuery = this.buildSearchQuery();
+		this.listDeliveryRequests();
+	}
+
+	buildSearchQuery() {
+		let search: any = {};
+		if (this.fromDate) {
+			search.from = moment(this.fromDate).unix();
+		}
+		if (this.toDate) {
+			search.to = moment(this.toDate).unix();
+		}
+		if (this.senderName) {
+			search.sender = this.senderName;
+		}
+		if (this.delivererName) {
+			search.deliverer = this.delivererName;
+		}
+		if (this.deliveryStatus) {
+			search.status = this.deliveryStatus;
+		}
+		return search;
 	}
 }

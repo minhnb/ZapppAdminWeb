@@ -6,7 +6,10 @@
         "FULL_NAME": "Full Name",
         "PHONE_NUMBER": "Phone Number",
         "PIN": "PIN",
-        "BACK": "Back"
+        "BACK": "Back",
+        "SEARCH": "Search",
+        "FROM": "From",
+        "TO": "To"
     },
     "LOG_IN": {
         "BOX_TITLE": "Sign in to Zappp",
@@ -54,7 +57,9 @@
     "BUTTONS": {
         "ACTIVATE": "Activate",
         "DEACTIVATE": "Deactivate",
-        "TRACK": "Track"
+        "TRACK": "Track",
+        "SEARCH": "Search",
+        "CLEAR_SEARCH": "Clear"
     },
     "REPORTS": {
         "SENDER_NAME": "Sender Name",
@@ -71,7 +76,9 @@
             "SEARCH_PLACEHOLDER": "Deliverer name or phone number",
             "REMOVE_SEARCH": "Remove search",
             "USER_INVISIBLE": "This user is invisible"
-        }
+        },
+        "ITEM": "item",
+        "ITEMS": "items"
     },
     "MAP": {
         "YOU_ARE_HERE": "You're here",

@@ -1,64 +1,92 @@
 <div class="widgets">
   <div class="row">
     <div class="col-md-12">
-      <ba-card baCardClass="with-scroll table-panel">
-          <div class="table-responsive">
-            <table class="table">
-              <tr>
-                <th>#</th>
-                <th>{{ 'REPORTS.CREATED_TIME' | translate }}</th>
-                <th>{{ 'REPORTS.SENDER_NAME' | translate }}</th>
-                <th>{{ 'REPORTS.DELIVERER_NAME' | translate }}</th>
-                <th>{{ 'REPORTS.PICK_UP_PLACE' | translate }}</th>
-                <th>{{ 'REPORTS.DESTINATION' | translate }}</th>
-                <th>{{ 'REPORTS.FARE' | translate }}</th>
-                <th>{{ 'REPORTS.STATUS' | translate }}</th>
-                <th></th>
-              </tr>
-              <tr *ngFor="let item of tableData | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalItem }; let i = index">
-                <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
-                <td>{{ item.formated_created_at }}</td>
-                <td>{{ item.sender.name }}</td>
-                <td>{{ item.deliverer.name }}</td>
-                <td>{{ item.pick_up_place }}</td>
-                <td>{{ item.destination }}</td>
-                <td>{{ item.fare }}</td>
-                <td>{{ item.status }}</td>
-                <td>
-                    <div class="button-wrapper">
-                      <button type="button" class="btn btn-primary" [disabled]="!isDeliveringRequest(item) && !isCompletedRequest(item)"
-                      (click)="showTrackPopUp(item)">{{ 'BUTTONS.TRACK' | translate }}</button>
-                    </div>
-                </td>
-              </tr>
-            </table>
-            <pagination-controls
-                      (pageChange)="pageChanged($event)"
-                      maxSize="7"
-                      directionLinks="true"
-                      autoHide="true"
-                      previousLabel=""
-                      nextLabel="">
-            </pagination-controls>
+      <ba-card baCardClass="with-scroll table-panel" title="{{ 'GLOBAL.SEARCH' | translate }}">
+        <form class="table-search">
+          <div class="row">
+            <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
+              <datetimepicker #fromDateTimePicker [(dateTimeModel)]="fromDate" [maxDate]="getToday()" placeholder="{{ 'GLOBAL.FROM' | translate }} {{ formatDateTime }}" [formatDateTime]="formatDateTime"></datetimepicker>
+            </div>
+            <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
+              <datetimepicker #toDateTimePicker [(dateTimeModel)]="toDate" [maxDate]="getToday()" placeholder="{{ 'GLOBAL.TO' | translate }} {{ formatDateTime }}" [formatDateTime]="formatDateTime"></datetimepicker>
+            </div>
           </div>
+          <div class="row">
+            <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
+              <input type="text" class="form-control" [(ngModel)]="senderName" [ngModelOptions]="{standalone: true}" placeholder="{{ 'REPORTS.SENDER_NAME' | translate }}" />
+            </div>
+            <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
+              <input type="text" class="form-control" [(ngModel)]="delivererName" [ngModelOptions]="{standalone: true}" placeholder="{{ 'REPORTS.DELIVERER_NAME' | translate }}" />
+            </div>
+            <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
+              <!-- <input type="text" class="form-control" placeholder="{{ 'REPORTS.STATUS' | translate }}" /> -->
+              <select #selectStatus [(ngModel)]="deliveryStatus" [ngModelOptions]="{standalone: true}">
+                <option value="">Select Status</option>
+                <option value="Accepted">Accepted</option>
+                <option value="Canceled">Canceled</option>
+                <option value="Completed">Completed</option>
+                <option value="Delivering">Delivering</option>
+                <option value="Pending">Pending</option>
+                <option value="Rejected">Rejected</option>
+              </select>
+            </div>
+          </div>
+          <div class="row button-row">
+            <button type="button" class="btn btn-default" (click)="clearSearch()">{{ 'BUTTONS.CLEAR_SEARCH' | translate }}</button>
+            <button type="submit" class="btn btn-primary" (click)="searchDelivererRequest()">{{ 'BUTTONS.SEARCH' | translate }}</button>
+          </div>
+        </form>
+      </ba-card>
+      <ba-card baCardClass="with-scroll table-panel" title="{{ totalItem }} {{ totalItem > 1 ? 'items' : 'item'}}">
+        <div class="table-responsive">
+          <table class="table">
+            <tr>
+              <th>#</th>
+              <th>{{ 'REPORTS.CREATED_TIME' | translate }}</th>
+              <th>{{ 'REPORTS.SENDER_NAME' | translate }}</th>
+              <th>{{ 'REPORTS.DELIVERER_NAME' | translate }}</th>
+              <th>{{ 'REPORTS.PICK_UP_PLACE' | translate }}</th>
+              <th>{{ 'REPORTS.DESTINATION' | translate }}</th>
+              <th>{{ 'REPORTS.FARE' | translate }}</th>
+              <th>{{ 'REPORTS.STATUS' | translate }}</th>
+              <th></th>
+            </tr>
+            <tr *ngFor="let item of tableData | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalItem }; let i = index">
+              <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+              <td>{{ item.formated_created_at }}</td>
+              <td>{{ item.sender.name }}</td>
+              <td>{{ item.deliverer.name }}</td>
+              <td>{{ item.pick_up_place }}</td>
+              <td>{{ item.destination }}</td>
+              <td>{{ item.fare }}</td>
+              <td>{{ item.status }}</td>
+              <td>
+                <div class="button-wrapper">
+                  <button type="button" class="btn btn-primary" [disabled]="!isDeliveringRequest(item) && !isCompletedRequest(item)" (click)="showTrackPopUp(item)">{{ 'BUTTONS.TRACK' | translate }}</button>
+                </div>
+              </td>
+            </tr>
+          </table>
+          <pagination-controls (pageChange)="pageChanged($event)" maxSize="7" directionLinks="true" autoHide="true" previousLabel="" nextLabel="">
+          </pagination-controls>
+        </div>
       </ba-card>
     </div>
   </div>
 </div>
 
 
-<div bsModal #trackModal="bs-modal" id="trackModal" class="modal fade" tabindex="-1" role="dialog"
-    aria-labelledby="trackModalLabel" aria-hidden="true" (onHide)="onCloseTrackModal($event)">
+<div bsModal #trackModal="bs-modal" id="trackModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="trackModalLabel" aria-hidden="true" (onHide)="onCloseTrackModal($event)">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header no-title">
-          <span>{{ selectedDeliveryRequest ? selectedDeliveryRequest.status : '' }}</span>
-          <button type="button" class="close pull-right" (click)="trackModal.hide()" aria-label="Close">
+        <span>{{ selectedDeliveryRequest ? selectedDeliveryRequest.status : '' }}</span>
+        <button type="button" class="close pull-right" (click)="trackModal.hide()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
       </div>
       <div class="modal-body">
-          <div class="google-maps"></div>
+        <div class="google-maps"></div>
       </div>
     </div>
   </div>

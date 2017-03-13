@@ -4,6 +4,7 @@ import { ZapppHttp } from '../zapppHttp';
 
 import { AppConfig } from '../../app.config';
 import { ZapppConstant } from '../../helper/zapppConstant';
+import { ZapppUtil } from '../../helper/zapppUtil';
 
 @Injectable()
 export class DeliveryService {
@@ -22,15 +23,8 @@ export class DeliveryService {
 		return this.zapppHttp.get(this.serviceUrl + '/deliverers', params);
 	}
 
-	listDeliveryRequests(paging?: Boolean, limit?: number, offset?: number): Observable<any> {
-		let params = {};
-		if (paging) {
-			params = {
-				paging: true,
-				limit: limit,
-				offset: offset
-			}
-		}
+	listDeliveryRequests(search: any, sortBy?: any, paging?: Boolean, limit?: number, offset?: number): Observable<any> {
+		let params = ZapppUtil.buildQueryParams(search, sortBy, paging, limit, offset);
 		return this.zapppHttp.get(this.serviceUrl + '/delivery_requests', params);
 	}
 
