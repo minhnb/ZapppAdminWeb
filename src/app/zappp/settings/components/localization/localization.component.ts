@@ -203,6 +203,7 @@ export class Localization extends ZapppBaseComponent {
 			self.senderReceiverLocalizationData = self.convertLocalizationDataToSheetContent(senderReceiverLocalizationData.data);
 			let changes = self.findLocalizationDataChange(senderReceiverLocalizationData.data, self.senderReceiverLocalizationDataImport);
 			self.senderReceiverLocalizationDataChange = self.convertLocalizationDataToSheetContent(changes);
+			self.importReviewModal.show();
 		});
 	}
 
@@ -235,7 +236,7 @@ export class Localization extends ZapppBaseComponent {
 		});
 	}
 	loadLocalizationData(type: string, version: string, callback?: (result: any) => void) {
-		this.localizationService.getLocalizationData(type).subscribe(
+		this.localizationService.getLocalizationData(type, version).subscribe(
 			res => {
 				if (callback) {
 					callback(res);
