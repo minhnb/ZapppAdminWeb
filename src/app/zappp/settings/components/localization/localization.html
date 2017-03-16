@@ -1,0 +1,103 @@
+<div class="widgets">
+  <div class="row">
+    <div class="col-md-12">
+      <ba-card baCardClass="with-scroll table-panel">
+          <button type="button" class="btn btn-primary" (click)="importExcelFile()">{{ 'BUTTONS.IMPORT' | translate }}</button>
+          <button type="button" class="btn btn-primary" (click)="showAllExportVersion()">{{ 'BUTTONS.EXPORT' | translate }}</button>
+          <input #inputImportExcelFile type="file" accept=".xls,.xlsx" style="display: none;" (change)="readExcelFile($event)"/>
+      </ba-card>
+      <ba-card baCardClass="with-scroll table-panel">
+          <tabset>
+              <tab heading="{{ 'LOCALIZATION.ZAPPPER' | translate }}">
+                  <localization-table [localizationData]="zappperLocalizationData"
+                    [localizationHeader]="localizationHeader" [(pageNumber)]="pageNumber"></localization-table>
+              </tab>
+              <tab heading="{{ 'LOCALIZATION.SENDER_RECEIVER' | translate }}">
+                  <localization-table [localizationData]="senderReceiverLocalizationData"
+                    [localizationHeader]="localizationHeader" [(pageNumber)]="pageNumber2"></localization-table>
+              </tab>
+          </tabset>
+      </ba-card>
+    </div>
+  </div>
+</div>
+<div bsModal #importReviewModal="bs-modal" id="importReviewModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="importReviewModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header no-title">
+        <span>{{ 'BUTTONS.IMPORT' | translate }}</span>
+        <button type="button" class="close pull-right" (click)="importReviewModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+          <tabset>
+              <tab heading="{{ 'LOCALIZATION.ZAPPPER' | translate }}">
+                  <localization-table [localizationData]="zappperLocalizationDataChange" [compareLocalizationData]="pureZappperLocalizationData"
+                    [localizationHeader]="localizationHeader" [(pageNumber)]="pageNumber"></localization-table>
+              </tab>
+              <tab heading="{{ 'LOCALIZATION.SENDER_RECEIVER' | translate }}">
+                  <localization-table [localizationData]="senderReceiverLocalizationDataChange" [compareLocalizationData]="pureSenderReceiverLocalizationData"
+                    [localizationHeader]="localizationHeader" [(pageNumber)]="pageNumber2"></localization-table>
+              </tab>
+          </tabset>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="importLocalizationData()">{{ 'BUTTONS.IMPORT' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #exportHistoryModal="bs-modal" id="exportHistoryModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exportHistoryModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header no-title">
+        <span>{{ 'BUTTONS.EXPORT' | translate }}</span>
+        <button type="button" class="close pull-right" (click)="exportHistoryModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+          <tabset>
+              <tab heading="{{ 'LOCALIZATION.ZAPPPER' | translate }}">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <tr>
+                        <th>#</th>
+                        <th>{{ 'REPORTS.CREATED_TIME' | translate }}</th>
+                        <th>{{ 'GLOBAL.VERSION' | translate }}</th>
+                        <th></th>
+                      </tr>
+                      <tr *ngFor="let item of zappperLocalizationVersions; let i = index">
+                          <td>{{ i + 1 }}</td>
+                          <td>{{ item.formated_created_at }}</td>
+                          <td>{{ item.version }}</td>
+                          <td><button type="button" class="btn btn-primary" (click)="exportZappperLocalizationData(item.version)">{{ 'BUTTONS.EXPORT' | translate }}</button></td>
+                      </tr>
+                    </table>
+                  </div>
+              </tab>
+              <tab heading="{{ 'LOCALIZATION.SENDER_RECEIVER' | translate }}">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <tr>
+                        <th>#</th>
+                        <th>{{ 'REPORTS.CREATED_TIME' | translate }}</th>
+                        <th>{{ 'GLOBAL.VERSION' | translate }}</th>
+                        <th></th>
+                      </tr>
+                      <tr *ngFor="let item of senderReceiverLocalizationVersions; let i = index">
+                          <td>{{ i + 1 }}</td>
+                          <td>{{ item.formated_created_at }}</td>
+                          <td>{{ item.version }}</td>
+                          <td><button type="button" class="btn btn-primary" (click)="exportSenderReceiverLocalizationData(item.version)">{{ 'BUTTONS.EXPORT' | translate }}</button></td>
+                      </tr>
+                    </table>
+                  </div>
+              </tab>
+          </tabset>
+      </div>
+    </div>
+  </div>
+</div>

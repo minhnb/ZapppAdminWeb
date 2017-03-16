@@ -42,7 +42,7 @@ export class DelivererAccounts extends ZapppBaseComponent {
 
 	delivererAccountsToDisplay(delivererAccounts: Array<any>): Array<any> {
 		return delivererAccounts.map(delivererAccount => {
-			delivererAccount.formated_created_at = moment.unix(delivererAccount.created_at).format(ZapppConstant.FORMAT_DATETIME);;
+			delivererAccount.formated_created_at = moment.unix(delivererAccount.created_at).format(ZapppConstant.FORMAT_DATETIME);
 			delivererAccount.approved = this.isApprovedDeliverer(delivererAccount);
 			delivererAccount.phone = delivererAccount.phone_profile ? delivererAccount.phone_profile.number : '';
 			return delivererAccount;

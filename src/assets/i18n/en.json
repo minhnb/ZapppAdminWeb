@@ -9,7 +9,8 @@
         "BACK": "Back",
         "SEARCH": "Search",
         "FROM": "From",
-        "TO": "To"
+        "TO": "To",
+        "VERSION": "Version"
     },
     "LOG_IN": {
         "BOX_TITLE": "Sign in to Zappp",
@@ -52,14 +53,17 @@
         "DELIVERER_ACCOUNTS": "Deliverer Accounts",
         "DELIVERY_REQUESTS": "Delivery Requests",
         "TRACK": "Track",
-        "DELIVERERS": "Deliverers"
+        "DELIVERERS": "Deliverers",
+        "LOCALIZATION": "Localization"
     },
     "BUTTONS": {
         "ACTIVATE": "Activate",
         "DEACTIVATE": "Deactivate",
         "TRACK": "Track",
         "SEARCH": "Search",
-        "CLEAR_SEARCH": "Clear"
+        "CLEAR_SEARCH": "Clear",
+        "IMPORT": "Import",
+        "EXPORT": "Export"
     },
     "REPORTS": {
         "SENDER_NAME": "Sender Name",
@@ -91,6 +95,11 @@
         "WARNING": "Warning"
     },
     "INFORM": {
-        "NO_RESULT_FOUND": "No result found"
+        "NO_RESULT_FOUND": "No result found",
+        "IMPORT_DATA_SUCCESSFULLY": "Import data successfully"
+    },
+    "LOCALIZATION": {
+        "ZAPPPER": "Zappper",
+        "SENDER_RECEIVER": "Sender_Receiver"
     }
 }
