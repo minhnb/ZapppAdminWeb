@@ -12,7 +12,7 @@ import { ZapppConstant } from '../../../../helper/zapppConstant';
           <th>id</th>
           <th *ngFor="let lang of localizationHeader">{{ lang }}</th>
         </tr>
-        <tr *ngFor="let item of localizationData; let i = index">
+        <tr *ngFor="let item of localizationData; let i = index" [ngClass]="getClassForKey(item)">
             <td>{{ i + 1 }}</td>
             <td>{{ item.id }}</td>
             <td *ngFor="let lang of localizationHeader" [ngClass]="isChangedLangContent(lang, item.id, item[lang]) ? 'red-text' : ''">{{ item[lang] }}</td>
@@ -33,14 +33,32 @@ export class LocalizationTable {
         this.pageSize = ZapppConstant.TABLE_PAGINATION.ITEM_PER_PAGE;
     }
 
-    isChangedLangContent(lang, id, content): boolean {
+    isChangedLangContent(lang: string, id: string, content: string): boolean {
         if (this.compareLocalizationData) {
-            if (this.compareLocalizationData[lang] && this.compareLocalizationData[lang][id] != content) {
+            if (this.compareLocalizationData[lang] && this.compareLocalizationData[lang][id] && this.compareLocalizationData[lang][id] != content) {
                 return true;
             }
         }
         return false;
     }
+
+	getClassForKey(item): any {
+		if (this.compareLocalizationData) {
+			if (this.localizationHeader.length > 0) {
+				let lang = this.localizationHeader[0];
+				if (this.compareLocalizationData[lang]) {
+					if (this.compareLocalizationData[lang][item.id] == undefined) {
+						return "green-text";
+					}
+					if (this.compareLocalizationData[lang][item.id] && !item[lang]) {
+						return "line-through-text";
+					}
+				}
+			}
+
+		}
+		return "";
+	}
 
     public resetPageNumber() {
         this.pageNumber = 1;

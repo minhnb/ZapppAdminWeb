@@ -20,6 +20,12 @@ button {
 td.red-text {
     color: #cd3333;
 }
+tr.green-text {
+    color: #a0db8e;
+}
+tr.line-through-text {
+    text-decoration: line-through;
+}
 @media (min-height: 800px) {
     ba-card {
         .tab-content {
