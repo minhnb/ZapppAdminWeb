@@ -165,7 +165,24 @@ export class Localization extends ZapppBaseComponent {
 				});
 			}
 		});
+		let newFirstLang = newLocalizationData[keys[0]];
+		let newIds = this.findNewIds(Object.keys(firstLang), Object.keys(newFirstLang));
+		newIds.forEach(key => {
+			keys.forEach(langKey => {
+				changes[langKey][key] = newLocalizationData[langKey][key];
+			});
+		});
 		return changes;
+	}
+
+	findNewIds(listId: Array<string>, listNewId: Array<string>): Array<string> {
+		let result: Array<string> = [];
+		listNewId.forEach(id => {
+			if (listId.indexOf(id) == -1) {
+				result.push(id);
+			}
+		});
+		return result;
 	}
 
 	compareZappperLocalizationDataImport() {
