@@ -1,0 +1,41 @@
+<input [(ngModel)]="dateTimeModelFormatted" class="form-control" (focus)="showDateTimePicker($event)" placeholder="{{ placeholder }}" />
+<template #dateTimePickerPopOverTemplate>
+    <div class="datetime-picker-container" #dateTimePickerContainer (click)="preventHidePopOver($event)">
+        <datepicker [(ngModel)]="dateTimeModel"
+        [activeDate]="activeDate"
+        [customClass]="customClass"
+        [dateDisabled]="dateDisabled"
+        [datepickerMode]="datepickerMode"
+        [formatDay]="formatDay"
+        [formatDayHeader]="formatDayHeader"
+        [formatDayTitle]="formatDayTitle"
+        [formatMonth]="formatMonth"
+        [formatMonthTitle]="formatMonthTitle"
+        [formatYear]="formatYear"
+        [initDate]="initDate"
+        [maxDate]="maxDate"
+        [maxMode]="maxMode"
+        [minDate]="minDate"
+        [minMode]="minMode"
+        [monthColLimit]="monthColLimit"
+        [onlyCurrentMonth]="onlyCurrentMonth"
+        [shortcutPropagation]="shortcutPropagation"
+        [showWeeks]="showWeeks"
+        [startingDay]="startingDay"
+        [yearColLimit]="yearColLimit"
+        [yearRange]="yearRange"
+        (ngModelChange)="selectDate($event)" ></datepicker>
+        <timepicker [hidden]="hideTimePicker" [(ngModel)]="timeModel"
+        [arrowkeys]="arrowkeys"
+        [hourStep]="hourStep"
+        [max]="maxTime"
+        [meridians]="meridians"
+        [min]="minTime"
+        [minuteStep]="minuteStep"
+        [mousewheel]="mousewheel"
+        [readonlyInput]="readonlyInput"
+        [showMeridian]="showMeridian"
+        [showSpinners]="showSpinners"
+        (ngModelChange)="handleTimePickerChanged($event)"></timepicker>
+    </div>
+</template>

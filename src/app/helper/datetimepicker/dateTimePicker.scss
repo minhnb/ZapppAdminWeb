@@ -1,0 +1,59 @@
+.datetime-picker-container {
+    padding: 9px;
+    * {
+        outline: none;
+    }
+    .card {
+        box-shadow: none;
+        margin-bottom: 10px;
+        font-size: 13px;
+    }
+    button.btn.btn-default {
+        border: none;
+    }
+    button.btn.btn-default, small, strong {
+        color: #333333;
+        font-size: inherit;
+    }
+    button.btn
+    {
+        transform: none;
+        &:not(.btn-info) {
+            &:hover, &:active, &:focus {
+                background: #eeeeee;
+            }
+        }        
+    }
+    .text-info {
+        color: #333333 !important;
+    }
+    monthpicker, yearpicker {
+        button.btn {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+    }
+    timepicker {
+        margin: 20px auto;
+        display: table;
+        .form-control {
+            color: #333333;
+            border: 1px solid #dddddd;
+        }
+    }
+}
+datetime-picker-popover-container {
+    .popover-content {
+        padding: 0;
+    }
+    .popover {
+        max-width: 500px;
+        font-size: inherit;
+    }
+    .popover-arrow {
+        display: none;
+    }
+    &.popover.popover-bottom, &.popover.bs-tether-element-attached-top {
+        margin-top: 1px;
+    }
+}

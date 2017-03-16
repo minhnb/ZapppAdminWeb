@@ -4,36 +4,21 @@
     position: relative;
 
     input {
-        padding-left: 90px;
+        padding-left: 95px;
     }
 
     select {
-        -moz-appearance: none;
-        -moz-user-select: none;
-        -webkit-appearance: none;
-        -webkit-user-select: none;
         background-color: #2f4959;
         background-image: url($images-root + 'zappp/select-arrow-down.png'), linear-gradient(#2f4959, #2f4959 40%, #2f4959);
-        background-position: 85% center;
-        background-repeat: no-repeat;
-        background-size: auto 100%;
         border: none;
-        border-bottom-left-radius: 5px;
-        border-top-left-radius: 5px;
+        border-radius: 5px 0 0 5px;
         color: inherit;
         font-size: inherit;
         height: calc(100% - 2px);
-        left: 0;
-        margin-left: 16px;
-        outline: none;
-        overflow: hidden;
+        width: 85px;
         padding: 7px 5px;
         position: absolute;
-        text-overflow: ellipsis;
-        top: 1px;
-        white-space: nowrap;
-        width: 80px;
-        z-index: 10;
+        margin-left: 16px;
 
         &:focus, &:active {
             outline: none;

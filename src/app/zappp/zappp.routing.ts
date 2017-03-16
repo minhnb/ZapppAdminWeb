@@ -37,12 +37,12 @@ const routes: Routes = [
 				loadChildren: () => System.import('./reports/reports.module')
 			},
 			{
-				path: 'tables',
-				loadChildren: () => System.import('./tables/tables.module')
-			},
-			{
 				path: 'track',
 				loadChildren: () => System.import('./track/track.module')
+			},
+			{
+				path: 'settings',
+				loadChildren: () => System.import('./settings/settings.module')
 			}
 		]
 	}

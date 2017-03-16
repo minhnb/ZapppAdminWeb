@@ -23,5 +23,11 @@ export const ZapppConstant = {
     FORMAT_TIME_FULL: 'HH:mm:ss',
     TABLE_PAGINATION: {
         ITEM_PER_PAGE: 20
+    },
+    SENDER_APP: 'sender_app',
+    DELIVERER_APP: 'deliverer_app',
+    LOCALIZATION_EXCEL_FILE: {
+        ZAPPPER_SHEET: 'zappper',
+        SENDER_RECEIVER_SHEET: 'sender_receiver'
     }
 };

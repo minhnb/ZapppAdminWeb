@@ -53,6 +53,19 @@ export const PAGES_MENU = [
 					}
 				},
 				roles: ['admin']
+			},
+			{
+				path: 'settings/localization',
+				data: {
+					menu: {
+						title: 'MENU.LOCALIZATION',
+						icon: 'ion-gear-b',
+						selected: false,
+						expanded: false,
+						order: 3
+					}
+				},
+				roles: ['admin']
 			}
 		]
 	}
