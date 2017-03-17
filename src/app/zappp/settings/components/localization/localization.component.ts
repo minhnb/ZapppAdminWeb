@@ -79,6 +79,10 @@ export class Localization extends ZapppBaseComponent {
 	}
 
 	readWorkbook(workbook: any) {
+		this.zappperLocalizationDataImport = {};
+		this.senderReceiverLocalizationDataImport = {};
+		this.zappperLocalizationDataChange = [];
+		this.senderReceiverLocalizationDataChange = [];
 		workbook.SheetNames.forEach(sheetName => {
 			let sheet = workbook.Sheets[sheetName];
 			let sheetContent = XLSX.utils.sheet_to_json(sheet);
@@ -203,6 +207,7 @@ export class Localization extends ZapppBaseComponent {
 			self.senderReceiverLocalizationData = self.convertLocalizationDataToSheetContent(senderReceiverLocalizationData.data);
 			let changes = self.findLocalizationDataChange(senderReceiverLocalizationData.data, self.senderReceiverLocalizationDataImport);
 			self.senderReceiverLocalizationDataChange = self.convertLocalizationDataToSheetContent(changes);
+			self.importReviewModal.show();
 		});
 	}
 
@@ -219,23 +224,29 @@ export class Localization extends ZapppBaseComponent {
 		)
 	}
 	updateZappperLocalzationData(callback?: (result: any) => void) {
+		if (Object.keys(this.zappperLocalizationDataImport).length == 0) {
+			return callback(null);
+		}
 		this.updateLocalizationData(ZapppConstant.DELIVERER_APP, this.zappperLocalizationDataImport, callback);
 	}
 	updateSenderReceiverLocalzationData(callback?: (result: any) => void) {
+		if (Object.keys(this.senderReceiverLocalizationDataImport).length == 0) {
+			return callback(null);
+		}
 		this.updateLocalizationData(ZapppConstant.SENDER_APP, this.senderReceiverLocalizationDataImport, callback);
 	}
 	importLocalizationData() {
 		let self = this;
 		self.updateZappperLocalzationData(zappperLocalizationData => {
 			self.updateSenderReceiverLocalzationData(senderReceiverLocalizationData => {
-				this.loadAllLocalizationData();
+				self.loadAllLocalizationData();
 				self.importReviewModal.hide();
 				self.zapppAlert.showInfo(self.translate.instant('INFORM.IMPORT_DATA_SUCCESSFULLY'));
 			});
 		});
 	}
 	loadLocalizationData(type: string, version: string, callback?: (result: any) => void) {
-		this.localizationService.getLocalizationData(type).subscribe(
+		this.localizationService.getLocalizationData(type, version).subscribe(
 			res => {
 				if (callback) {
 					callback(res);
