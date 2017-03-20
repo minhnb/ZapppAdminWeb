@@ -412,4 +412,11 @@ export class Localization extends ZapppBaseComponent {
 		}
 		return header;
 	}
+
+	hasImportData(): boolean {
+		if (this.zappperLocalizationDataChange.length > 0 || this.senderReceiverLocalizationDataChange.length > 0) {
+			return true;
+		}
+		return false;
+	}
 }

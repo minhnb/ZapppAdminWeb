@@ -43,7 +43,8 @@
           </tabset>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="importLocalizationData()">{{ 'BUTTONS.IMPORT' | translate }}</button>
+        <span class="table-no-change red-text" [hidden]="hasImportData()">{{ 'LOCALIZATION.NO_CHANGES' | translate }}</span>
+        <button type="button" class="btn btn-primary" [disabled]="!hasImportData()" (click)="importLocalizationData()">{{ 'BUTTONS.IMPORT' | translate }}</button>
       </div>
     </div>
   </div>
