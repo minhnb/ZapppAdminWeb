@@ -54,3 +54,11 @@ select {
         color: inherit;
     }
 }
+table.table {
+    th {
+        padding: 8px;
+    }
+    tbody > tr > td:first-child {
+        text-align: left;
+    }
+}
