@@ -41,7 +41,11 @@
             "BAD_REQUEST": "Couldn't send PIN code to your phone number. Please double check."
         },
         "CONNECTION": "Couldn't connect to server. Please double check and try again.",
-        "UNKNOWN": "Unknown error. Please try again later."
+        "UNKNOWN": "Unknown error. Please try again later.",
+        "LOCALIZATION": {
+            "INVALID_TEMPLATE": "Invalid template. Please try another file.",
+            "TEMPLATE_CHANGED": "The template has been changed from server side. Please export the lastest version and try importing it again."
+        }
     },
     "CONFIRM": {
         "DEACTIVATE_DELIVERER": "Are you sure you want to deactivate deliverer {{name}} ?"
