@@ -1,4 +1,4 @@
-button {
+ba-card .card-body > button {
     margin: 10px 10px 0 10px;
 }
 .nav.nav-tabs {
@@ -15,9 +15,14 @@ button {
             max-height: calc(100vh - 200px);
             overflow-y: auto;
         }
+        .table-no-change {
+            padding: 5px;
+            margin-left: 15px;
+            float: left;
+        }
     }
 }
-td.red-text {
+td.red-text, span.red-text {
     color: #cd3333;
 }
 tr.green-text {

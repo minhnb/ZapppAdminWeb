@@ -25,7 +25,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header no-title">
-        <span>{{ 'BUTTONS.IMPORT' | translate }}</span>
+        <span>{{ 'LOCALIZATION.IMPORT_CHANGES_COMPARISON' | translate }}</span>
         <button type="button" class="close pull-right" (click)="importReviewModal.hide()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -43,7 +43,8 @@
           </tabset>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="importLocalizationData()">{{ 'BUTTONS.IMPORT' | translate }}</button>
+        <span class="table-no-change red-text" [hidden]="hasImportData()">{{ 'LOCALIZATION.NO_CHANGES' | translate }}</span>
+        <button type="button" class="btn btn-primary" [disabled]="!hasImportData()" (click)="importLocalizationData()">{{ 'BUTTONS.IMPORT' | translate }}</button>
       </div>
     </div>
   </div>
