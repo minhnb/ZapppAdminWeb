@@ -93,11 +93,11 @@ export class Localization extends ZapppBaseComponent {
 			let sheetContent = XLSX.utils.sheet_to_json(sheet);
 			switch (sheetName.toLowerCase()) {
 				case ZapppConstant.LOCALIZATION_EXCEL_FILE.ZAPPPER_SHEET:
-					this.zappperLocalizationDataImport = this.convertSheetContentToLocalizationData(sheetContent);
+					this.zappperLocalizationDataImport = this.convertSheetContentToLocalizationData(sheetContent, header);
 					this.compareZappperLocalizationDataImport(header);
 					break;
 				case ZapppConstant.LOCALIZATION_EXCEL_FILE.SENDER_RECEIVER_SHEET:
-					this.senderReceiverLocalizationDataImport = this.convertSheetContentToLocalizationData(sheetContent);
+					this.senderReceiverLocalizationDataImport = this.convertSheetContentToLocalizationData(sheetContent, header);
 					this.compareSenderReceiverLocalizationDataImport(header);
 					break;
 				default:
@@ -105,17 +105,23 @@ export class Localization extends ZapppBaseComponent {
 		});
 	}
 
-	convertSheetContentToLocalizationData(sheetContent: Array<any>): any {
+	initLocalizationDataObject(exceptKeys: Array<string>, header: Array<string>): any {
 		let localizationData: any = {};
+		header.forEach(key => {
+			let lowercaseKey = key.toLowerCase();
+			if (exceptKeys.indexOf(lowercaseKey) == -1) {
+				localizationData[lowercaseKey] = {};
+			}
+		});
+		return localizationData;
+	}
+
+	convertSheetContentToLocalizationData(sheetContent: Array<any>, header?: Array<string>): any {
+		let localizationData: any = {};
+		let exceptKeys = this.exceptKeys;
 		if (sheetContent.length > 0) {
 			let firstRow = sheetContent[0];
-			let exceptKeys = this.exceptKeys;
-			Object.keys(firstRow).forEach(key => {
-				let lowercaseKey = key.toLowerCase();
-				if (exceptKeys.indexOf(lowercaseKey) == -1) {
-					localizationData[lowercaseKey] = {};
-				}
-			});
+			localizationData = this.initLocalizationDataObject(exceptKeys, Object.keys(firstRow));
 			sheetContent.forEach(row => {
 				let id = row.id || row.ID || row.Id || row.iD;
 				if (id) {
@@ -127,6 +133,10 @@ export class Localization extends ZapppBaseComponent {
 					});
 				}
 			});
+		} else {
+			if (header) {
+				localizationData = this.initLocalizationDataObject(exceptKeys, header);
+			}
 		}
 		return localizationData;
 	}
@@ -325,7 +335,15 @@ export class Localization extends ZapppBaseComponent {
 		let fileName = type + '_' + version;
 		this.loadLocalizationData(type, version, localizationData => {
 			let data = self.convertLocalizationDataToSheetContent(localizationData.data);
-			alasql("SELECT * INTO XLSX('" + fileName + ".xlsx',{ header: true, sheetid: '" + sheetName + "' }) FROM ? ", [data]);
+			if (data.length > 0) {
+				alasql("SELECT * INTO XLSX('" + fileName + ".xlsx',{ headers: true, sheetid: '" + sheetName + "' }) FROM ? ", [data]);
+			} else {
+				let headerRow = { id: 'id' };
+				self.localizationHeader.forEach(lang => {
+					headerRow[lang] = lang;
+				});
+				alasql("SELECT * INTO XLSX('" + fileName + ".xlsx',{ headers: false, sheetid: '" + sheetName + "' }) FROM ? ", [[headerRow]]);
+			}
 		});
 	}
 	exportZappperLocalizationData(version: string) {
