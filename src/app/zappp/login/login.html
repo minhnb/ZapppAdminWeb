@@ -1,6 +1,7 @@
 <div class="auth-main">
   <div class="auth-block" [hidden]="isShowStepTwoLoginByPhoneForm">
     <h1>{{ 'LOG_IN.BOX_TITLE' | translate }}</h1>
+    <a routerLink="/register" class="auth-link">{{ 'LOG_IN.SIGN_UP_LINK_TEXT' | translate }}</a>
 
     <form [formGroup]="stepOneLoginByPhoneForm" (ngSubmit)="getPinCode(stepOneLoginByPhoneForm.value)" class="form-horizontal">
       <div class="form-group row" [ngClass]="{'has-error': (!phoneNumber.valid && phoneNumber.touched), 'has-success': (phoneNumber.valid && phoneNumber.touched)}">
