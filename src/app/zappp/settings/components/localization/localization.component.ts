@@ -391,14 +391,25 @@ export class Localization extends ZapppBaseComponent {
 	}
 
 	isValidHeader(header: Array<string>): boolean {
-		let lackIds = this.findNewIds(header, this.localizationHeader);
+		if (header.length > this.localizationHeader.length + this.exceptKeys.length) {
+			return false;
+		}
+		let fullHeaders = this.localizationHeader.concat('id');
+		let lackIds = this.findNewIds(header, fullHeaders);
 		if (lackIds.length > 0) {
 			return false;
 		}
-		var fullHeaders = this.localizationHeader.concat(this.exceptKeys);
 		let redundancyIds = this.findNewIds(fullHeaders, header);
-		if (redundancyIds.length > 0) {
+		if (header.length > fullHeaders.length + redundancyIds.length) {
 			return false;
+		}
+		if (redundancyIds.length > 0) {
+			for (let i = 0; i < redundancyIds.length; i++) {
+				let key = redundancyIds[i];
+				if (this.exceptKeys.indexOf(key) == -1) {
+					return false;
+				}
+			}
 		}
 		return true;
 	}
