@@ -20,7 +20,7 @@
             </div>
             <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
               <!-- <input type="text" class="form-control" placeholder="{{ 'REPORTS.STATUS' | translate }}" /> -->
-              <select #selectStatus [(ngModel)]="deliveryStatus" [ngModelOptions]="{standalone: true}">
+              <select #selectStatus class="form-control" [(ngModel)]="deliveryStatus" [ngModelOptions]="{standalone: true}">
                 <option value="">Select Status</option>
                 <option value="Accepted">Accepted</option>
                 <option value="Canceled">Canceled</option>

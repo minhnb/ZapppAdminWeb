@@ -9,7 +9,8 @@ export const ZapppConstant = {
         DELIVERER: 'Deliverer'
     },
     PATTERN: {
-        ONLY_DIGIT: '^[0-9]*$'
+        ONLY_DIGIT: '^[0-9]*$',
+        VALID_USERNAME: '^[a-zA-Z][0-9a-zA-Z_.]+$'
     },
     KEYCODE: {
         UP: 38,

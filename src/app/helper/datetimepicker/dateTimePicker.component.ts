@@ -83,6 +83,8 @@ export class DateTimePicker {
 	timeModel: Date = new Date();
 	dateTimeModelFormatted: String;
 
+	public touched: boolean = false;
+
     @HostListener('document:click', ['$event'])
 	documentClick(event) {
         if (!this._elementRef.nativeElement.contains(event.target)) {
@@ -127,6 +129,7 @@ export class DateTimePicker {
     hideDateTimePicker() {
         if (this.popover.isShown) {
             this.popover.hide();
+			this.touched = true;
         }
     }
 

@@ -1,1 +1,30 @@
 @import '../../theme/sass/auth';
+
+.image-box {
+    border: 1px solid #ccc;
+    width: 100%;
+    height: 175px;
+}
+.auth-main {
+    height: auto;
+}
+.form-group.has-error {
+    .picture-group {
+        border-color: #fa758e;
+    }
+}
+.form-group .picture-group {
+    margin: auto;
+}
+form.register-form {
+    .phone-number-group {
+        select {
+            margin-left: 1px;
+        }
+    }
+}
+@media (max-width: 767px) {
+    #inputSwiftCode {
+        margin-bottom: 15px;
+    }
+}

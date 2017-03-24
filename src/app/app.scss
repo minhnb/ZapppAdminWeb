@@ -27,8 +27,8 @@ select {
     -moz-user-select: none;
     -webkit-appearance: none;
     -webkit-user-select: none;
-    background-color: #67a0d3;
-    background-image: url($images-root + 'zappp/select-arrow-down.png'), linear-gradient(#67a0d3, #67a0d3 40%, #67a0d3);
+    background-color: rgba(255, 255, 255, 0.1);
+    background-image: url($images-root + 'zappp/select-arrow-down.png');
     background-position: right center;
     background-repeat: no-repeat;
     background-size: auto 100%;
@@ -53,7 +53,48 @@ select {
         outline: none;
         color: inherit;
     }
+
+    option[value=""][disabled] {
+      display: none;
+    }
 }
+
+select.form-control {
+    &, &:focus, &:active {
+        background-image: url(assets/img/zappp/select-arrow-down.png);
+        background-position: right center;
+        background-repeat: no-repeat;
+        background-size: auto 100%;
+    }
+}
+
+.phone-number-group {
+    position: relative;
+
+    input {
+        padding-left: 95px;
+    }
+
+    select {
+        background-color: #2f4959;
+        background-image: url($images-root + 'zappp/select-arrow-down.png'), linear-gradient(#2f4959, #2f4959 40%, #2f4959);
+        border: none;
+        border-radius: 5px 0 0 5px;
+        color: inherit;
+        font-size: inherit;
+        height: calc(100% - 2px);
+        width: 85px;
+        padding: 7px 5px;
+        position: absolute;
+        margin-left: 16px;
+
+        &:focus, &:active {
+            outline: none;
+            color: inherit;
+        }
+    }
+}
+
 table.table {
     th {
         padding: 8px;

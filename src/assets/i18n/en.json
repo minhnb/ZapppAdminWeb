@@ -3,14 +3,38 @@
         "EMAIL": "Email",
         "PASSWORD": "Password",
         "NAME": "Name",
-        "FULL_NAME": "Full Name",
-        "PHONE_NUMBER": "Phone Number",
+        "USERNAME": "Username",
+        "FULL_NAME": "Full name",
+        "FIRST_NAME": "First name",
+        "LAST_NAME": "Last name",
+        "PHONE_NUMBER": "Phone number",
+        "BIRTHDAY": "Birthday",
+        "IDENTIFICATION_NUMBER": "Identification number",
+        "GENDER": "Gender",
+        "PHOTO": "Photo",
         "PIN": "PIN",
+        "COUNTRY": "Country",
+        "HOME_ADDRESS": "Home address",
+        "AVAILABLE_TRANSPORTATION": "Available transportation",
+        "PAYMENT_CARD": "Payment card",
+        "BANK_ACCOUNT_INFO": "Bank account info",
+        "SWIFT_CODE": "Swift code",
+        "ACCOUNT_NUMBER": "Account number",
         "BACK": "Back",
         "SEARCH": "Search",
         "FROM": "From",
         "TO": "To",
         "VERSION": "Version"
+    },
+    "GENDER_TYPE": {
+        "MALE": "Male",
+        "FEMALE": "Female",
+        "OTHER": "Other"
+    },
+    "TRANSPORTATION": {
+        "WALK": "Walk",
+        "BICYCLE": "Bicycle",
+        "VEHICLE": "Vehicle"
     },
     "LOG_IN": {
         "BOX_TITLE": "Sign in to Zappp",
@@ -25,12 +49,12 @@
     "SIGN_UP": {
         "BOX_TITLE": "Sign up to Zappp",
         "LOG_IN_LINK_TEXT": "Already have an Zappp account? Sign in!",
-        "CONFIRM_PASSWORD": "Repeat",
-        "SUBMIT_BUTTON_TEXT": "Sign up",
+        "ENTER_YOUR_PASSWORD": "Enter your password",
+        "CONFIRM_PASSWORD": "Re-enter your passsword",
+        "SUBMIT_BUTTON_TEXT": "Register",
         "SIGN_UP_WITH_THIRD_PARTY_ACCOUNT": "or Sign up with one click",
         "SIGN_UP_WITH_FACEBOOK": "Sign up with Facebook",
-        "SIGN_UP_WITH_GOOGLE": "Sign up with Google Plus",
-        "ERROR_PASSWORD_DONT_MATCH": "Passwords don't match."
+        "SIGN_UP_WITH_GOOGLE": "Sign up with Google Plus"
     },
     "LOGIN_BY_PHONE": {
         "SEND_PIN": "Send PIN",
@@ -107,5 +131,29 @@
         "SENDER_RECEIVER": "Sender_Receiver",
         "NO_CHANGES": "No changes",
         "IMPORT_CHANGES_COMPARISON": "Import - Changes comparison"
+    },
+    "SYNC": {
+        "STR_ERR_FIRST_NAME_IS_REQUIRED": "First name is required.",
+        "STR_ERR_LAST_NAME_IS_REQUIRED": "Last name is required.",
+        "STR_ERR_EMAIL_IS_REQUIRED": "Email is required.",
+        "STR_ERR_EMAIL_IS_INVALID": "Email is invalid.",
+        "STR_ERR_USERNAME_IS_REQUIRED": "Username is required.",
+        "STR_ERR_USERNAME_LENGTH": "Username should be longer than 3 and shorter than 30 characters.",
+        "STR_ERR_USERNAME_FORMAT": "Username can only contain letters, numbers, underscores and dots.",
+        "STR_ERR_PASSWORD_IS_REQUIRED": "Password is required.",
+        "STR_ERR_PASSWORD_LENGTH": "Password should be longer than 3 characters.",
+        "STR_ERR_PASSWORD_CONFIRM_PASSWORD_NOT_MATCH": "Your password and confirm password do not match.",
+        "STR_ERR_BIRTHDAY_IS_REQUIRED": "Birthday is required.",
+        "STR_ERR_ID_IS_REQUIRED": "Identification number is required.",
+        "STR_ERR_GENDER_IS_REQUIRED": "Gender is required.",
+        "STR_ERR_PHOTO_IS_REQUIRED": "Photo is required.",
+        "STR_ERR_PHONE_NUMBER_IS_REQUIRED": "Phone number is required.",
+        "STR_ERR_INVALID_PHONE_NUMBER": "Invalid phone number.",
+        "STR_ERR_COUNTRY_IS_REQUIRED": "Country is required.",
+        "STR_ERR_HOME_ADDRESS_IS_REQUIRED": "Home address is required.",
+        "STR_ERR_MISSING_VEHICLE": "Please select at least 1.",
+        "STR_ERR_MISSING_BANK_INFO": "Swift code and account number are required.",
+        "STR_ERR_EMAIL_IS_IN_USE": "Email is already in use. Please try another one.",
+        "STR_SERVER_ERR_USERNAME_IS_IN_USE": "Username is already in use. Please try another one."
     }
 }
