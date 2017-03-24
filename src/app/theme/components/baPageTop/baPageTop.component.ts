@@ -4,6 +4,7 @@ import { GlobalState } from '../../../global.state';
 
 import { ZapppBaseComponent } from '../../../zappp/baseComponent/base.component';
 import { UserService } from '../../../services/user';
+import { ZapppConstant } from '../../../helper/zapppConstant';
 
 @Component({
 	selector: 'ba-page-top',
@@ -35,17 +36,22 @@ export class BaPageTop extends ZapppBaseComponent {
 	}
 
 	public signOut(event) {
+		let role = localStorage.getItem(ZapppConstant.ROLE);
         this.userService.logOut().subscribe(
             res => {
-                this.goToLoginPage();
+                this.goToLoginPage(role);
             },
             error => {
-                this.goToLoginPage();
+                this.goToLoginPage(role);
             });;
         event.preventDefault();
 	}
 
-    goToLoginPage() {
-        this.router.navigateByUrl('/login');
+    goToLoginPage(role) {
+		if (role == 'admin') {
+			this.router.navigate(['admin/login']);
+		} else {
+			this.router.navigate(['/login']);
+		}
     }
 }
