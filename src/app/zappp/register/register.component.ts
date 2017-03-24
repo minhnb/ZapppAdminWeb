@@ -102,11 +102,20 @@ export class Register extends ZapppBaseComponent {
 		};
 		this.userService.delivererSignUp(user).subscribe(
 			res => {
-				this.zapppAlert.showInfo(this.translate.instant('SIGN_UP.SIGN_UP_SUCCESSFULLY'));
-				this.initRegisterForm();
+				this.afterRegisterAction();
 			},
 			error => {
 				this.zapppAlert.showError(error.message);
+			});
+	}
+
+	afterRegisterAction() {
+		this.zapppAlert.showInfo(this.translate.instant('SIGN_UP.SIGN_UP_SUCCESSFULLY'))
+			.then(result => {
+				this.initRegisterForm();
+			})
+			.catch(err => {
+				this.initRegisterForm();
 			});
 	}
 

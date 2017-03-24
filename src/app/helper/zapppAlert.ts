@@ -51,7 +51,14 @@ export class ZapppAlert {
 			.showClose(true)
 			.title(title)
 			.body(message)
-			.open();
+			.open()
+            .catch(err => {
+				console.log(err);
+			})
+			.then((dialog: any) => dialog.result)
+            .then(result => {
+                this.isShowingError = false;
+            });
     }
 
     showConfirm(message: string, title?: string): any {
