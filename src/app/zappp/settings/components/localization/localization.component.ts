@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation, Injector, ViewChild, ElementRef } from '@
 import { ZapppBaseComponent } from '../../../baseComponent/base.component';
 import { LocalizationService } from '../../../../services/admin/localization';
 import { ZapppConstant } from '../../../../helper/zapppConstant';
-import { ModalDirective } from 'ng2-bootstrap';
+import { ModalDirective, TabsetComponent } from 'ng2-bootstrap';
 var moment = require('moment');
 declare const XLSX: any;
 declare const alasql: any;
@@ -19,6 +19,8 @@ export class Localization extends ZapppBaseComponent {
 	@ViewChild('inputImportExcelFile') inputImportExcelFile: ElementRef;
 	@ViewChild('importReviewModal') importReviewModal: ModalDirective;
 	@ViewChild('exportHistoryModal') exportHistoryModal: ModalDirective;
+	@ViewChild('tabLocalizationDataChange') tabLocalizationDataChange: TabsetComponent;
+	@ViewChild('tabLocalizationVersions') tabLocalizationVersions: TabsetComponent;
 
 	tableData = [];
 	pageSize: number;
@@ -447,5 +449,27 @@ export class Localization extends ZapppBaseComponent {
 			return true;
 		}
 		return false;
+	}
+
+	tabsetSelectTab(tabset: TabsetComponent, heading: string) {
+		if (tabset && tabset.tabs.length > 0) {
+			tabset.tabs.forEach(tab => {
+				if (tab.heading == heading) {
+					tab.active = true;
+				}
+			});
+		}
+	}
+
+	onShowImportReviewModal() {
+		if (this.zappperLocalizationDataChange.length == 0 && this.senderReceiverLocalizationDataChange.length > 0) {
+			this.tabsetSelectTab(this.tabLocalizationDataChange, this.translate.instant('LOCALIZATION.SENDER_RECEIVER'));
+		} else {
+			this.tabsetSelectTab(this.tabLocalizationDataChange, this.translate.instant('LOCALIZATION.ZAPPPER'));
+		}
+	}
+
+	onShowExportHistoryModal() {
+		this.tabsetSelectTab(this.tabLocalizationVersions, this.translate.instant('LOCALIZATION.ZAPPPER'));
 	}
 }
