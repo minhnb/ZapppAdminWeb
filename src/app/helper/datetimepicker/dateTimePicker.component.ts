@@ -156,5 +156,6 @@ export class DateTimePicker {
 		this.dateTimeModel = null;
 		this.dateTimeModelFormatted = '';
 		this.dateTimeModelChange.emit(this.dateTimeModel);
+		this.touched = false;
 	}
 }

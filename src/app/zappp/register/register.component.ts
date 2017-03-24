@@ -8,6 +8,8 @@ import { ZapppConstant } from '../../helper/zapppConstant';
 import { DateTimePicker } from '../../helper/datetimepicker';
 import { BaPictureUploader } from '../../theme/components/baPictureUploader';
 
+var moment = require('moment');
+
 @Component({
 	selector: 'register',
 	encapsulation: ViewEncapsulation.None,
@@ -28,6 +30,7 @@ export class Register extends ZapppBaseComponent {
 	public idNumber: AbstractControl;
 	public gender: AbstractControl;
 	public phoneNumber: AbstractControl;
+	public phoneNumberCountryCode: AbstractControl;
 	public country: AbstractControl;
 	public homeAddress: AbstractControl;
 	public swiftCode: AbstractControl;
@@ -38,7 +41,7 @@ export class Register extends ZapppBaseComponent {
 
 	public submitted: boolean = false;
 	public birthdayDay: Date;
-	public avatar_base64: String = '';
+	public avatarBase64: String = '';
 
 	public checkboxPropertiesMapping = {
 		model: 'checked',
@@ -50,38 +53,117 @@ export class Register extends ZapppBaseComponent {
 	public checkboxModel: Array<any>;
 	formatDateTime: String;
 
-	constructor(private injector: Injector, private userService: UserService, fb: FormBuilder) {
+	constructor(private injector: Injector, private userService: UserService, private formBuilder: FormBuilder) {
         super(injector);
 
 		this.formatDateTime = ZapppConstant.FORMAT_DATE;
+		this.initRegisterForm();
+	}
+
+	public onSubmit(values: Object): void {
+		this.submitted = true;
+		if (!this.form.valid) {
+            return;
+		}
+		if (!this.avatarBase64 || !this.birthdayDay || !this.availableTransportationHasCheck()) {
+			return;
+		}
+		let email = this.email.value;
+		let password = this.password.value;
+		let name = this.getFullName(this.firstName.value, this.lastName.value);
+		let username = this.username.value;
+		let avatarBase64 = this.avatarBase64;
+		let phoneNumber = this.phoneNumber.value;
+		let phoneNumberCountryCode = this.phoneNumberCountryCode.value;
+		let citizenId = this.idNumber.value;
+		let gender = this.gender.value;
+		let birthday = moment(this.birthdayDay).format('YYYY/MM/DD');
+		let country = this.country.value;
+		let homeAddress = this.homeAddress.value;
+		let vehicles = this.getAvailableTransportation();
+		let swiftCode = this.swiftCode.value;
+		let bankAccountNumber = this.accountNumber.value;
+		let user = {
+			email: email,
+			name: name,
+			username: username,
+			password: password,
+			birthday: birthday,
+			citizen_id: citizenId,
+			gender: gender,
+			phone_number: phoneNumber,
+			phone_number_country_code: phoneNumberCountryCode,
+			country: country,
+			home_address: homeAddress,
+			vehicles: vehicles,
+			swift_code: swiftCode,
+			bank_account_number: bankAccountNumber,
+			avatar_base64: avatarBase64
+		};
+		this.userService.delivererSignUp(user).subscribe(
+			res => {
+				this.zapppAlert.showInfo(this.translate.instant('SIGN_UP.SIGN_UP_SUCCESSFULLY'));
+				this.initRegisterForm();
+			},
+			error => {
+				this.zapppAlert.showError(error.message);
+			});
+	}
+
+	availableTransportationHasCheck(): boolean {
+		for (let i = 0; i < this.checkboxModel.length; i++) {
+			let checkbox = this.checkboxModel[i];
+			if (checkbox.checked) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	getAvailableTransportation(): Array<string> {
+		return this.checkboxModel.map(vehicle => {
+			return vehicle.value;
+		})
+	}
+
+	getFullName(firstName: string, lastName: string): string {
+		let names = [firstName, lastName];
+		return names.filter(Boolean).join(' ');
+	}
+
+	initRegisterForm() {
 		this.checkboxModel = [
 			{
 				name: this.translate.instant('TRANSPORTATION.WALK'),
 				checked: false,
-				class: 'col-md-4'
+				class: 'col-md-4',
+				value: "walk"
 			},
 			{
 				name: this.translate.instant('TRANSPORTATION.BICYCLE'),
 				checked: false,
-				class: 'col-md-4'
+				class: 'col-md-4',
+				value: 'bicycle'
 			}, {
 				name: this.translate.instant('TRANSPORTATION.VEHICLE'),
 				checked: false,
-				class: 'col-md-4'
+				class: 'col-md-4',
+				value: 'vehicle'
 			}
 		];
-		this.form = fb.group({
+		this.form = this.formBuilder.group({
 			'firstName': ['', Validators.compose([Validators.required])],
 			'lastName': ['', Validators.compose([Validators.required])],
 			'email': ['', Validators.compose([Validators.required, EmailValidator.validate])],
 			'username': ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(30), Validators.pattern(ZapppConstant.PATTERN.VALID_USERNAME)])],
-			'passwords': fb.group({
+			'passwords': this.formBuilder.group({
 				'password': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
 				'repeatPassword': ['', Validators.compose([Validators.required, Validators.minLength(4)])]
 			}, { validator: EqualPasswordsValidator.validate('password', 'repeatPassword') }),
 			'idNumber': ['', Validators.compose([Validators.required])],
 			'gender': ['', Validators.compose([Validators.required])],
 			'phoneNumber': ['', Validators.compose([Validators.required, Validators.pattern(ZapppConstant.PATTERN.ONLY_DIGIT), Validators.minLength(6)])],
+			'phoneNumberCountryCode': [''],
 			'country': ['', Validators.compose([Validators.required])],
 			'homeAddress': ['', Validators.compose([Validators.required])],
 			'swiftCode': ['', Validators.compose([Validators.required])],
@@ -98,50 +180,23 @@ export class Register extends ZapppBaseComponent {
 		this.idNumber = this.form.controls['idNumber'];
 		this.gender = this.form.controls['gender'];
 		this.phoneNumber = this.form.controls['phoneNumber'];
+		this.phoneNumberCountryCode = this.form.controls['phoneNumberCountryCode'];
 		this.country = this.form.controls['country'];
 		this.homeAddress = this.form.controls['homeAddress'];
 		this.swiftCode = this.form.controls['swiftCode'];
 		this.accountNumber = this.form.controls['accountNumber'];
-	}
 
-	public onSubmit(values: Object): void {
-		this.submitted = true;
-		if (!this.form.valid) {
-            return;
-		}
-		if (!this.avatar_base64 || !this.birthdayDay) {
-			return;
-		}
-		if (!this.availableTransportationHasCheck()) {
-			this.zapppAlert.showError(this.translate.instant('SYNC.STR_ERR_MISSING_VEHICLE'));
-		}
-		// let email = this.email.value;
-		// let password = this.password.value;
-		// let firstName = this.firstName.value;
-		// let lastName = this.lastName.value;
-		// let user = {
-		// 	email: email,
-		// 	firstName: firstName,
-		// 	lastName: lastName,
-		// 	password: password
-		// };
-		// this.userService.signUp(user).subscribe(
-		// 	res => {
-		// 		console.log(res);
-		// 		this.zapppAlert.showInfo('Sign up successfully');
-		// 	},
-		// 	error => {
-		// 		this.zapppAlert.showError(error.message);
-		// 	});
-	}
+		this.phoneNumberCountryCode.setValue("HK");
+		this.birthdayDay = null;
+		this.avatarBase64 = '';
 
-	availableTransportationHasCheck(): boolean {
-		for (let i = 0; i < this.checkboxModel.length; i++) {
-			let checkbox = this.checkboxModel[i];
-			if (checkbox.checked) {
-				return true;
-			}
+		if (this.birthdayDateTimePicker) {
+			this.birthdayDateTimePicker.reset();
 		}
-		return false;
+		if (this.photoPreview) {
+			this.photoPreview.reset();
+		}
+
+		this.submitted = false;
 	}
 }

@@ -36,6 +36,10 @@
         "BICYCLE": "Bicycle",
         "VEHICLE": "Vehicle"
     },
+    "PROFILE_PICTURE": {
+        "ADD": "Add profile picture",
+        "CHANGE": "Change profile picture"
+    },
     "LOG_IN": {
         "BOX_TITLE": "Sign in to Zappp",
         "ADMIN_BOX_TITLE": "Sign in to Zappp Admin",
@@ -54,7 +58,8 @@
         "SUBMIT_BUTTON_TEXT": "Register",
         "SIGN_UP_WITH_THIRD_PARTY_ACCOUNT": "or Sign up with one click",
         "SIGN_UP_WITH_FACEBOOK": "Sign up with Facebook",
-        "SIGN_UP_WITH_GOOGLE": "Sign up with Google Plus"
+        "SIGN_UP_WITH_GOOGLE": "Sign up with Google Plus",
+        "SIGN_UP_SUCCESSFULLY": "Your account has been created successfully. It will be reviewed by Zappp before you can login."
     },
     "LOGIN_BY_PHONE": {
         "SEND_PIN": "Send PIN",
