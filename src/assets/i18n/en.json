@@ -158,7 +158,9 @@
         "STR_ERR_HOME_ADDRESS_IS_REQUIRED": "Home address is required.",
         "STR_ERR_MISSING_VEHICLE": "Please select at least 1.",
         "STR_ERR_MISSING_BANK_INFO": "Swift code and account number are required.",
-        "STR_ERR_EMAIL_IS_IN_USE": "Email is already in use. Please try another one.",
+        "STR_SERVER_ERR_EMAIL_IS_IN_USE": "Email is already in use. Please try another one.",
+        "STR_SERVER_ERR_ID_IS_IN_USE": "ID is already in use.",
+        "STR_SERVER_ERR_PHONE_NUMBER_IS_IN_USE": "Phone number is already in use. Please try another one.",
         "STR_SERVER_ERR_USERNAME_IS_IN_USE": "Username is already in use. Please try another one."
     }
 }
