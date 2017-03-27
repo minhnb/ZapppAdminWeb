@@ -101,11 +101,19 @@ export class ZapppHttp {
                 }
             } else {
                 errMsg = error.json();
+                if (errMsg.localize) {
+                    let key = 'SYNC.' + errMsg.localize;
+                    let message = this.translate.instant(key);
+                    if (message != key) {
+                        errMsg.message = message;
+                    }
+                }
             }
 		} else {
-			errMsg = error.message ? error.message : error.toString();
+			errMsg = {
+                message: error.message ? error.message : error.toString()
+            }
 		}
-		console.error(errMsg);
         return errMsg;
     }
 

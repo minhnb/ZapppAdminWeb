@@ -21,7 +21,8 @@
     </div>
   </div>
 </div>
-<div bsModal #importReviewModal="bs-modal" id="importReviewModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="importReviewModalLabel" aria-hidden="true">
+<div bsModal #importReviewModal="bs-modal" id="importReviewModal" class="modal fade" tabindex="-1" role="dialog"
+aria-labelledby="importReviewModalLabel" aria-hidden="true" (onShow)="onShowImportReviewModal()">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header no-title">
@@ -31,7 +32,7 @@
           </button>
       </div>
       <div class="modal-body">
-          <tabset>
+          <tabset #tabLocalizationDataChange>
               <tab heading="{{ 'LOCALIZATION.ZAPPPER' | translate }}">
                   <localization-table [localizationData]="zappperLocalizationDataChange" [compareLocalizationData]="pureZappperLocalizationData"
                     [localizationHeader]="localizationHeader" [(pageNumber)]="pageNumber"></localization-table>
@@ -50,7 +51,8 @@
   </div>
 </div>
 
-<div bsModal #exportHistoryModal="bs-modal" id="exportHistoryModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exportHistoryModalLabel" aria-hidden="true">
+<div bsModal #exportHistoryModal="bs-modal" id="exportHistoryModal" class="modal fade" tabindex="-1" role="dialog"
+aria-labelledby="exportHistoryModalLabel" aria-hidden="true" (onShow)="onShowExportHistoryModal()">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header no-title">
@@ -60,7 +62,7 @@
           </button>
       </div>
       <div class="modal-body">
-          <tabset>
+          <tabset #tabLocalizationVersions>
               <tab heading="{{ 'LOCALIZATION.ZAPPPER' | translate }}">
                   <div class="table-responsive">
                     <table class="table">

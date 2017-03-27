@@ -54,6 +54,10 @@ export class UserService {
         return this.zapppHttp.post(this.userUrl + '/signup', user);
 	}
 
+	delivererSignUp(user: Object): Observable<any> {
+        return this.zapppHttp.post(this.userUrl + '/deliverer_signup', user);
+	}
+
 	getPinCode(phoneNumber: string, countryCode: string): Observable<any> {
 		let phoneRequest = {
 			phone_number: phoneNumber,

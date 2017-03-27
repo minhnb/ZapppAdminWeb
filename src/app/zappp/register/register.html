@@ -6,9 +6,9 @@
     <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-horizontal register-form">
       <div class="row">
         <div class="col-md-5 col-xs-12">
-          <div class="form-group text-center" [ngClass]="{'has-error': (!avatar_base64 && (photoPreview.touched || submitted))}">
-            <ba-picture-uploader #photoPreview [(picture)]="avatar_base64" [defaultPicture]="defaultPicture"></ba-picture-uploader>
-            <span *ngIf="!avatar_base64 && (photoPreview.touched || submitted)" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_PHOTO_IS_REQUIRED' | translate }}</span>
+          <div class="form-group text-center" [ngClass]="{'has-error': (!avatarBase64 && (photoPreview.touched || submitted))}">
+            <ba-picture-uploader #photoPreview [(picture)]="avatarBase64" [canDelete]="false" [defaultPicture]="defaultPicture"></ba-picture-uploader>
+            <span *ngIf="!avatarBase64 && (photoPreview.touched || submitted)" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_PHOTO_IS_REQUIRED' | translate }}</span>
           </div>
         </div>
         <div class="col-md-7">
@@ -38,9 +38,9 @@
         <span *ngIf="password.value.length == 0 && password.touched" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_PASSWORD_IS_REQUIRED' | translate }}</span>
         <span *ngIf="password.value.length > 0 && password.value.length < 4 && password.touched" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_PASSWORD_LENGTH' | translate }}</span>
       </div>
-      <div class="form-group" [ngClass]="{'has-error': ((!repeatPassword.valid || !passwords.valid) && password.touched && repeatPassword.touched), 'has-success': (repeatPassword.valid && passwords.valid && password.touched && repeatPassword.touched)}">
+      <div class="form-group" [ngClass]="{'has-error': (password.valid && !passwords.valid && password.touched && repeatPassword.touched), 'has-success': (repeatPassword.valid && passwords.valid && password.touched && repeatPassword.touched)}">
         <input [formControl]="repeatPassword" type="password" class="form-control" placeholder="{{ 'SIGN_UP.CONFIRM_PASSWORD' | translate }}" />
-        <span *ngIf="repeatPassword.value.length > 0 && !passwords.valid && password.touched && repeatPassword.touched" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_PASSWORD_CONFIRM_PASSWORD_NOT_MATCH' | translate }}</span>
+        <span *ngIf="password.valid && !passwords.valid && password.touched && repeatPassword.touched" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_PASSWORD_CONFIRM_PASSWORD_NOT_MATCH' | translate }}</span>
       </div>
       <div class="form-group" [ngClass]="{'has-error': (!birthdayDay && birthdayDateTimePicker.touched), 'has-success': (birthdayDay && birthdayDateTimePicker.touched)}">
         <datetimepicker #birthdayDateTimePicker [(dateTimeModel)]="birthdayDay" [hideTimePicker]="true" placeholder="{{ 'GLOBAL.BIRTHDAY' | translate }}" [formatDateTime]="formatDateTime"></datetimepicker>
@@ -62,7 +62,7 @@
       </div>
       <div class="form-group" [ngClass]="{'has-error': (!phoneNumber.valid && phoneNumber.touched), 'has-success': (phoneNumber.valid && phoneNumber.touched)}">
         <div class="phone-number-group">
-          <select #selectCountryCode id="selectCountryCode">
+          <select [formControl]="phoneNumberCountryCode">
               <option value="HK">+852</option>
               <option value="VN">+84</option>
             </select>
@@ -74,7 +74,7 @@
       <div class="form-group" [ngClass]="{'has-error': (!country.valid && country.touched), 'has-success': (country.valid && country.touched)}">
         <select [formControl]="country" class="form-control">
               <option value="" disabled>{{ 'GLOBAL.COUNTRY' | translate }}</option>
-              <option value="Hong Kong">Hong Kong</option>
+              <option value="HK">Hong Kong</option>
          </select>
         <span *ngIf="!country.valid && country.touched" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_COUNTRY_IS_REQUIRED' | translate }}</span>
       </div>

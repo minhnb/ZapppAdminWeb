@@ -65,6 +65,7 @@ export class BaPictureUploader {
 	public removePicture(): boolean {
 		this.picture = '';
 		this.pictureChange.emit(this.picture);
+		this._fileUpload.nativeElement.value = '';
 		return false;
 	}
 
@@ -92,5 +93,10 @@ export class BaPictureUploader {
 
 	protected _canUploadOnServer(): boolean {
 		return !!this.uploaderOptions['url'];
+	}
+
+	public reset() {
+		this.removePicture();
+		this.touched = false;
 	}
 }
