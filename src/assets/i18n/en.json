@@ -65,6 +65,13 @@
         "SEND_PIN": "Send PIN",
         "ALREADY_GOT_PIN_CODE": "I already got PIN code"
     },
+    "FORGOT_PASSWORD": {
+        "BOX_TITLE": "Forgot password",
+        "RESET_PASSWORD": "Reset password",
+        "SMS_CODE": "SMS code",
+        "ENTER_NEW_PASSWORD": "Enter new password",
+        "CONFIRM_NEW_PASSWORD": "Re-enter new password"
+    },
     "ERROR": {
         "LOGIN_BY_PHONE": {
             "BAD_REQUEST": "Couldn't send PIN code to your phone number. Please double check."
@@ -96,7 +103,9 @@
         "SEARCH": "Search",
         "CLEAR_SEARCH": "Clear",
         "IMPORT": "Import",
-        "EXPORT": "Export"
+        "EXPORT": "Export",
+        "SUBMIT": "Submit",
+        "RESEND": "Resend"
     },
     "REPORTS": {
         "SENDER_NAME": "Sender Name",
@@ -125,7 +134,9 @@
     "DIALOG": {
         "ERROR": "Error",
         "INFO": "Information",
-        "WARNING": "Warning"
+        "WARNING": "Warning",
+        "OK": "Ok",
+        "CANCEL": "Cancel"
     },
     "INFORM": {
         "NO_RESULT_FOUND": "No result found",
@@ -138,6 +149,10 @@
         "IMPORT_CHANGES_COMPARISON": "Import - Changes comparison"
     },
     "SYNC": {
+        "STR_LABEL_INPUT_PHONE_NUMBER_TO_RESET_PASSWORD": "Please enter the phone number using in your account",
+        "STR_LABEL_CHECK_PHONE_FOR_SMS_CODE": "Please check your phone for a text message with your code.",
+        "STR_MSG_PASSWORD_CHANGED_SUCCESS": "Your password has been changed successfully. You can login now.",
+
         "STR_ERR_FIRST_NAME_IS_REQUIRED": "First name is required.",
         "STR_ERR_LAST_NAME_IS_REQUIRED": "Last name is required.",
         "STR_ERR_EMAIL_IS_REQUIRED": "Email is required.",
@@ -157,10 +172,14 @@
         "STR_ERR_COUNTRY_IS_REQUIRED": "Country is required.",
         "STR_ERR_HOME_ADDRESS_IS_REQUIRED": "Home address is required.",
         "STR_ERR_MISSING_VEHICLE": "Please select at least 1.",
+
         "STR_ERR_MISSING_BANK_INFO": "Swift code and account number are required.",
         "STR_SERVER_ERR_EMAIL_IS_IN_USE": "Email is already in use. Please try another one.",
         "STR_SERVER_ERR_ID_IS_IN_USE": "ID is already in use.",
         "STR_SERVER_ERR_PHONE_NUMBER_IS_IN_USE": "Phone number is already in use. Please try another one.",
-        "STR_SERVER_ERR_USERNAME_IS_IN_USE": "Username is already in use. Please try another one."
+        "STR_SERVER_ERR_USERNAME_IS_IN_USE": "Username is already in use. Please try another one.",
+        "STR_SERVER_ERR_ACCOUNT_NOT_FOUND": "No account registered with that information. Please input the correct phone number.",
+        "STR_MSG_INVALID_VERIFICATION_CODE_SMS": "Invalid SMS code.",
+        "STR_SERVER_ERR_EXPIRED_PASSWORD_RESET_CODE": "Your code got expired. Please click \"Resend\" to get a new code."
     }
 }

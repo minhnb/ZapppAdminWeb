@@ -79,7 +79,6 @@ export class Login extends ZapppBaseComponent {
 	public sendPinCode(values: Object): void {
 		if (this.stepTwoLoginByPhoneStepTwoForm.valid) {
 			let pinCode = this.pinCode.value;
-			let countryCode = "VN";
 			this.userService.logInPhone(this.formattedPhoneNumber, pinCode).subscribe(
 				res => {
 					this.router.navigateByUrl('/dashboard');

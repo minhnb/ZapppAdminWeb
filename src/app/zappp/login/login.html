@@ -3,7 +3,7 @@
     <h1>{{ 'LOG_IN.BOX_TITLE' | translate }}</h1>
     <a routerLink="/register" class="auth-link">{{ 'LOG_IN.SIGN_UP_LINK_TEXT' | translate }}</a>
 
-    <form [formGroup]="stepOneLoginByPhoneForm" (ngSubmit)="getPinCode(stepOneLoginByPhoneForm.value)" class="form-horizontal">
+    <form [formGroup]="stepOneLoginByPhoneForm" (ngSubmit)="getPinCode(stepOneLoginByPhoneForm.value)" class="form-horizontal login-form">
       <div class="form-group row" [ngClass]="{'has-error': (!phoneNumber.valid && phoneNumber.touched), 'has-success': (phoneNumber.valid && phoneNumber.touched)}">
         <label for="inputPhoneNumber" class="col-md-3 col-xs-5 control-label">{{ 'GLOBAL.PHONE_NUMBER' |translate }}</label>
         <div class="phone-number-group col-md-9 col-xs-7">
@@ -17,7 +17,7 @@
       <div class="form-group row">
         <div class="col-sm-offset-2 col-sm-10">
           <button [disabled]="!stepOneLoginByPhoneForm.valid" type="submit" class="btn btn-default btn-auth">{{ 'LOGIN_BY_PHONE.SEND_PIN' | translate }}</button>
-          <!-- <a class="forgot-pass" href="#" (click)="showStepTwoLoginByPhoneForm($event)">{{ 'LOGIN_BY_PHONE.ALREADY_GOT_PIN_CODE' | translate }}</a>         -->
+          <a class="forgot-pass" routerLink="/forgot-password">{{ 'LOG_IN.FORGOT_PASSWORD' | translate }}</a>
         </div>
       </div>
     </form>
