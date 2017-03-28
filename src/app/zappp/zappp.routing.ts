@@ -20,6 +20,11 @@ const routes: Routes = [
 		loadChildren: () => System.import('./register/register.module')
 	},
 	{
+		path: 'forgot-password',
+		canActivate: [AuthLoggedIn],
+		loadChildren: () => System.import('./forgotPassword/forgotPassword.module')
+	},
+	{
 		path: '',
 		component: Zappp,
 		canActivate: [AuthGuard],

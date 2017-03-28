@@ -1,1 +1,9 @@
 @import '../../theme/sass/auth';
+
+form.login-form {
+    .phone-number-group {
+        select {
+            margin-left: 16px;
+        }
+    }
+}

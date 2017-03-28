@@ -58,10 +58,11 @@ export class UserService {
         return this.zapppHttp.post(this.userUrl + '/deliverer_signup', user);
 	}
 
-	getPinCode(phoneNumber: string, countryCode: string): Observable<any> {
+	getPinCode(phoneNumber: string, countryCode: string, currentUser: boolean = true): Observable<any> {
 		let phoneRequest = {
 			phone_number: phoneNumber,
 			country: countryCode,
+			current_user: currentUser
 		};
 		return this.zapppHttp.post(this.userUrl + '/request_phone_code', phoneRequest);
 	}
@@ -92,5 +93,20 @@ export class UserService {
 			accessToken: accessToken
 		};
 		return this.zapppHttp.post(this.userUrl + '/google', body);
+	}
+
+	verifyPhoneNumber(phoneNumber: string, code: string): Observable<any> {
+		let body = {
+			code: code
+		};
+		return this.zapppHttp.post(this.userUrl + '/verify_phone_number/' + phoneNumber, body);
+	}
+
+	resetPassword(phoneSignature: string, newPassword: string): Observable<any> {
+		let body = {
+			phone_signature: phoneSignature,
+			password: newPassword
+		};
+		return this.zapppHttp.post(this.userUrl + '/reset_password', body);
 	}
 }

@@ -61,15 +61,23 @@ export class ZapppAlert {
             });
     }
 
-    showConfirm(message: string, title?: string): any {
+    showConfirm(message: string, title?: string, okButtonText?: string, cancelButtonText?: string): any {
         if (!title) {
             title = this.translate.instant('DIALOG.WARNING');
+        }
+        if (!okButtonText) {
+            okButtonText = this.translate.instant('DIALOG.OK');
+        }
+        if (!cancelButtonText) {
+            cancelButtonText = this.translate.instant('DIALOG.CANCEL');
         }
         return this.modal.confirm()
 			.size('lg')
             .showClose(true)
             .title(title)
             .body(message)
+            .okBtn(okButtonText)
+            .cancelBtn(cancelButtonText)
             .open()
             .catch(err => {
 				console.log(err);

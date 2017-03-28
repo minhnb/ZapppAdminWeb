@@ -5,7 +5,7 @@
     width: 100%;
     height: 175px;
 }
-.auth-main {
+.auth-main.register-page {
     height: auto;
 }
 .form-group.has-error {
@@ -15,13 +15,6 @@
 }
 .form-group .picture-group {
     margin: auto;
-}
-form.register-form {
-    .phone-number-group {
-        select {
-            margin-left: 1px;
-        }
-    }
 }
 @media (max-width: 767px) {
     #inputSwiftCode {
