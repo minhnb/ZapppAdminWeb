@@ -21,7 +21,7 @@
             <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
               <!-- <input type="text" class="form-control" placeholder="{{ 'REPORTS.STATUS' | translate }}" /> -->
               <select #selectStatus class="form-control" [(ngModel)]="deliveryStatus" [ngModelOptions]="{standalone: true}">
-                <option value="">Select Request Status</option>
+                <option value="">{{ 'REPORTS.SELECT_REQUEST_STATUS' | translate }}</option>
                 <option value="Accepted">Accepted</option>
                 <option value="Canceled">Canceled</option>
                 <option value="Completed">Completed</option>
@@ -35,7 +35,7 @@
             </div>
             <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
               <select #selectPaymentStatus class="form-control" [(ngModel)]="paymentStatus" [ngModelOptions]="{standalone: true}">
-                <option value="">Select Payment Status</option>
+                <option value="">{{ 'REPORTS.SELECT_PAYMENT_STATUS' | translate }}</option>
                 <option value="failed">failed</option>
                 <option value="pending">pending</option>
                 <option value="settled">settled</option>

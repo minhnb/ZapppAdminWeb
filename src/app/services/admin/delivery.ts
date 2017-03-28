@@ -11,15 +11,8 @@ export class DeliveryService {
 	private serviceUrl = AppConfig.API_URL + 'admin';
 	constructor(private zapppHttp: ZapppHttp) { }
 
-	listDelivererAccounts(paging?: Boolean, limit?: number, offset?: number): Observable<any> {
-		let params = {};
-		if (paging) {
-			params = {
-				paging: true,
-				limit: limit,
-				offset: offset
-			}
-		}
+	listDelivererAccounts(search: any, sortBy?: any, paging?: Boolean, limit?: number, offset?: number): Observable<any> {
+		let params = ZapppUtil.buildQueryParams(search, sortBy, paging, limit, offset);
 		return this.zapppHttp.get(this.serviceUrl + '/deliverers', params);
 	}
 

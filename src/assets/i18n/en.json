@@ -126,7 +126,9 @@
             "USER_INVISIBLE": "This user is invisible"
         },
         "ITEM": "item",
-        "ITEMS": "items"
+        "ITEMS": "items",
+        "SELECT_REQUEST_STATUS": "Select Request Status",
+        "SELECT_PAYMENT_STATUS": "Select Payment Status"
     },
     "MAP": {
         "YOU_ARE_HERE": "You're here",

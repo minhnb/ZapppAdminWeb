@@ -1,46 +1,69 @@
 <div class="widgets">
   <div class="row">
     <div class="col-md-12">
-      <ba-card baCardClass="with-scroll table-panel">
-          <div class="table-responsive">
-            <table class="table">
-              <tr>
-                <th>#</th>
-                <th>{{ 'REPORTS.DELIVERER_NAME' | translate }}</th>
-                <th>{{ 'REPORTS.PHONE_NUMBER' | translate }}</th>
-                <th>{{ 'REPORTS.CREATED_TIME' | translate }}</th>
-                <th>{{ 'REPORTS.STATUS' | translate }}</th>
-                <th></th>
-              </tr>
-              <tr *ngFor="let item of tableData | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalItem }; let i = index">
-                <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
-                <td>{{ item.name }}</td>
-                <td>{{ item.phone }}</td>
-                <td>{{ item.formated_created_at }}</td>
-                <td>
-                    <button class="btn btn-xs status-button" [ngClass]="item.approved ? 'btn-success' : 'btn-danger'">{{ (item.approved ? 'REPORTS.ACTIVATED' : 'REPORTS.DEACTIVATED') | translate }}</button>
-                </td>
-                <td>
-                    <div class="button-wrapper" [hidden]="item.approved">
-                      <button type="button" class="btn btn-default action-button" [disabled]="item.approved"
-                      (click)="activateDeliverer(item)">{{ 'BUTTONS.ACTIVATE' | translate }}</button>
-                    </div>
-                    <div class="button-wrapper" [hidden]="!item.approved">
-                      <button type="button" class="btn btn-default action-button" [disabled]="!item.approved"
-                      (click)="deactivateDeliverer(item)">{{ 'BUTTONS.DEACTIVATE' | translate }}</button>
-                    </div>
-                </td>
-              </tr>
-            </table>
-            <pagination-controls
-                      (pageChange)="pageChanged($event)"
-                      maxSize="7"
-                      directionLinks="true"
-                      autoHide="true"
-                      previousLabel=""
-                      nextLabel="">
-            </pagination-controls>
+      <ba-card baCardClass="with-scroll table-panel" title="{{ 'GLOBAL.SEARCH' | translate }}">
+        <form class="table-search">
+          <div class="row">
+            <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
+              <datetimepicker #fromDateTimePicker [(dateTimeModel)]="fromDate" placeholder="{{ 'GLOBAL.FROM' | translate }} {{ formatDateTime }}" [formatDateTime]="formatDateTime"></datetimepicker>
+            </div>
+            <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
+              <datetimepicker #toDateTimePicker [(dateTimeModel)]="toDate" placeholder="{{ 'GLOBAL.TO' | translate }} {{ formatDateTime }}" [formatDateTime]="formatDateTime"></datetimepicker>
+            </div>
           </div>
+          <div class="row">
+            <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
+              <input type="text" class="form-control" [(ngModel)]="delivererName" [ngModelOptions]="{standalone: true}" placeholder="{{ 'REPORTS.DELIVERER_NAME' | translate }}" />
+            </div>
+            <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
+              <input type="text" class="form-control" [(ngModel)]="phoneNumber" [ngModelOptions]="{standalone: true}" placeholder="{{ 'REPORTS.PHONE_NUMBER' | translate }}" />
+            </div>
+            <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
+              <select #selectStatus class="form-control" [(ngModel)]="status" [ngModelOptions]="{standalone: true}">
+                  <option value="">{{ 'REPORTS.STATUS' | translate }}</option>
+                  <option value="true">{{ 'REPORTS.ACTIVATED' | translate }}</option>
+                  <option value="false">{{ 'REPORTS.DEACTIVATED' | translate }}</option>
+                </select>
+            </div>
+          </div>
+          <div class="row button-row">
+            <button type="button" class="btn btn-default" (click)="clearSearch()">{{ 'BUTTONS.CLEAR_SEARCH' | translate }}</button>
+            <button type="submit" class="btn btn-primary" (click)="searchDelivererAccount()">{{ 'BUTTONS.SEARCH' | translate }}</button>
+          </div>
+        </form>
+      </ba-card>
+      <ba-card baCardClass="with-scroll table-panel" title="{{ totalItem }} {{ totalItem > 1 ? 'items' : 'item'}}">
+        <div class="table-responsive">
+          <table class="table">
+            <tr>
+              <th>#</th>
+              <th>{{ 'REPORTS.DELIVERER_NAME' | translate }}</th>
+              <th>{{ 'REPORTS.PHONE_NUMBER' | translate }}</th>
+              <th>{{ 'REPORTS.CREATED_TIME' | translate }}</th>
+              <th>{{ 'REPORTS.STATUS' | translate }}</th>
+              <th></th>
+            </tr>
+            <tr *ngFor="let item of tableData | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalItem }; let i = index">
+              <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.phone }}</td>
+              <td>{{ item.formated_created_at }}</td>
+              <td>
+                <button class="btn btn-xs status-button" [ngClass]="item.approved ? 'btn-success' : 'btn-danger'">{{ (item.approved ? 'REPORTS.ACTIVATED' : 'REPORTS.DEACTIVATED') | translate }}</button>
+              </td>
+              <td>
+                <div class="button-wrapper" [hidden]="item.approved">
+                  <button type="button" class="btn btn-default action-button" [disabled]="item.approved" (click)="activateDeliverer(item)">{{ 'BUTTONS.ACTIVATE' | translate }}</button>
+                </div>
+                <div class="button-wrapper" [hidden]="!item.approved">
+                  <button type="button" class="btn btn-default action-button" [disabled]="!item.approved" (click)="deactivateDeliverer(item)">{{ 'BUTTONS.DEACTIVATE' | translate }}</button>
+                </div>
+              </td>
+            </tr>
+          </table>
+          <pagination-controls (pageChange)="pageChanged($event)" maxSize="7" directionLinks="true" autoHide="true" previousLabel="" nextLabel="">
+          </pagination-controls>
+        </div>
       </ba-card>
     </div>
   </div>
