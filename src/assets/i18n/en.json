@@ -114,6 +114,8 @@
         "DESTINATION": "Destination",
         "FARE": "Fare",
         "STATUS": "Status",
+        "REQUEST_STATUS": "Request Status",
+        "PAYMENT_STATUS": "Payment Status",
         "PHONE_NUMBER": "Phone Number",
         "CREATED_TIME": "Created Time",
         "ACTIVATED": "Active",

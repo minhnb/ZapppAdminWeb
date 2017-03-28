@@ -44,6 +44,7 @@ export class DeliveryRequests extends ZapppBaseComponent {
 	senderName: String;
 	delivererName: String;
 	deliveryStatus: String = '';
+	paymentStatus: String = '';
 	searchQuery: any = {};
 
 	constructor(private injector: Injector, private deliveryService: DeliveryService, private _elementRef: ElementRef) {
@@ -417,6 +418,7 @@ export class DeliveryRequests extends ZapppBaseComponent {
 		this.senderName = '';
 		this.delivererName = '';
 		this.deliveryStatus = '';
+		this.paymentStatus = '';
 
 		if (Object.keys(this.searchQuery).length > 0) {
 			this.searchQuery = {};
@@ -445,6 +447,9 @@ export class DeliveryRequests extends ZapppBaseComponent {
 		}
 		if (this.deliveryStatus) {
 			search.status = this.deliveryStatus;
+		}
+		if (this.paymentStatus) {
+			search.payment_status = this.paymentStatus;
 		}
 		return search;
 	}
