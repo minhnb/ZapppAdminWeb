@@ -114,6 +114,8 @@
         "DESTINATION": "Destination",
         "FARE": "Fare",
         "STATUS": "Status",
+        "REQUEST_STATUS": "Request Status",
+        "PAYMENT_STATUS": "Payment Status",
         "PHONE_NUMBER": "Phone Number",
         "CREATED_TIME": "Created Time",
         "ACTIVATED": "Active",
@@ -124,7 +126,9 @@
             "USER_INVISIBLE": "This user is invisible"
         },
         "ITEM": "item",
-        "ITEMS": "items"
+        "ITEMS": "items",
+        "SELECT_REQUEST_STATUS": "Select Request Status",
+        "SELECT_PAYMENT_STATUS": "Select Payment Status"
     },
     "MAP": {
         "YOU_ARE_HERE": "You're here",

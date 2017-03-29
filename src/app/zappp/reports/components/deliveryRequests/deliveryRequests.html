@@ -21,13 +21,25 @@
             <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
               <!-- <input type="text" class="form-control" placeholder="{{ 'REPORTS.STATUS' | translate }}" /> -->
               <select #selectStatus class="form-control" [(ngModel)]="deliveryStatus" [ngModelOptions]="{standalone: true}">
-                <option value="">Select Status</option>
+                <option value="">{{ 'REPORTS.SELECT_REQUEST_STATUS' | translate }}</option>
                 <option value="Accepted">Accepted</option>
                 <option value="Canceled">Canceled</option>
                 <option value="Completed">Completed</option>
+                <option value="Expired">Expired</option>
+                <option value="New">New</option>
                 <option value="Delivering">Delivering</option>
                 <option value="Pending">Pending</option>
                 <option value="Rejected">Rejected</option>
+                <option value="Timeout">Timeout</option>
+              </select>
+            </div>
+            <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
+              <select #selectPaymentStatus class="form-control" [(ngModel)]="paymentStatus" [ngModelOptions]="{standalone: true}">
+                <option value="">{{ 'REPORTS.SELECT_PAYMENT_STATUS' | translate }}</option>
+                <option value="failed">failed</option>
+                <option value="pending">pending</option>
+                <option value="settled">settled</option>
+                <option value="succeeded">succeeded</option>
               </select>
             </div>
           </div>
@@ -48,7 +60,8 @@
               <th>{{ 'REPORTS.PICK_UP_PLACE' | translate }}</th>
               <th>{{ 'REPORTS.DESTINATION' | translate }}</th>
               <th>{{ 'REPORTS.FARE' | translate }}</th>
-              <th>{{ 'REPORTS.STATUS' | translate }}</th>
+              <th>{{ 'REPORTS.REQUEST_STATUS' | translate }}</th>
+              <th>{{ 'REPORTS.PAYMENT_STATUS' | translate }}</th>
               <th></th>
             </tr>
             <tr *ngFor="let item of tableData | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalItem }; let i = index">
@@ -60,6 +73,7 @@
               <td>{{ item.destination }}</td>
               <td>{{ item.fare }}</td>
               <td>{{ item.status }}</td>
+              <td>{{ item.payment_status ? item.payment_status.status : '' }}</td>
               <td>
                 <div class="button-wrapper">
                   <button type="button" class="btn btn-primary" [disabled]="!isDeliveringRequest(item) && !isCompletedRequest(item)" (click)="showTrackPopUp(item)">{{ 'BUTTONS.TRACK' | translate }}</button>
