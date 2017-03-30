@@ -41,12 +41,17 @@ export class UserService {
 		return data;
 	}
 
-	logIn(email: string, password: string): Observable<any> {
+	pureLogIn(loginName: string, password: string, countryCode?: string): Observable<any> {
 		let user = {
-			email: email,
-			password: password
+			login_name: loginName,
+			password: password,
+			country: countryCode
 		};
-		return this.zapppHttp.post(this.userUrl + '/login_email', user)
+		return this.zapppHttp.post(this.userUrl + '/login', user);
+	}
+
+	logIn(loginName: string, password: string, countryCode?: string): Observable<any> {
+		return this.pureLogIn(loginName, password, countryCode)
 			.map(this.handleAdminLoginSuccess.bind(this));
 	}
 
@@ -109,4 +114,19 @@ export class UserService {
 		};
 		return this.zapppHttp.post(this.userUrl + '/reset_password', body);
 	}
+
+	checkAccount(type: string, loginName: string, countryCode?: string): Observable<any> {
+		let body = {
+			type: type,
+			login_name: loginName,
+			country: countryCode
+		};
+		return this.zapppHttp.post(this.userUrl + '/check_account', body);
+	}
+
+	checkAccountByPhoneNumber(phoneNumber: string, countryCode: string): Observable<any> {
+		let type = "phone_number";
+		return this.checkAccount(type, phoneNumber, countryCode);
+	}
+
 }

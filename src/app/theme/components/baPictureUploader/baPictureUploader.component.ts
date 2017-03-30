@@ -24,6 +24,7 @@ export class BaPictureUploader {
 
 	public uploadInProgress: boolean = false;
 	public touched: boolean = false;
+	public pictureChanged: boolean = false;
 
 	constructor(private renderer: Renderer, protected _uploader: Ng2Uploader) {
 	}
@@ -38,7 +39,7 @@ export class BaPictureUploader {
 				this._onUpload(data);
 			});
 		} else {
-			console.warn('Please specify url parameter to be able to upload the file on the back-end');
+			// console.warn('Please specify url parameter to be able to upload the file on the back-end');
 		}
 	}
 
@@ -73,6 +74,7 @@ export class BaPictureUploader {
 		const reader = new FileReader();
 		reader.addEventListener('load', (event: Event) => {
 			this.picture = (<any>event.target).result;
+			this.pictureChanged = true;
 			this.pictureChange.emit(this.picture);
 		}, false);
 		reader.readAsDataURL(file);
@@ -98,5 +100,6 @@ export class BaPictureUploader {
 	public reset() {
 		this.removePicture();
 		this.touched = false;
+		this.pictureChanged = false;
 	}
 }

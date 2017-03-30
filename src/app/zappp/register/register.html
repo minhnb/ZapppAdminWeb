@@ -1,24 +1,63 @@
-<div class="auth-main register-page">
-  <div class="auth-block">
+<div class="auth-main" [ngClass]="registerFormStepCount==3 ? 'register-page' : ''">
+  <div class="auth-block" [hidden]="registerFormStepCount != 1">
     <h1>{{ 'SIGN_UP.BOX_TITLE' | translate }}</h1>
-    <a routerLink="/login" class="auth-link">{{ 'SIGN_UP.LOG_IN_LINK_TEXT' | translate }}</a>
+    <!-- <a routerLink="/login" class="auth-link">{{ 'SIGN_UP.LOG_IN_LINK_TEXT' | translate }}</a> -->
 
-    <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-horizontal register-form">
+    <form [formGroup]="checkPhoneNumberForm" (ngSubmit)="checkPhoneNumber()" class="form-horizontal">
+      <div class="form-group" [ngClass]="{'has-error': (!phoneNumber.valid && phoneNumber.touched), 'has-success': (phoneNumber.valid && phoneNumber.touched)}">
+        <div class="phone-number-group">
+          <select #selectCountryCode [formControl]="phoneNumberCountryCode">
+                <option value="HK">+852</option>
+                <option value="VN">+84</option>
+              </select>
+          <input #inputPhoneNumber [formControl]="phoneNumber" type="text" class="form-control" placeholder="{{ 'GLOBAL.PHONE_NUMBER' |translate }}">
+        </div>
+        <span *ngIf="phoneNumber.value.length == 0 && phoneNumber.touched" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_PHONE_NUMBER_IS_REQUIRED' | translate }}</span>
+        <span *ngIf="!phoneNumber.valid && phoneNumber.value.length > 0 && phoneNumber.touched" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_INVALID_PHONE_NUMBER' | translate }}</span>
+      </div>
+      <div class="form-group">
+        <button [disabled]="!checkPhoneNumberForm.valid" type="submit" class="btn btn-default btn-auth">{{ 'BUTTONS.SUBMIT' | translate }}</button>
+      </div>
+    </form>
+  </div>
+  <div class="auth-block" [hidden]="registerFormStepCount != 2">
+    <h1>{{ 'SIGN_UP.BOX_TITLE' | translate }}</h1>
+
+    <form [formGroup]="senderLoginForm" (ngSubmit)="senderLogin()" class="form-horizontal">
+      <div class="form-group">
+        <div class="phone-number-group">
+          <select value="{{phoneNumberCountryCode.value}}" disabled>
+                <option value="HK">+852</option>
+                <option value="VN">+84</option>
+              </select>
+          <input type="text" value="{{phoneNumber.value}}" disabled class="form-control" placeholder="{{ 'GLOBAL.PHONE_NUMBER' |translate }}">
+        </div>
+      </div>
+      <div class="form-group" [ngClass]="{'has-error': (!senderPassword.valid && senderPassword.touched), 'has-success': (senderPassword.valid && senderPassword.touched)}">
+        <input #inputSenderPassword [formControl]="senderPassword" type="password" class="form-control" placeholder="{{ 'SIGN_UP.ENTER_YOUR_PASSWORD' | translate }}" />
+        <span *ngIf="senderPassword.value.length == 0 && senderPassword.touched" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_PASSWORD_IS_REQUIRED' | translate }}</span>
+      </div>
+      <div class="form-group">
+        <button [disabled]="!senderLoginForm.valid" type="submit" class="btn btn-default btn-auth">{{ 'BUTTONS.SUBMIT' | translate }}</button>
+        <a class="forgot-pass" href="#" (click)="showCheckPhoneNumberForm($event)">{{ 'GLOBAL.BACK' | translate }}</a>
+      </div>
+    </form>
+  </div>
+  <div class="auth-block" [hidden]="registerFormStepCount != 3">
+    <h1>{{ 'SIGN_UP.BOX_TITLE' | translate }}</h1>
+
+    <form [formGroup]="form" (ngSubmit)="signUp()" class="form-horizontal register-form">
       <div class="row">
-        <div class="col-md-5 col-xs-12">
+        <div class="col-md-4 col-xs-12">
           <div class="form-group text-center" [ngClass]="{'has-error': (!avatarBase64 && (photoPreview.touched || submitted))}">
             <ba-picture-uploader #photoPreview [(picture)]="avatarBase64" [canDelete]="false" [defaultPicture]="defaultPicture"></ba-picture-uploader>
             <span *ngIf="!avatarBase64 && (photoPreview.touched || submitted)" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_PHOTO_IS_REQUIRED' | translate }}</span>
           </div>
         </div>
-        <div class="col-md-7">
-          <div class="form-group" [ngClass]="{'has-error': (!firstName.valid && firstName.touched), 'has-success': (firstName.valid && firstName.touched)}">
-            <input [formControl]="firstName" type="text" class="form-control" placeholder="{{ 'GLOBAL.FIRST_NAME' | translate }}" />
-            <span *ngIf="!firstName.valid && firstName.touched" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_FIRST_NAME_IS_REQUIRED' | translate }}</span>
-          </div>
-          <div class="form-group" [ngClass]="{'has-error': (!lastName.valid && lastName.touched), 'has-success': (lastName.valid && lastName.touched)}">
-            <input [formControl]="lastName" type="text" class="form-control" placeholder="{{ 'GLOBAL.LAST_NAME' | translate }}" />
-            <span *ngIf="!lastName.valid && lastName.touched" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_LAST_NAME_IS_REQUIRED' | translate }}</span>
+        <div class="col-md-8 col-xs-12">
+          <div class="form-group" [ngClass]="{'has-error': (!name.valid && name.touched), 'has-success': (name.valid && name.touched)}">
+            <input #inputName [formControl]="name" type="text" class="form-control" placeholder="{{ 'GLOBAL.NAME' | translate }}" />
+            <span *ngIf="!name.valid && name.touched" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_NAME_IS_REQUIRED' | translate }}</span>
           </div>
           <div class="form-group" [ngClass]="{'has-error': (!email.valid && email.touched), 'has-success': (email.valid && email.touched)}">
             <input [formControl]="email" type="email" class="form-control" placeholder="{{ 'GLOBAL.EMAIL' | translate }}" />
@@ -26,19 +65,19 @@
             <span *ngIf="email.errors && !email.errors.required && !email.errors.validateEmail.valid && email.touched" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_EMAIL_IS_INVALID' | translate }}</span>
           </div>
           <div class="form-group" [ngClass]="{'has-error': (!username.valid && username.touched), 'has-success': (username.valid && username.touched)}">
-            <input [formControl]="username" type="text" class="form-control" placeholder="{{ 'GLOBAL.USERNAME' | translate }}" />
+            <input #inputUsername [formControl]="username" type="text" class="form-control" placeholder="{{ 'GLOBAL.USERNAME' | translate }}" />
             <span *ngIf="username.value.length == 0 && username.touched" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_USERNAME_IS_REQUIRED' | translate }}</span>
             <span *ngIf="username.value.length > 0 && (username.value.length < 4 || username.value.length > 30) && username.touched" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_USERNAME_LENGTH' | translate }}</span>
             <span *ngIf="!username.valid && username.value.length >= 4 && username.value.length <= 30 && username.touched" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_USERNAME_FORMAT' | translate }}</span>
           </div>
         </div>
       </div>
-      <div class="form-group" [ngClass]="{'has-error': (!password.valid && password.touched), 'has-success': (password.valid && password.touched)}">
+      <div *ngIf="!hasUserInfo && password" class="form-group" [ngClass]="{'has-error': (!password.valid && password.touched), 'has-success': (password.valid && password.touched)}">
         <input [formControl]="password" type="password" class="form-control" placeholder="{{ 'SIGN_UP.ENTER_YOUR_PASSWORD' | translate }}" />
         <span *ngIf="password.value.length == 0 && password.touched" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_PASSWORD_IS_REQUIRED' | translate }}</span>
         <span *ngIf="password.value.length > 0 && password.value.length < 4 && password.touched" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_PASSWORD_LENGTH' | translate }}</span>
       </div>
-      <div class="form-group" [ngClass]="{'has-error': (password.valid && !passwords.valid && password.touched && repeatPassword.touched), 'has-success': (repeatPassword.valid && passwords.valid && password.touched && repeatPassword.touched)}">
+      <div *ngIf="!hasUserInfo && repeatPassword" class="form-group" [ngClass]="{'has-error': (password.valid && !passwords.valid && password.touched && repeatPassword.touched), 'has-success': (repeatPassword.valid && passwords.valid && password.touched && repeatPassword.touched)}">
         <input [formControl]="repeatPassword" type="password" class="form-control" placeholder="{{ 'SIGN_UP.CONFIRM_PASSWORD' | translate }}" />
         <span *ngIf="password.valid && !passwords.valid && password.touched && repeatPassword.touched" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_PASSWORD_CONFIRM_PASSWORD_NOT_MATCH' | translate }}</span>
       </div>
@@ -60,16 +99,14 @@
           </select>
         <span *ngIf="!gender.valid && gender.touched" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_GENDER_IS_REQUIRED' | translate }}</span>
       </div>
-      <div class="form-group" [ngClass]="{'has-error': (!phoneNumber.valid && phoneNumber.touched), 'has-success': (phoneNumber.valid && phoneNumber.touched)}">
+      <div class="form-group">
         <div class="phone-number-group">
-          <select [formControl]="phoneNumberCountryCode">
+          <select value="{{phoneNumberCountryCode.value}}" disabled>
               <option value="HK">+852</option>
               <option value="VN">+84</option>
             </select>
-          <input #inputPhoneNumber [formControl]="phoneNumber" type="text" class="form-control" id="inputPhoneNumber" placeholder="{{ 'GLOBAL.PHONE_NUMBER' |translate }}">
+          <input type="text" value="{{phoneNumber.value}}" disabled class="form-control" placeholder="{{ 'GLOBAL.PHONE_NUMBER' |translate }}">
         </div>
-        <span *ngIf="phoneNumber.value.length == 0 && phoneNumber.touched" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_PHONE_NUMBER_IS_REQUIRED' | translate }}</span>
-        <span *ngIf="!phoneNumber.valid && phoneNumber.value.length > 0 && phoneNumber.touched" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_INVALID_PHONE_NUMBER' | translate }}</span>
       </div>
       <div class="form-group" [ngClass]="{'has-error': (!country.valid && country.touched), 'has-success': (country.valid && country.touched)}">
         <select [formControl]="country" class="form-control">
@@ -108,6 +145,7 @@
       </div>
       <div class="form-group">
         <button [disabled]="!form.valid || !birthdayDay" type="submit" class="btn btn-default btn-auth">{{ 'SIGN_UP.SUBMIT_BUTTON_TEXT' | translate }}</button>
+        <a class="forgot-pass" href="#" (click)="showCheckPhoneNumberForm($event)">{{ 'GLOBAL.BACK' | translate }}</a>
       </div>
     </form>
 

@@ -159,6 +159,7 @@
 
         "STR_ERR_FIRST_NAME_IS_REQUIRED": "First name is required.",
         "STR_ERR_LAST_NAME_IS_REQUIRED": "Last name is required.",
+        "STR_ERR_NAME_IS_REQUIRED": "Name is required.",
         "STR_ERR_EMAIL_IS_REQUIRED": "Email is required.",
         "STR_ERR_EMAIL_IS_INVALID": "Email is invalid.",
         "STR_ERR_USERNAME_IS_REQUIRED": "Username is required.",
@@ -180,10 +181,12 @@
         "STR_ERR_MISSING_BANK_INFO": "Swift code and account number are required.",
         "STR_SERVER_ERR_EMAIL_IS_IN_USE": "Email is already in use. Please try another one.",
         "STR_SERVER_ERR_ID_IS_IN_USE": "ID is already in use.",
-        "STR_SERVER_ERR_PHONE_NUMBER_IS_IN_USE": "Phone number is already in use. Please try another one.",
+        "STR_SERVER_ERR_PHONE_NUMBER_IS_IN_USE": "Your phone number is already in use. Please try another one or login with the account which is associated with this phone number.",
         "STR_SERVER_ERR_USERNAME_IS_IN_USE": "Username is already in use. Please try another one.",
         "STR_SERVER_ERR_ACCOUNT_NOT_FOUND": "No account registered with that information. Please input the correct phone number.",
         "STR_MSG_INVALID_VERIFICATION_CODE_SMS": "Invalid SMS code.",
-        "STR_SERVER_ERR_EXPIRED_PASSWORD_RESET_CODE": "Your code got expired. Please click \"Resend\" to get a new code."
+        "STR_SERVER_ERR_EXPIRED_PASSWORD_RESET_CODE": "Your code got expired. Please click \"Resend\" to get a new code.",
+        "STR_SERVER_ERR_PHONE_NUMBER_IS_IN_USE": "Your phone number is already in use. Please try another one or login with the account which is accociated with this phone number.",
+        "STR_SERVER_MSG_PHONE_NUMBER_REGISTERED_WITH_SENDER_APP": "This phone number was registered as a Sender / Receiver with Zappp already. Please input your password and complete your deliverer profile."
     }
 }
