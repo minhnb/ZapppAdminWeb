@@ -115,3 +115,18 @@ form.table-search {
         }
     }
 }
+
+span.input-group-addon, .has-error .input-group-addon, .has-success .input-group-addon {
+    background: transparent;
+    color: inherit;
+}
+span.input-group-addon {
+    border-radius: 0 5px 5px 0;
+    border-color: rgba(255, 255, 255, 0.49);
+}
+.has-error .input-group-addon {
+    border: 1px solid #fa758e;
+}
+.has-success .input-group-addon {
+    border: 1px solid #a2db59;
+}
