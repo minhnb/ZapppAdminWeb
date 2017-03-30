@@ -1,12 +1,13 @@
 @import '../../theme/sass/auth';
 
+.auth-main.register-page {
+    height: auto;
+    min-height: 100%;
+}
 .image-box {
     border: 1px solid #ccc;
     width: 100%;
     height: 175px;
-}
-.auth-main.register-page {
-    height: auto;
 }
 .form-group.has-error {
     .picture-group {
