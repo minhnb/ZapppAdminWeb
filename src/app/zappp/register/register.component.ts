@@ -63,6 +63,13 @@ export class Register extends ZapppBaseComponent {
 	public defaultPicture = 'assets/img/theme/no-photo.png';
 	public checkboxModel: Array<any>;
 	formatDateTime: String;
+	signUpErrorCode: string = '';
+	ERROR_CODE: any = {
+		EMAIL_EXISTED: "EmailExisted",
+		ID_EXISTED: "IdExisted",
+		PHONE_NUMBER_EXISTED: "PhoneNumberExisted",
+		USERNAME_EXISTED: "UsernameExisted"
+	}
 
 	constructor(private injector: Injector, private userService: UserService, private formBuilder: FormBuilder) {
         super(injector);
@@ -179,7 +186,13 @@ export class Register extends ZapppBaseComponent {
 				this.afterRegisterAction();
 			},
 			error => {
-				this.zapppAlert.showError(error.message);
+				if (error.code) {
+					this.signUpErrorCode = error.code;
+				}
+				let inlineErrorArray = [this.ERROR_CODE.EMAIL_EXISTED, this.ERROR_CODE.ID_EXISTED, this.ERROR_CODE.USERNAME_EXISTED];
+				if (inlineErrorArray.indexOf(error.code) == -1) {
+					this.zapppAlert.showError(error.message);
+				}
 			});
 	}
 
@@ -307,6 +320,7 @@ export class Register extends ZapppBaseComponent {
 
 	showCheckPhoneNumberForm(event?) {
 		this.registerFormStepCount = 1;
+		this.signUpErrorCode = '';
 		if (this.hasUserInfo) {
 			this.hasUserInfo = false;
 			this.name.enable();

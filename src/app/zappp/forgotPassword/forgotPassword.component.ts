@@ -173,4 +173,11 @@ export class ForgotPassword extends ZapppBaseComponent {
 
 			})
 	}
+
+	resendPinCode(event) {
+		this.getPinCode();
+		if (event) {
+			event.preventDefault();
+		}
+	}
 }

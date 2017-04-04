@@ -59,16 +59,18 @@
             <input #inputName [formControl]="name" type="text" class="form-control" placeholder="{{ 'GLOBAL.NAME' | translate }}" />
             <span *ngIf="!name.valid && name.touched" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_NAME_IS_REQUIRED' | translate }}</span>
           </div>
-          <div class="form-group" [ngClass]="{'has-error': (!email.valid && email.touched), 'has-success': (email.valid && email.touched)}">
-            <input [formControl]="email" type="email" class="form-control" placeholder="{{ 'GLOBAL.EMAIL' | translate }}" />
+          <div class="form-group" [ngClass]="{'has-error': ((!email.valid && email.touched) || signUpErrorCode == ERROR_CODE.EMAIL_EXISTED), 'has-success': (email.valid && email.touched && signUpErrorCode != ERROR_CODE.EMAIL_EXISTED)}">
+            <input [formControl]="email" type="email" class="form-control" placeholder="{{ 'GLOBAL.EMAIL' | translate }}"/>
             <span *ngIf="email.errors && email.errors.required && email.touched" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_EMAIL_IS_REQUIRED' | translate }}</span>
             <span *ngIf="email.errors && !email.errors.required && !email.errors.validateEmail.valid && email.touched" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_EMAIL_IS_INVALID' | translate }}</span>
+            <span *ngIf="email.valid && signUpErrorCode == ERROR_CODE.EMAIL_EXISTED" class="help-block sub-little-text">{{ 'SYNC.STR_SERVER_ERR_EMAIL_IS_IN_USE' | translate }}</span>
           </div>
-          <div class="form-group" [ngClass]="{'has-error': (!username.valid && username.touched), 'has-success': (username.valid && username.touched)}">
-            <input #inputUsername [formControl]="username" type="text" class="form-control" placeholder="{{ 'GLOBAL.USERNAME' | translate }}" />
+          <div class="form-group" [ngClass]="{'has-error': ((!username.valid && username.touched) || signUpErrorCode == ERROR_CODE.USERNAME_EXISTED), 'has-success': (username.valid && username.touched && signUpErrorCode != ERROR_CODE.USERNAME_EXISTED)}">
+            <input #inputUsername [formControl]="username" type="text" class="form-control" placeholder="{{ 'GLOBAL.USERNAME' | translate }}"/>
             <span *ngIf="username.value.length == 0 && username.touched" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_USERNAME_IS_REQUIRED' | translate }}</span>
             <span *ngIf="username.value.length > 0 && (username.value.length < 4 || username.value.length > 30) && username.touched" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_USERNAME_LENGTH' | translate }}</span>
             <span *ngIf="!username.valid && username.value.length >= 4 && username.value.length <= 30 && username.touched" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_USERNAME_FORMAT' | translate }}</span>
+            <span *ngIf="username.valid && signUpErrorCode == ERROR_CODE.USERNAME_EXISTED" class="help-block sub-little-text">{{ 'SYNC.STR_SERVER_ERR_USERNAME_IS_IN_USE' | translate }}</span>
           </div>
         </div>
       </div>
@@ -86,9 +88,10 @@
         <span *ngIf="(birthdayDateTimePicker.touched || submitted) && !birthdayDay" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_BIRTHDAY_IS_REQUIRED' | translate }}</span>
         <!-- <input [formControl]="birthday" type="text" class="form-control" placeholder="{{ 'GLOBAL.BIRTHDAY' | translate }}" /> -->
       </div>
-      <div class="form-group" [ngClass]="{'has-error': (!idNumber.valid && idNumber.touched), 'has-success': (idNumber.valid && idNumber.touched)}">
-        <input [formControl]="idNumber" type="text" class="form-control" placeholder="{{ 'GLOBAL.IDENTIFICATION_NUMBER' | translate }}" />
+      <div class="form-group" [ngClass]="{'has-error': ((!idNumber.valid && idNumber.touched) || signUpErrorCode == ERROR_CODE.ID_EXISTED), 'has-success': (idNumber.valid && idNumber.touched && signUpErrorCode != ERROR_CODE.ID_EXISTED)}">
+        <input [formControl]="idNumber" type="text" class="form-control" placeholder="{{ 'GLOBAL.IDENTIFICATION_NUMBER' | translate }}"/>
         <span *ngIf="!idNumber.valid && idNumber.touched" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_ID_IS_REQUIRED' | translate }}</span>
+        <span *ngIf="idNumber.valid && signUpErrorCode == ERROR_CODE.ID_EXISTED" class="help-block sub-little-text">{{ 'SYNC.STR_SERVER_ERR_ID_IS_IN_USE' | translate }}</span>
       </div>
       <div class="form-group" [ngClass]="{'has-error': (!gender.valid && gender.touched), 'has-success': (gender.valid && gender.touched)}">
         <select [formControl]="gender" class="form-control">
