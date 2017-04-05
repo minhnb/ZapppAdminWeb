@@ -19,6 +19,7 @@ var moment = require('moment');
 export class DeliveryRequests extends ZapppBaseComponent {
 
 	@ViewChild('trackModal') trackModal: ModalDirective;
+	@ViewChild('detailModal') detailModal: ModalDirective;
 	@ViewChild('fromDateTimePicker') fromDateTimePicker: DateTimePicker;
 	@ViewChild('toDateTimePicker') toDateTimePicker: DateTimePicker;
 	tableData = [];
@@ -46,6 +47,8 @@ export class DeliveryRequests extends ZapppBaseComponent {
 	deliveryStatus: String = '';
 	paymentStatus: String = '';
 	searchQuery: any = {};
+
+	defaultPicture = 'assets/img/theme/no-photo.png';
 
 	constructor(private injector: Injector, private deliveryService: DeliveryService, private _elementRef: ElementRef) {
 		super(injector);
@@ -452,5 +455,25 @@ export class DeliveryRequests extends ZapppBaseComponent {
 			search.payment_status = this.paymentStatus;
 		}
 		return search;
+	}
+
+	getDeliveryRequestById(deliveryRequestId: string, callback?: (result: any) => void) {
+		this.deliveryService.getDeliveryRequestById(deliveryRequestId).subscribe(
+			res => {
+				if (callback) {
+					callback(res);
+				}
+			},
+			error => {
+				this.zapppAlert.showError(error.message);
+			}
+		);
+	}
+
+	showDetailPopUp(deliveryRequestId: string) {
+		this.getDeliveryRequestById(deliveryRequestId, res => {
+			this.selectedDeliveryRequest = res;
+			this.detailModal.show();
+		});
 	}
 }

@@ -11,6 +11,8 @@ import { routing } from './reports.routing';
 import { Reports } from './reports.component';
 import { DelivererAccounts } from './components/delivererAccounts/delivererAccounts.component';
 import { DeliveryRequests } from './components/deliveryRequests/deliveryRequests.component';
+import { DeliveryRequestUserInfo } from './components/deliveryRequests/deliveryRequestUserInfo.component';
+import { DeliveryRequestLocationInfo } from './components/deliveryRequests/deliveryRequestLocationInfo.component';
 
 @NgModule({
 	imports: [
@@ -26,7 +28,9 @@ import { DeliveryRequests } from './components/deliveryRequests/deliveryRequests
 	declarations: [
 		Reports,
 		DelivererAccounts,
-		DeliveryRequests
+		DeliveryRequests,
+		DeliveryRequestUserInfo,
+		DeliveryRequestLocationInfo
 	],
 	providers: [
 
