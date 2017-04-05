@@ -102,6 +102,9 @@ table.table {
     tbody > tr > td:first-child {
         text-align: left;
     }
+    tr.function-row {
+        cursor: pointer;
+    }
 }
 
 form.table-search {

@@ -58,4 +58,8 @@ export class DeliveryService {
 		}
 		return this.zapppHttp.get(this.serviceUrl + '/delivery_requests/' + deliveryRequestId + '/delivery_path', params);
 	}
+
+	getDeliveryRequestById(deliveryRequestId: string) {
+		return this.zapppHttp.get(this.serviceUrl + '/delivery_requests/' + deliveryRequestId);
+	}
 }
