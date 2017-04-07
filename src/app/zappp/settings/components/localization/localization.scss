@@ -11,8 +11,8 @@ ba-card .card-body > button {
 #importReviewModal, #exportHistoryModal {
     .modal-content {
         background-color: #67a0d3;
-        .modal-body {
-            max-height: calc(100vh - 200px);
+        .modal-body .tab-pane.active {
+            max-height: calc(100vh - 260px);
             overflow-y: auto;
         }
         .table-no-change {

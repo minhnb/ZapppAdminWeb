@@ -176,6 +176,7 @@
     "LOCALIZATION": {
         "ZAPPPER": "Zappper",
         "SENDER_RECEIVER": "Sender_Receiver",
+        "WEB_HOME": "Web_Home",
         "NO_CHANGES": "No changes",
         "IMPORT_CHANGES_COMPARISON": "Import - Changes comparison"
     },
