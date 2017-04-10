@@ -8,6 +8,8 @@ import { BaThemeConfig } from './theme/theme.config';
 import { TranslateService } from 'ng2-translate';
 import { ZapppAlert } from './helper/zapppAlert';
 
+import { LocalizationService } from './services/localization';
+
 /*
  * App Component
  * Top Level Component
@@ -21,7 +23,8 @@ import { ZapppAlert } from './helper/zapppAlert';
       <div class="additional-bg"></div>
       <router-outlet></router-outlet>
     </main>
-  `
+  `,
+	providers: [LocalizationService]
 })
 export class App {
 
@@ -32,8 +35,9 @@ export class App {
 		private _spinner: BaThemeSpinner,
 		private _config: BaThemeConfig,
 		private viewContainerRef: ViewContainerRef,
-		translate: TranslateService,
-		zapppAlert: ZapppAlert) {
+		private translate: TranslateService,
+		private zapppAlert: ZapppAlert,
+		private localizationService: LocalizationService) {
 
 		this._loadImages();
 
@@ -46,6 +50,7 @@ export class App {
 		translate.use('en');
 
 		zapppAlert.setDefaultViewContainer(viewContainerRef);
+		this.loadLocalizationData();
 	}
 
 	public ngAfterViewInit(): void {
@@ -59,4 +64,38 @@ export class App {
 		// register some loaders
 		BaThemePreloader.registerLoader(this._imageLoader.load(layoutPaths.images.root + 'sky-bg.jpg'));
 	}
+
+	loadLocalizationData() {
+		this.localizationService.getLocalizationData().subscribe(
+			res => {
+				let data = res.data;
+				let currentLangs = this.translate.getLangs();
+				Object.keys(data).forEach(langKey => {
+					if (currentLangs.indexOf(langKey) == -1) {
+						return;
+					}
+					this.translate.getTranslation(langKey).subscribe(
+						translateData => {
+							let langData = translateData['SYNC'];
+							Object.keys(data[langKey]).forEach(key => {
+								let value = data[langKey][key];
+								if (value) {
+									langData[key] = data[langKey][key];
+								}
+							});
+							this.translate.setTranslation(langKey, translateData);
+						},
+						error => {
+							console.log('Get translation data failed');
+						}
+					)
+
+				});
+			},
+			error => {
+				console.log('Load localization data failed');
+			}
+		)
+	}
+
 }
