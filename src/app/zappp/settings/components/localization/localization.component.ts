@@ -88,8 +88,10 @@ export class Localization extends ZapppBaseComponent {
 	readWorkbook(workbook: any) {
 		this.zappperLocalizationDataImport = {};
 		this.senderReceiverLocalizationDataImport = {};
+		this.webHomeLocalizationDataImport = {};
 		this.zappperLocalizationDataChange = [];
 		this.senderReceiverLocalizationDataChange = [];
+		this.webHomeLocalizationDataChange = [];
 		if (!this.isValidTemplate(workbook)) {
 			this.zapppAlert.showError(this.translate.instant('ERROR.LOCALIZATION.INVALID_TEMPLATE'));
 			return;
