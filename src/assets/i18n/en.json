@@ -33,6 +33,9 @@
         "AMOUNT": "Amount",
         "DISTANCE": "Distance",
         "DURATION": "Duration",
+        "SENDER": "Sender",
+        "DELIVERER": "Deliverer",
+        "RECEIVER": "Receiver",
         "VERSION": "Version"
     },
     "GENDER_TYPE": {
@@ -156,6 +159,15 @@
         "FAILURE_CODE": "Failure code",
         "FAILURE_MESSAGE": "Failure message",
         "DETAILS": "Details"
+    },
+    "STATISTIC": {
+        "DELIVERERS": "Deliverers",
+        "SENDERS_AND_RECEIVERS": "Senders/Receivers",
+        "DELIVERY_REQUESTS": "Delivery Requests",
+        "DELIVERING": "Delivering",
+        "AVAILABLE": "Available",
+        "TOTAL": "Total",
+        "LOOKING_FOR_ZAPPPER": "Looking for Zappper"
     },
     "MAP": {
         "YOU_ARE_HERE": "You're here",

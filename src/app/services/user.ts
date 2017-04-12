@@ -50,7 +50,12 @@ export class UserService {
 		return this.zapppHttp.post(this.userUrl + '/login', user);
 	}
 
-	logIn(loginName: string, password: string, countryCode?: string): Observable<any> {
+	userLogIn(loginName: string, password: string, countryCode?: string): Observable<any> {
+		return this.pureLogIn(loginName, password, countryCode)
+			.map(this.handleLoginSuccess.bind(this));
+	}
+
+	adminLogIn(loginName: string, password: string, countryCode?: string): Observable<any> {
 		return this.pureLogIn(loginName, password, countryCode)
 			.map(this.handleAdminLoginSuccess.bind(this));
 	}

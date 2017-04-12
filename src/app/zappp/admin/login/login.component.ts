@@ -45,7 +45,7 @@ export class Login extends ZapppBaseComponent {
 		if (this.form.valid) {
 			let email = this.email.value;
 			let password = this.password.value;
-			this.userService.logIn(email, password).subscribe(
+			this.userService.adminLogIn(email, password).subscribe(
 				res => {
 					this.router.navigateByUrl('/dashboard');
 				},

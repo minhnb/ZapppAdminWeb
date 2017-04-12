@@ -1,3 +1,5 @@
+import { ZapppConstant } from './zapppConstant';
+
 export class ZapppUtil {
     static trimText(s: string): string {
         if (s) {
@@ -20,5 +22,10 @@ export class ZapppUtil {
 			params.offset = offset;
 		}
         return params;
+    }
+
+    static isAdmin() {
+        let role = localStorage.getItem(ZapppConstant.ROLE);
+        return role == 'admin';
     }
 }
