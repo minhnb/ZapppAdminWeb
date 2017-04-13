@@ -10,14 +10,6 @@
             <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
               <datetimepicker #toDateTimePicker [(dateTimeModel)]="toDate" placeholder="{{ 'GLOBAL.TO' | translate }} {{ formatDateTime }}" [formatDateTime]="formatDateTime"></datetimepicker>
             </div>
-          </div>
-          <div class="row">
-            <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
-              <input type="text" class="form-control" [(ngModel)]="senderName" [ngModelOptions]="{standalone: true}" placeholder="{{ 'REPORTS.SENDER_NAME' | translate }}" />
-            </div>
-            <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
-              <input type="text" class="form-control" [(ngModel)]="delivererName" [ngModelOptions]="{standalone: true}" placeholder="{{ 'REPORTS.DELIVERER_NAME' | translate }}" />
-            </div>
             <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
               <!-- <input type="text" class="form-control" placeholder="{{ 'REPORTS.STATUS' | translate }}" /> -->
               <select #selectStatus class="form-control" [(ngModel)]="deliveryStatus" [ngModelOptions]="{standalone: true}">
@@ -41,6 +33,17 @@
                 <option value="settled">settled</option>
                 <option value="succeeded">succeeded</option>
               </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
+              <input type="text" class="form-control" [(ngModel)]="senderQuery" [ngModelOptions]="{standalone: true}" placeholder="{{ 'GLOBAL.SENDER' | translate }}" />
+            </div>
+            <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
+              <input type="text" class="form-control" [(ngModel)]="delivererQuery" [ngModelOptions]="{standalone: true}" placeholder="{{ 'GLOBAL.DELIVERER' | translate }}" />
+            </div>
+            <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
+              <input type="text" class="form-control" [(ngModel)]="receiverQuery" [ngModelOptions]="{standalone: true}" placeholder="{{ 'GLOBAL.RECEIVER' | translate }}" />
             </div>
           </div>
           <div class="row button-row">
