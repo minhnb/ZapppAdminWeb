@@ -82,7 +82,8 @@
         "RESET_PASSWORD": "Reset password",
         "SMS_CODE": "SMS code",
         "ENTER_NEW_PASSWORD": "Enter new password",
-        "CONFIRM_NEW_PASSWORD": "Re-enter new password"
+        "CONFIRM_NEW_PASSWORD": "Re-enter new password",
+        "LOG_IN_LINK_TEXT": "Log in"
     },
     "ERROR": {
         "LOGIN_BY_PHONE": {

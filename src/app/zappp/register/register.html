@@ -1,7 +1,7 @@
 <div class="auth-main" [ngClass]="registerFormStepCount==3 ? 'register-page' : ''">
   <div class="auth-block" [hidden]="registerFormStepCount != 1">
     <h1>{{ 'SIGN_UP.BOX_TITLE' | translate }}</h1>
-    <!-- <a routerLink="/login" class="auth-link">{{ 'SIGN_UP.LOG_IN_LINK_TEXT' | translate }}</a> -->
+    <a routerLink="/login" class="auth-link">{{ 'SIGN_UP.LOG_IN_LINK_TEXT' | translate }}</a>
 
     <form [formGroup]="checkPhoneNumberForm" (ngSubmit)="checkPhoneNumber()" class="form-horizontal">
       <div class="form-group" [ngClass]="{'has-error': (!phoneNumber.valid && phoneNumber.touched), 'has-success': (phoneNumber.valid && phoneNumber.touched)}">

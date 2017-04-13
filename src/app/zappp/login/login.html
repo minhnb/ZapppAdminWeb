@@ -5,8 +5,8 @@
 
     <form [formGroup]="loginForm" (ngSubmit)="login()" class="form-horizontal login-form">
       <div class="form-group row" [ngClass]="{'has-error': (!phoneNumber.valid && phoneNumber.touched), 'has-success': (phoneNumber.valid && phoneNumber.touched)}">
-        <label for="inputPhoneNumber" class="col-md-3 col-xs-5 control-label">{{ 'GLOBAL.PHONE_NUMBER' |translate }}</label>
-        <div class="phone-number-group col-md-9 col-xs-7">
+        <label for="inputPhoneNumber" class="col-md-3 col-xs-12 control-label">{{ 'GLOBAL.PHONE_NUMBER' |translate }}</label>
+        <div class="phone-number-group col-md-9 col-xs-12">
             <select #selectCountryCode [formControl]="countryCode">
               <option value="HK">+852</option>
               <option value="VN">+84</option>
@@ -15,14 +15,14 @@
         </div>
       </div>
       <div class="form-group row" [ngClass]="{'has-error': (!password.valid && password.touched), 'has-success': (password.valid && password.touched)}">
-        <label for="inputPassword" class="col-md-3 col-xs-5 control-label">{{ 'GLOBAL.PASSWORD' | translate }}</label>
-        <div class="col-md-9 col-xs-7">
+        <label for="inputPassword" class="col-md-3 col-xs-12 control-label">{{ 'GLOBAL.PASSWORD' | translate }}</label>
+        <div class="col-md-9 col-xs-12">
           <input [formControl]="password" type="password" class="form-control" placeholder="{{ 'GLOBAL.PASSWORD' | translate }}">
         </div>
       </div>
       <div class="form-group row">
         <div class="col-sm-offset-2 col-sm-10">
-          <button [disabled]="!loginForm.valid" type="submit" class="btn btn-default btn-auth">{{ 'LOGIN_BY_PHONE.SEND_PIN' | translate }}</button>
+          <button [disabled]="!loginForm.valid" type="submit" class="btn btn-default btn-auth">{{ 'BUTTONS.SUBMIT' | translate }}</button>
           <a class="forgot-pass" routerLink="/forgot-password">{{ 'LOG_IN.FORGOT_PASSWORD' | translate }}</a>
         </div>
       </div>
