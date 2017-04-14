@@ -50,6 +50,8 @@ export class Localization extends ZapppBaseComponent {
 	webHomeLocalizationVersions: Array<any> = [];
 	exceptKeys: Array<string> = ['id', 'note'];
 
+	needFocusTab: string = '';
+
 	constructor(private injector: Injector, private localizationService: LocalizationService) {
 		super(injector);
 		this.pageSize = ZapppConstant.TABLE_PAGINATION.ITEM_PER_PAGE;
@@ -92,6 +94,7 @@ export class Localization extends ZapppBaseComponent {
 		this.zappperLocalizationDataChange = [];
 		this.senderReceiverLocalizationDataChange = [];
 		this.webHomeLocalizationDataChange = [];
+		this.needFocusTab = '';
 		if (!this.isValidTemplate(workbook)) {
 			this.zapppAlert.showError(this.translate.instant('ERROR.LOCALIZATION.INVALID_TEMPLATE'));
 			return;
@@ -102,14 +105,21 @@ export class Localization extends ZapppBaseComponent {
 			let sheetContent = XLSX.utils.sheet_to_json(sheet);
 			switch (sheetName.toLowerCase()) {
 				case ZapppConstant.LOCALIZATION_EXCEL_FILE.ZAPPPER_SHEET:
+					this.needFocusTab = this.translate.instant('LOCALIZATION.ZAPPPER');
 					this.zappperLocalizationDataImport = this.convertSheetContentToLocalizationData(sheetContent, header);
 					this.compareZappperLocalizationDataImport(header);
 					break;
 				case ZapppConstant.LOCALIZATION_EXCEL_FILE.SENDER_RECEIVER_SHEET:
+					if (!this.needFocusTab) {
+						this.needFocusTab = this.translate.instant('LOCALIZATION.SENDER_RECEIVER');
+					}
 					this.senderReceiverLocalizationDataImport = this.convertSheetContentToLocalizationData(sheetContent, header);
 					this.compareSenderReceiverLocalizationDataImport(header);
 					break;
 				case ZapppConstant.LOCALIZATION_EXCEL_FILE.WEB_HOME_SHEET:
+					if (!this.needFocusTab) {
+						this.needFocusTab = this.translate.instant('LOCALIZATION.WEB_HOME');
+					}
 					this.webHomeLocalizationDataImport = this.convertSheetContentToLocalizationData(sheetContent, header);
 					this.compareWebHomeLocalizationDataImport(header);
 					break;
@@ -510,7 +520,10 @@ export class Localization extends ZapppBaseComponent {
 		} else if (this.zappperLocalizationDataChange.length == 0 && this.webHomeLocalizationDataChange.length > 0) {
 			this.tabsetSelectTab(this.tabLocalizationDataChange, this.translate.instant('LOCALIZATION.WEB_HOME'));
 		} else {
-			this.tabsetSelectTab(this.tabLocalizationDataChange, this.translate.instant('LOCALIZATION.ZAPPPER'));
+			if (!this.needFocusTab) {
+				this.needFocusTab = this.translate.instant('LOCALIZATION.ZAPPPER');
+			}
+			this.tabsetSelectTab(this.tabLocalizationDataChange, this.needFocusTab);
 		}
 	}
 
