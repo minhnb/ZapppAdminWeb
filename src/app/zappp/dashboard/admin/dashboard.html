@@ -1,4 +1,4 @@
-<!-- <div class="row">
+<div class="row">
   <div class="col-xs-12">
       <div class="row">
         <ba-card class="statistic-section col-xlg-3 col-lg-4 col-md-6 col-sm-12 col-xs-12" *ngFor="let statistic of listStatistic">
@@ -6,10 +6,10 @@
             <div class="row statistic-container">
                 <div class="statistic-box" *ngFor="let box of statistic.boxes" [ngClass]="box.class">
                     <div class="box-title">{{ box.title }}</div>
-                    <div class="box-value">{{ box.value }}</div>
+                    <div class="box-value">{{ displayStatisticValue(box.value) }}</div>
                 </div>
             </div>
         </ba-card>
       </div>
   </div>
-</div> -->
+</div>

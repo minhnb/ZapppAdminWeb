@@ -28,4 +28,9 @@ export class ZapppUtil {
         let role = localStorage.getItem(ZapppConstant.ROLE);
         return role == 'admin';
     }
+
+    static formatNumber(number: number, decimalLength: number = 0, sectionLength: number = 3): string {
+        var re = '\\d(?=(\\d{' + (sectionLength || 3) + '})+' + (decimalLength > 0 ? '\\.' : '$') + ')';
+        return number.toFixed(Math.max(0, ~~decimalLength)).replace(new RegExp(re, 'g'), '$&,');
+    };
 }
