@@ -1,42 +1,29 @@
 <div class="auth-main">
-  <div class="auth-block" [hidden]="isShowStepTwoLoginByPhoneForm">
+  <div class="auth-block">
     <h1>{{ 'LOG_IN.BOX_TITLE' | translate }}</h1>
     <a routerLink="/register" class="auth-link">{{ 'LOG_IN.SIGN_UP_LINK_TEXT' | translate }}</a>
 
-    <form [formGroup]="stepOneLoginByPhoneForm" (ngSubmit)="getPinCode(stepOneLoginByPhoneForm.value)" class="form-horizontal login-form">
+    <form [formGroup]="loginForm" (ngSubmit)="login()" class="form-horizontal login-form">
       <div class="form-group row" [ngClass]="{'has-error': (!phoneNumber.valid && phoneNumber.touched), 'has-success': (phoneNumber.valid && phoneNumber.touched)}">
-        <label for="inputPhoneNumber" class="col-md-3 col-xs-5 control-label">{{ 'GLOBAL.PHONE_NUMBER' |translate }}</label>
-        <div class="phone-number-group col-md-9 col-xs-7">
-            <select #selectCountryCode [formControl]="countryCode" id="selectCountryCode">
+        <label for="inputPhoneNumber" class="col-md-3 col-xs-12 control-label">{{ 'GLOBAL.PHONE_NUMBER' |translate }}</label>
+        <div class="phone-number-group col-md-9 col-xs-12">
+            <select #selectCountryCode [formControl]="countryCode">
               <option value="HK">+852</option>
               <option value="VN">+84</option>
             </select>
-            <input #inputPhoneNumber [formControl]="phoneNumber" type="text" class="form-control" id="inputPhoneNumber" placeholder="{{ 'GLOBAL.PHONE_NUMBER' |translate }}">
+            <input #inputPhoneNumber [formControl]="phoneNumber" type="text" class="form-control" placeholder="{{ 'GLOBAL.PHONE_NUMBER' |translate }}">
+        </div>
+      </div>
+      <div class="form-group row" [ngClass]="{'has-error': (!password.valid && password.touched), 'has-success': (password.valid && password.touched)}">
+        <label for="inputPassword" class="col-md-3 col-xs-12 control-label">{{ 'GLOBAL.PASSWORD' | translate }}</label>
+        <div class="col-md-9 col-xs-12">
+          <input [formControl]="password" type="password" class="form-control" placeholder="{{ 'GLOBAL.PASSWORD' | translate }}">
         </div>
       </div>
       <div class="form-group row">
         <div class="col-sm-offset-2 col-sm-10">
-          <button [disabled]="!stepOneLoginByPhoneForm.valid" type="submit" class="btn btn-default btn-auth">{{ 'LOGIN_BY_PHONE.SEND_PIN' | translate }}</button>
+          <button [disabled]="!loginForm.valid" type="submit" class="btn btn-default btn-auth">{{ 'BUTTONS.SUBMIT' | translate }}</button>
           <a class="forgot-pass" routerLink="/forgot-password">{{ 'LOG_IN.FORGOT_PASSWORD' | translate }}</a>
-        </div>
-      </div>
-    </form>
-  </div>
-  <div class="auth-block" [hidden]="!isShowStepTwoLoginByPhoneForm">
-    <h1>{{ 'LOG_IN.BOX_TITLE' | translate }}</h1>
-
-    <form [formGroup]="stepTwoLoginByPhoneStepTwoForm" (ngSubmit)="sendPinCode(stepTwoLoginByPhoneStepTwoForm.value)" class="form-horizontal">
-      <div class="form-group row" [ngClass]="{'has-error': (!pinCode.valid && pinCode.touched), 'has-success': (pinCode.valid && pinCode.touched)}">
-        <label for="pinCode" class="col-md-3 col-xs-5 control-label">{{ 'GLOBAL.PIN' |translate }}</label>
-
-        <div class="col-md-9 col-xs-7">
-          <input #inputPinCode [formControl]="pinCode" type="text" class="form-control" id="inputPinCode" placeholder="{{ 'GLOBAL.PIN' |translate }}">
-        </div>
-      </div>
-      <div class="form-group row">
-        <div class="col-sm-offset-2 col-sm-10">
-          <button [disabled]="!stepTwoLoginByPhoneStepTwoForm.valid" type="submit" class="btn btn-default btn-auth">{{ 'LOG_IN.SUBMIT_BUTTON_TEXT' | translate }}</button>
-          <a class="forgot-pass" href="#" (click)="hideStepTwoLoginByPhoneForm($event)">{{ 'GLOBAL.BACK' | translate }}</a>
         </div>
       </div>
     </form>

@@ -15,94 +15,49 @@ import { ZapppConstant } from '../../helper/zapppConstant';
 })
 export class Login extends ZapppBaseComponent {
 
-	public stepOneLoginByPhoneForm: FormGroup;
+	public loginForm: FormGroup;
 	public phoneNumber: AbstractControl;
 	public countryCode: AbstractControl;
-	public stepTwoLoginByPhoneStepTwoForm: FormGroup;
-	public pinCode: AbstractControl;
-
-	public isShowStepTwoLoginByPhoneForm: boolean = false;
+	public password: AbstractControl;
 
 	@ViewChild('inputPhoneNumber') inputPhoneNumber: ElementRef;
-	@ViewChild('inputPinCode') inputPinCode: ElementRef;
 
 	formattedPhoneNumber: string;
 
 	constructor(private injector: Injector, private userService: UserService, fb: FormBuilder) {
 		super(injector);
-		this.prepareStepOneLoginByPhoneForm(fb);
-		this.prepareStepTwoLoginByPhoneForm(fb);
+		this.prepareLoginForm(fb);
 	}
 
 	ngAfterViewInit() {
-		this.setFocusInput(this.inputPhoneNumber);
+		// this.setFocusInput(this.inputPhoneNumber);
 	}
 
-	prepareStepOneLoginByPhoneForm(fb: FormBuilder) {
-		this.stepOneLoginByPhoneForm = fb.group({
+	prepareLoginForm(fb: FormBuilder) {
+		this.loginForm = fb.group({
 			'phoneNumber': ['', Validators.compose([Validators.required, Validators.pattern(ZapppConstant.PATTERN.ONLY_DIGIT), Validators.minLength(6)])],
-			'countryCode': ['', Validators.compose([Validators.required])]
+			'countryCode': ['', Validators.compose([Validators.required])],
+			'password': ['', Validators.compose([Validators.required, Validators.minLength(4)])]
 		});
 
-		this.phoneNumber = this.stepOneLoginByPhoneForm.controls['phoneNumber'];
-		this.countryCode = this.stepOneLoginByPhoneForm.controls['countryCode'];
+		this.phoneNumber = this.loginForm.controls['phoneNumber'];
+		this.countryCode = this.loginForm.controls['countryCode'];
+		this.password = this.loginForm.controls['password'];
 		this.countryCode.setValue("HK");
 	}
 
-	prepareStepTwoLoginByPhoneForm(fb: FormBuilder) {
-		this.stepTwoLoginByPhoneStepTwoForm = fb.group({
-			'pinCode': ['', Validators.compose([Validators.required, Validators.pattern(ZapppConstant.PATTERN.ONLY_DIGIT), Validators.minLength(4)])]
-		});
-
-		this.pinCode = this.stepTwoLoginByPhoneStepTwoForm.controls['pinCode'];
-	}
-
-	public getPinCode(values: Object): void {
-		if (this.stepOneLoginByPhoneForm.valid) {
+	public login(values: Object): void {
+		if (this.loginForm.valid) {
 			let phoneNumber = this.phoneNumber.value;
 			let countryCode = this.countryCode.value;
-			this.userService.getPinCode(phoneNumber, countryCode).subscribe(
-				res => {
-					this.formattedPhoneNumber = res.phone_number;
-					this.showStepTwoLoginByPhoneForm();
-				},
-				error => {
-					let errorMessage = error.message;
-					if (error.status == 400) {
-						errorMessage = this.translate.instant('ERROR.LOGIN_BY_PHONE.BAD_REQUEST');
-					}
-					this.zapppAlert.showError(errorMessage);
-				});
-		}
-	}
-
-	public sendPinCode(values: Object): void {
-		if (this.stepTwoLoginByPhoneStepTwoForm.valid) {
-			let pinCode = this.pinCode.value;
-			this.userService.logInPhone(this.formattedPhoneNumber, pinCode).subscribe(
+			let password = this.password.value;
+			this.userService.userLogIn(phoneNumber, password, countryCode).subscribe(
 				res => {
 					this.router.navigateByUrl('/dashboard');
 				},
 				error => {
 					this.zapppAlert.showError(error.message);
 				});
-		}
-	}
-
-	public showStepTwoLoginByPhoneForm(event?) {
-		this.isShowStepTwoLoginByPhoneForm = true;
-		this.pinCode.reset();
-		this.setFocusInput(this.inputPinCode);
-		if (event) {
-			event.preventDefault();
-		}
-	}
-
-	public hideStepTwoLoginByPhoneForm(event?) {
-		this.isShowStepTwoLoginByPhoneForm = false;
-		this.setFocusInput(this.inputPhoneNumber);
-		if (event) {
-			event.preventDefault();
 		}
 	}
 }

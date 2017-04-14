@@ -21,3 +21,22 @@
 .blurCalendar {
   height: 475px;
 }
+
+.statistic-section {
+    .section-header {
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .statistic-container {
+        margin-top: 15px;
+        .statistic-box {
+            .box-title {
+                font-size: 16px;
+            }
+            .box-value {
+                font-size: 25px;
+                margin-top: 15px;
+            }
+        }
+    }
+}

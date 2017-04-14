@@ -42,8 +42,9 @@ export class DeliveryRequests extends ZapppBaseComponent {
 	formatDateTime: String;
 	fromDate: Date;
 	toDate: Date;
-	senderName: String;
-	delivererName: String;
+	senderQuery: String;
+	delivererQuery: String;
+	receiverQuery: String;
 	deliveryStatus: String = '';
 	paymentStatus: String = '';
 	searchQuery: any = {};
@@ -418,8 +419,9 @@ export class DeliveryRequests extends ZapppBaseComponent {
 	clearSearch() {
 		this.fromDateTimePicker.reset();
 		this.toDateTimePicker.reset();
-		this.senderName = '';
-		this.delivererName = '';
+		this.senderQuery = '';
+		this.delivererQuery = '';
+		this.receiverQuery = '';
 		this.deliveryStatus = '';
 		this.paymentStatus = '';
 
@@ -442,11 +444,14 @@ export class DeliveryRequests extends ZapppBaseComponent {
 		if (this.toDate) {
 			search.to = moment(this.toDate).unix();
 		}
-		if (this.senderName) {
-			search.sender = this.senderName;
+		if (this.senderQuery) {
+			search.sender = this.senderQuery;
 		}
-		if (this.delivererName) {
-			search.deliverer = this.delivererName;
+		if (this.delivererQuery) {
+			search.deliverer = this.delivererQuery;
+		}
+		if (this.receiverQuery) {
+			search.receiver = this.receiverQuery;
 		}
 		if (this.deliveryStatus) {
 			search.status = this.deliveryStatus;

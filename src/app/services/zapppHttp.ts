@@ -9,6 +9,7 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/toPromise';
 import { BaThemeSpinner } from '../theme/services';
 import { ZapppConstant } from '../helper/zapppConstant';
+import { ZapppUtil } from '../helper/zapppUtil';
 import { AppConfig } from '../app.config';
 import { TranslateService } from 'ng2-translate';
 
@@ -160,9 +161,8 @@ export class ZapppHttp {
     handleErrorRefreshToken(error: Response | any) {
         this._spinner.hide();
         let errMsg = this.jsonError(error);
-        let role = localStorage.getItem(ZapppConstant.ROLE);
         localStorage.clear();
-        if (role == 'admin') {
+        if (ZapppUtil.isAdmin()) {
             this.router.navigate(['admin/login']);
         } else {
             this.router.navigate(['/login']);
