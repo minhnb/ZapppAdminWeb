@@ -152,7 +152,7 @@ export class DeliveryRequests extends ZapppBaseComponent {
 		return deliverer.status == 'Completed';
 	}
 
-	showTrackPopUp(deliveryRequest) {
+	showTrackPopUp(deliveryRequest, event) {
 		this.selectedDeliveryRequest = deliveryRequest;
 		this.trackModal.show();
 
@@ -165,7 +165,7 @@ export class DeliveryRequests extends ZapppBaseComponent {
 			this.drawStartEndPoint(deliveryRequest);
 			this.trackDeliverer(deliveryRequest.id);
 		}
-
+		event.stopPropagation();
 	}
 
 	loadGoogleMap(deliveryRequest) {
