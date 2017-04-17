@@ -89,6 +89,9 @@
         "LOGIN_BY_PHONE": {
             "BAD_REQUEST": "Couldn't send PIN code to your phone number. Please double check."
         },
+        "LOGIN": {
+            "WRONG_USERNAME_OR_PASSWORD": "Wrong username or password"
+        },
         "CONNECTION": "Couldn't connect to server. Please double check and try again.",
         "UNKNOWN": "Unknown error. Please try again later.",
         "LOCALIZATION": {
