@@ -8,6 +8,9 @@ import { Dashboard } from './dashboard.component';
 import { AdminDashboard } from './admin/dashboard.component';
 import { routing } from './dashboard.routing';
 
+import { ModalModule } from 'ng2-bootstrap';
+import { DateTimePickerModule } from '../../helper/datetimepicker';
+
 import { PopularApp } from './popularApp';
 import { PieChart } from './pieChart';
 import { TrafficChart } from './trafficChart';
@@ -30,6 +33,8 @@ import { UsersMapService } from './usersMap/usersMap.service';
 		FormsModule,
 		NgaModule,
 		TranslateModule,
+		ModalModule.forRoot(),
+		DateTimePickerModule,
 		routing
 	],
 	declarations: [

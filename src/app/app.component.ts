@@ -5,10 +5,14 @@ import { BaImageLoaderService, BaThemePreloader, BaThemeSpinner } from './theme/
 import { layoutPaths } from './theme/theme.constants';
 import { BaThemeConfig } from './theme/theme.config';
 
+import { Router } from '@angular/router';
 import { TranslateService } from 'ng2-translate';
 import { ZapppAlert } from './helper/zapppAlert';
+import { ZapppConstant } from './helper/zapppConstant';
+import { ZapppUtil } from './helper/zapppUtil';
 
 import { LocalizationService } from './services/localization';
+import { UserService } from './services/user';
 
 /*
  * App Component
@@ -24,7 +28,7 @@ import { LocalizationService } from './services/localization';
       <router-outlet></router-outlet>
     </main>
   `,
-	providers: [LocalizationService]
+	providers: [LocalizationService, UserService]
 })
 export class App {
 
@@ -37,7 +41,9 @@ export class App {
 		private viewContainerRef: ViewContainerRef,
 		private translate: TranslateService,
 		private zapppAlert: ZapppAlert,
-		private localizationService: LocalizationService) {
+		private router: Router,
+		private localizationService: LocalizationService,
+		private userService: UserService) {
 
 		this._loadImages();
 
@@ -51,6 +57,9 @@ export class App {
 
 		zapppAlert.setDefaultViewContainer(viewContainerRef);
 		this.loadLocalizationData();
+		if (localStorage.getItem(ZapppConstant.ACCESS_TOKEN)) {
+            this.loadUserInfo();
+        }
 	}
 
 	public ngAfterViewInit(): void {
@@ -94,6 +103,20 @@ export class App {
 			},
 			error => {
 				console.log('Load localization data failed');
+			}
+		)
+	}
+
+	loadUserInfo() {
+		this.userService.getUserInfo().subscribe(
+			res => {
+				if (!ZapppUtil.isValidUserRole(res.roles)) {
+					localStorage.clear();
+					this.router.navigate(['/login']);
+				}
+			},
+			error => {
+				this.zapppAlert.showError(error.message);
 			}
 		)
 	}

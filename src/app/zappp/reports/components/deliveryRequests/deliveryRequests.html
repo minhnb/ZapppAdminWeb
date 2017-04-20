@@ -79,7 +79,7 @@
               <td>{{ item.payment_status ? item.payment_status.status : '' }}</td>
               <td>
                 <div class="button-wrapper">
-                  <button type="button" class="btn btn-primary" [disabled]="!isDeliveringRequest(item) && !isCompletedRequest(item)" (click)="showTrackPopUp(item)">{{ 'BUTTONS.TRACK' | translate }}</button>
+                  <button type="button" class="btn btn-primary" [disabled]="!isDeliveringRequest(item) && !isCompletedRequest(item)" (click)="showTrackPopUp(item, $event)">{{ 'BUTTONS.TRACK' | translate }}</button>
                 </div>
               </td>
             </tr>

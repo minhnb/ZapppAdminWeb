@@ -141,7 +141,7 @@ export class Register extends ZapppBaseComponent {
 		let username = this.username.value;
 		let citizenId = this.idNumber.value;
 		let gender = this.gender.value;
-		let birthday = moment(this.birthdayDay).format('YYYY/MM/DD');
+		let birthday = moment(this.birthdayDay).format(ZapppConstant.SERVER_FORMAT_DATE);
 		let phoneNumber = this.phoneNumber.value;
 		let phoneNumberCountryCode = this.phoneNumberCountryCode.value;
 		let country = this.country.value;

@@ -4,10 +4,13 @@ import { ZapppHttp } from './zapppHttp';
 
 import { AppConfig } from '../app.config';
 import { ZapppConstant } from '../helper/zapppConstant';
+import { ZapppUtil } from '../helper/zapppUtil';
 
 @Injectable()
 export class UserService {
 	private userUrl = AppConfig.API_URL + 'auth';
+	errorWrongUserNameOrPassword: any;
+
 	constructor(private zapppHttp: ZapppHttp) { }
 
 	saveUserToLocalStorage(user: any) {
@@ -27,12 +30,18 @@ export class UserService {
 	}
 
 	handleLoginSuccess(data: any): any {
-		this.saveUserAccessTokenToLocalStorage(data, 'user');
+		let role = ZapppConstant.USER_ROLE.SENDER.toLowerCase();
+		if (ZapppUtil.userHasRole(data.user.roles, role)) {
+			this.saveUserAccessTokenToLocalStorage(data, role);
+		}
 		return data;
 	}
 
 	handleAdminLoginSuccess(data: any): any {
-		this.saveUserAccessTokenToLocalStorage(data, 'admin');
+		let role = ZapppConstant.USER_ROLE.ADMIN.toLowerCase();
+		if (ZapppUtil.userHasRole(data.user.roles, role)) {
+			this.saveUserAccessTokenToLocalStorage(data, role);
+		}
 		return data;
 	}
 
@@ -134,4 +143,7 @@ export class UserService {
 		return this.checkAccount(type, phoneNumber, countryCode);
 	}
 
+	getUserInfo(): Observable<any> {
+		return this.zapppHttp.get(AppConfig.API_URL + 'me');
+	}
 }

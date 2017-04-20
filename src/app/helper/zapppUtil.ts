@@ -26,7 +26,27 @@ export class ZapppUtil {
 
     static isAdmin() {
         let role = localStorage.getItem(ZapppConstant.ROLE);
-        return role == 'admin';
+        if (role) {
+            role = role.toLowerCase();
+            return role == ZapppConstant.USER_ROLE.ADMIN.toLowerCase();
+        }
+        return false;
+    }
+
+    static userHasRole(userRoles: Array<any>, comparedRole: string) {
+        let role = comparedRole.toLowerCase();
+        let listRoles = [];
+        userRoles.forEach(userRole => {
+            if (userRole.approved) {
+                listRoles.push(userRole.name.toLowerCase());
+            }
+        });
+        return listRoles.indexOf(role) > -1;
+    }
+
+    static isValidUserRole(userRoles: Array<any>) {
+        let role = localStorage.getItem(ZapppConstant.ROLE).toLowerCase();
+        return ZapppUtil.userHasRole(userRoles, role);
     }
 
     static formatNumber(number: number, decimalLength: number = 0, sectionLength: number = 3): string {

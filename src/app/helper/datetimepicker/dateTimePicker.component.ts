@@ -124,6 +124,9 @@ export class DateTimePicker {
         // this.dateTimeModel = event;
 		this.updateDateModelFormatted();
         this.dateTimeModelChange.emit(this.dateTimeModel);
+		if (this.hideTimePicker) {
+			this.hideDateTimePicker();
+		}
     }
 
     hideDateTimePicker() {
@@ -157,5 +160,11 @@ export class DateTimePicker {
 		this.dateTimeModelFormatted = '';
 		this.dateTimeModelChange.emit(this.dateTimeModel);
 		this.touched = false;
+	}
+
+	public setDate(date: Date) {
+		this.dateTimeModel = date;
+		this.updateDateModelFormatted();
+		this.dateTimeModelChange.emit(this.dateTimeModel);
 	}
 }

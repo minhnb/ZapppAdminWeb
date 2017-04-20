@@ -22,6 +22,7 @@ export const ZapppConstant = {
     FORMAT_DATE: 'MM/DD/YYYY',
     FORMAT_TIME: 'HH:mm',
     FORMAT_TIME_FULL: 'HH:mm:ss',
+    SERVER_FORMAT_DATE: 'YYYY/MM/DD',
     TABLE_PAGINATION: {
         ITEM_PER_PAGE: 20
     },

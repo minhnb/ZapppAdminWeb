@@ -47,7 +47,11 @@ export class Login extends ZapppBaseComponent {
 			let password = this.password.value;
 			this.userService.adminLogIn(email, password).subscribe(
 				res => {
-					this.router.navigateByUrl('/dashboard');
+					if (localStorage.getItem(ZapppConstant.ACCESS_TOKEN)) {
+						this.router.navigateByUrl('/dashboard');
+					} else {
+						this.zapppAlert.showError(this.translate.instant('ERROR.LOGIN.WRONG_USERNAME_OR_PASSWORD'));
+					}
 				},
 				error => {
 					this.zapppAlert.showError(error.message);

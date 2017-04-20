@@ -36,6 +36,7 @@
         "SENDER": "Sender",
         "DELIVERER": "Deliverer",
         "RECEIVER": "Receiver",
+        "DELIVERIES": "Deliveries",
         "VERSION": "Version"
     },
     "GENDER_TYPE": {
@@ -88,6 +89,9 @@
     "ERROR": {
         "LOGIN_BY_PHONE": {
             "BAD_REQUEST": "Couldn't send PIN code to your phone number. Please double check."
+        },
+        "LOGIN": {
+            "WRONG_USERNAME_OR_PASSWORD": "Wrong username or password"
         },
         "CONNECTION": "Couldn't connect to server. Please double check and try again.",
         "UNKNOWN": "Unknown error. Please try again later.",
@@ -168,7 +172,11 @@
         "DELIVERING": "Delivering",
         "AVAILABLE": "Available",
         "TOTAL": "Total",
-        "LOOKING_FOR_ZAPPPER": "Looking for Zappper"
+        "LOOKING_FOR_ZAPPPER": "Looking for Zappper",
+        "LAST_7_DAYS": "Last 7 days",
+        "LAST_30_DAYS": "Last 30 days",
+        "LAST_90_DAYS": "Last 90 days",
+        "SELECT_DATE": "Select date"
     },
     "MAP": {
         "YOU_ARE_HERE": "You're here",
