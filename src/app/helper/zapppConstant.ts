@@ -29,9 +29,11 @@ export const ZapppConstant = {
     SENDER_APP: 'sender_app',
     DELIVERER_APP: 'deliverer_app',
     WEB_APP: 'web_app',
+    SERVER: 'server',
     LOCALIZATION_EXCEL_FILE: {
         ZAPPPER_SHEET: 'zappper',
         SENDER_RECEIVER_SHEET: 'sender_receiver',
-        WEB_HOME_SHEET: 'web_home'
+        WEB_HOME_SHEET: 'web_home',
+        SERVER_SHEET: 'server'
     }
 };

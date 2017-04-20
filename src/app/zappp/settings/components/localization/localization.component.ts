@@ -27,35 +27,66 @@ export class Localization extends ZapppBaseComponent {
 	totalItem: number;
 	currentPage: number;
 
-	pureZappperLocalizationData: any = {};
-	pureSenderReceiverLocalizationData: any = {};
-	pureWebHomeLocalizationData: any = {};
-
-	zappperLocalizationData: Array<any> = [];
-	senderReceiverLocalizationData: Array<any> = [];
-	webHomeLocalizationData: Array<any> = [];
-
-	zappperLocalizationDataChange: Array<any> = [];
-	senderReceiverLocalizationDataChange: Array<any> = [];
-	webHomeLocalizationDataChange: Array<any> = [];
-
-	zappperLocalizationDataImport: any = {};
-	senderReceiverLocalizationDataImport: any = {};
-	webHomeLocalizationDataImport: any = {};
-
 	localizationHeader: Array<string> = ['en', 'zh_t'];
-
-	zappperLocalizationVersions: Array<any> = [];
-	senderReceiverLocalizationVersions: Array<any> = [];
-	webHomeLocalizationVersions: Array<any> = [];
 	exceptKeys: Array<string> = ['id', 'note'];
 
 	needFocusTab: string = '';
+	localizationArray: Array<any>;
+	validSheetNameArray: Array<string> = [];
 
 	constructor(private injector: Injector, private localizationService: LocalizationService) {
 		super(injector);
 		this.pageSize = ZapppConstant.TABLE_PAGINATION.ITEM_PER_PAGE;
 		this.currentPage = 1;
+		this.localizationArray = [
+			{
+				key: 'ZAPPPER',
+				localizationKey: 'LOCALIZATION.ZAPPPER',
+				appKey: ZapppConstant.DELIVERER_APP,
+				excelSheetName: ZapppConstant.LOCALIZATION_EXCEL_FILE.ZAPPPER_SHEET,
+				pureLocalizationData: {},
+				localizationData: [],
+				localizationDataChange: [],
+				localizationDataImport: {},
+				localizationVersions: []
+			},
+			{
+				key: 'SENDER_RECEIVER',
+				localizationKey: 'LOCALIZATION.SENDER_RECEIVER',
+				appKey: ZapppConstant.SENDER_APP,
+				excelSheetName: ZapppConstant.LOCALIZATION_EXCEL_FILE.SENDER_RECEIVER_SHEET,
+				pureLocalizationData: {},
+				localizationData: [],
+				localizationDataChange: [],
+				localizationDataImport: {},
+				localizationVersions: []
+			},
+			{
+				key: 'WEB_HOME',
+				localizationKey: 'LOCALIZATION.WEB_HOME',
+				appKey: ZapppConstant.WEB_APP,
+				excelSheetName: ZapppConstant.LOCALIZATION_EXCEL_FILE.WEB_HOME_SHEET,
+				pureLocalizationData: {},
+				localizationData: [],
+				localizationDataChange: [],
+				localizationDataImport: {},
+				localizationVersions: []
+			},
+			{
+				key: 'SERVER',
+				localizationKey: 'LOCALIZATION.SERVER',
+				appKey: ZapppConstant.SERVER,
+				excelSheetName: ZapppConstant.LOCALIZATION_EXCEL_FILE.SERVER_SHEET,
+				pureLocalizationData: {},
+				localizationData: [],
+				localizationDataChange: [],
+				localizationDataImport: {},
+				localizationVersions: []
+			}
+		]
+		this.localizationArray.forEach(item => {
+			this.validSheetNameArray.push(item.excelSheetName);
+		});
 	}
 
 	ngAfterViewInit() {
@@ -88,12 +119,10 @@ export class Localization extends ZapppBaseComponent {
 	}
 
 	readWorkbook(workbook: any) {
-		this.zappperLocalizationDataImport = {};
-		this.senderReceiverLocalizationDataImport = {};
-		this.webHomeLocalizationDataImport = {};
-		this.zappperLocalizationDataChange = [];
-		this.senderReceiverLocalizationDataChange = [];
-		this.webHomeLocalizationDataChange = [];
+		this.localizationArray.forEach(item => {
+			item.localizationDataImport = {};
+			item.localizationDataChange = [];
+		});
 		this.needFocusTab = '';
 		if (!this.isValidTemplate(workbook)) {
 			this.zapppAlert.showError(this.translate.instant('ERROR.LOCALIZATION.INVALID_TEMPLATE'));
@@ -103,27 +132,15 @@ export class Localization extends ZapppBaseComponent {
 			let sheet = workbook.Sheets[sheetName];
 			let header = this.getHeader(sheet);
 			let sheetContent = XLSX.utils.sheet_to_json(sheet);
-			switch (sheetName.toLowerCase()) {
-				case ZapppConstant.LOCALIZATION_EXCEL_FILE.ZAPPPER_SHEET:
-					this.needFocusTab = this.translate.instant('LOCALIZATION.ZAPPPER');
-					this.zappperLocalizationDataImport = this.convertSheetContentToLocalizationData(sheetContent, header);
-					this.compareZappperLocalizationDataImport(header);
-					break;
-				case ZapppConstant.LOCALIZATION_EXCEL_FILE.SENDER_RECEIVER_SHEET:
-					if (!this.needFocusTab) {
-						this.needFocusTab = this.translate.instant('LOCALIZATION.SENDER_RECEIVER');
-					}
-					this.senderReceiverLocalizationDataImport = this.convertSheetContentToLocalizationData(sheetContent, header);
-					this.compareSenderReceiverLocalizationDataImport(header);
-					break;
-				case ZapppConstant.LOCALIZATION_EXCEL_FILE.WEB_HOME_SHEET:
-					if (!this.needFocusTab) {
-						this.needFocusTab = this.translate.instant('LOCALIZATION.WEB_HOME');
-					}
-					this.webHomeLocalizationDataImport = this.convertSheetContentToLocalizationData(sheetContent, header);
-					this.compareWebHomeLocalizationDataImport(header);
-					break;
-				default:
+			let localizationObject: any = {};
+			let localizationObjectIndex = this.validSheetNameArray.indexOf(sheetName.toLowerCase());
+			if (localizationObjectIndex > -1) {
+				localizationObject = this.localizationArray[localizationObjectIndex];
+				if (!this.needFocusTab) {
+					this.needFocusTab = this.translate.instant(localizationObject.localizationKey);
+				}
+				localizationObject.localizationDataImport = this.convertSheetContentToLocalizationData(sheetContent, header);
+				this.compareLocalizationDataImport(header, localizationObject);
 			}
 		});
 	}
@@ -229,46 +246,17 @@ export class Localization extends ZapppBaseComponent {
 		return result;
 	}
 
-	compareZappperLocalizationDataImport(header: Array<string>) {
+	compareLocalizationDataImport(header: Array<string>, localizationObject: any) {
 		let self = this;
-		self.loadLocalizationData(ZapppConstant.DELIVERER_APP, null, zappperLocalizationData => {
+		self.loadLocalizationData(localizationObject.appKey, null, localizationData => {
 			if (!self.isValidHeader(header)) {
 				self.zapppAlert.showError(self.translate.instant('ERROR.LOCALIZATION.TEMPLATE_CHANGED'));
 				return;
 			}
-			self.pureZappperLocalizationData = zappperLocalizationData.data;
-			self.zappperLocalizationData = self.convertLocalizationDataToSheetContent(zappperLocalizationData.data);
-			let changes = self.findLocalizationDataChange(zappperLocalizationData.data, self.zappperLocalizationDataImport);
-			self.zappperLocalizationDataChange = self.convertLocalizationDataToSheetContent(changes);
-			self.importReviewModal.show();
-		});
-	}
-
-	compareSenderReceiverLocalizationDataImport(header: Array<string>) {
-		let self = this;
-		self.loadLocalizationData(ZapppConstant.SENDER_APP, null, senderReceiverLocalizationData => {
-			if (!self.isValidHeader(header)) {
-				self.zapppAlert.showError(self.translate.instant('ERROR.LOCALIZATION.TEMPLATE_CHANGED'));
-				return;
-			}
-			self.pureSenderReceiverLocalizationData = senderReceiverLocalizationData.data;
-			self.senderReceiverLocalizationData = self.convertLocalizationDataToSheetContent(senderReceiverLocalizationData.data);
-			let changes = self.findLocalizationDataChange(senderReceiverLocalizationData.data, self.senderReceiverLocalizationDataImport);
-			self.senderReceiverLocalizationDataChange = self.convertLocalizationDataToSheetContent(changes);
-			self.importReviewModal.show();
-		});
-	}
-	compareWebHomeLocalizationDataImport(header: Array<string>) {
-		let self = this;
-		self.loadLocalizationData(ZapppConstant.WEB_APP, null, webHomeLocalizationData => {
-			if (!self.isValidHeader(header)) {
-				self.zapppAlert.showError(self.translate.instant('ERROR.LOCALIZATION.TEMPLATE_CHANGED'));
-				return;
-			}
-			self.pureWebHomeLocalizationData = webHomeLocalizationData.data;
-			self.webHomeLocalizationData = self.convertLocalizationDataToSheetContent(webHomeLocalizationData.data);
-			let changes = self.findLocalizationDataChange(webHomeLocalizationData.data, self.webHomeLocalizationDataImport);
-			self.webHomeLocalizationDataChange = self.convertLocalizationDataToSheetContent(changes);
+			localizationObject.pureLocalizationData = localizationData.data;
+			localizationObject.localizationData = self.convertLocalizationDataToSheetContent(localizationData.data);
+			let changes = self.findLocalizationDataChange(localizationData.data, localizationObject.localizationDataImport);
+			localizationObject.localizationDataChange = self.convertLocalizationDataToSheetContent(changes);
 			self.importReviewModal.show();
 		});
 	}
@@ -285,36 +273,33 @@ export class Localization extends ZapppBaseComponent {
 			}
 		)
 	}
-	updateZappperLocalzationData(callback?: (result: any) => void) {
-		if (Object.keys(this.zappperLocalizationDataImport).length == 0) {
-			return callback(null);
+
+	updateLocalzationDataByArrayIndex(index: number) {
+		if (index >= this.localizationArray.length) {
+			this.loadAllLocalizationData();
+			this.importReviewModal.hide();
+			this.zapppAlert.showInfo(this.translate.instant('INFORM.IMPORT_DATA_SUCCESSFULLY'));
+			return;
 		}
-		this.updateLocalizationData(ZapppConstant.DELIVERER_APP, this.zappperLocalizationDataImport, callback);
-	}
-	updateSenderReceiverLocalzationData(callback?: (result: any) => void) {
-		if (Object.keys(this.senderReceiverLocalizationDataImport).length == 0) {
-			return callback(null);
-		}
-		this.updateLocalizationData(ZapppConstant.SENDER_APP, this.senderReceiverLocalizationDataImport, callback);
-	}
-	updateWebHomeLocalzationData(callback?: (result: any) => void) {
-		if (Object.keys(this.webHomeLocalizationDataImport).length == 0) {
-			return callback(null);
-		}
-		this.updateLocalizationData(ZapppConstant.WEB_APP, this.webHomeLocalizationDataImport, callback);
-	}
-	importLocalizationData() {
+		let appKey = this.localizationArray[index].appKey;
+		let localizationDataImport = this.localizationArray[index].localizationDataImport;
 		let self = this;
-		self.updateZappperLocalzationData(zappperLocalizationData => {
-			self.updateSenderReceiverLocalzationData(senderReceiverLocalizationData => {
-				self.updateWebHomeLocalzationData(webHomeLocalizationData => {
-					self.loadAllLocalizationData();
-					self.importReviewModal.hide();
-					self.zapppAlert.showInfo(self.translate.instant('INFORM.IMPORT_DATA_SUCCESSFULLY'));
-				});
+		index++;
+		if (Object.keys(localizationDataImport).length == 0) {
+			self.updateLocalzationDataByArrayIndex(index);
+		} else {
+			this.updateLocalizationData(appKey, localizationDataImport, localizationVersions => {
+				self.updateLocalzationDataByArrayIndex(index);
 			});
-		});
+		}
+
 	}
+
+	importLocalizationData() {
+		let i = 0;
+		this.updateLocalzationDataByArrayIndex(i);
+	}
+
 	loadLocalizationData(type: string, version: string, callback?: (result: any) => void) {
 		this.localizationService.getLocalizationData(type, version).subscribe(
 			res => {
@@ -328,20 +313,23 @@ export class Localization extends ZapppBaseComponent {
 			}
 		)
 	}
-	loadAllLocalizationData() {
+
+	loadLocalizationDataByArrayIndex(index: number) {
+		if (index >= this.localizationArray.length) {
+			return;
+		}
+		let appKey = this.localizationArray[index].appKey;
 		let self = this;
-		self.loadLocalizationData(ZapppConstant.DELIVERER_APP, null, zappperLocalizationData => {
-			self.pureZappperLocalizationData = zappperLocalizationData.data;
-			self.zappperLocalizationData = self.convertLocalizationDataToSheetContent(zappperLocalizationData.data);
-			self.loadLocalizationData(ZapppConstant.SENDER_APP, null, senderReceiverLocalizationData => {
-				self.pureSenderReceiverLocalizationData = senderReceiverLocalizationData.data;
-				self.senderReceiverLocalizationData = self.convertLocalizationDataToSheetContent(senderReceiverLocalizationData.data);
-				self.loadLocalizationData(ZapppConstant.WEB_APP, null, webHomeLocalizationData => {
-					self.pureWebHomeLocalizationData = webHomeLocalizationData.data;
-					self.webHomeLocalizationData = self.convertLocalizationDataToSheetContent(webHomeLocalizationData.data);
-				});
-			});
+		this.loadLocalizationData(appKey, null, localizationData => {
+			self.localizationArray[index].pureLocalizationData = localizationData.data;
+			self.localizationArray[index].localizationData = self.convertLocalizationDataToSheetContent(localizationData.data);
+			index++;
+			self.loadLocalizationDataByArrayIndex(index);
 		});
+	}
+	loadAllLocalizationData() {
+		let i = 0;
+		this.loadLocalizationDataByArrayIndex(i);
 	}
 
 	getLocalizationHeader(localizationData) {
@@ -368,23 +356,29 @@ export class Localization extends ZapppBaseComponent {
 		)
 	}
 
-	showAllExportVersion() {
+	showExportVersionByArrayIndex(index: number) {
+		if (index >= this.localizationArray.length) {
+			this.exportHistoryModal.show();
+			return;
+		}
+		let appKey = this.localizationArray[index].appKey;
 		let self = this;
-		self.loadListLocalizationDataVersion(ZapppConstant.DELIVERER_APP, zappperLocalizationVersions => {
-			self.zappperLocalizationVersions = self.transformListExportVersion(zappperLocalizationVersions);
-			self.loadListLocalizationDataVersion(ZapppConstant.SENDER_APP, senderReceiverLocalizationVersions => {
-				self.senderReceiverLocalizationVersions = self.transformListExportVersion(senderReceiverLocalizationVersions);
-				self.loadListLocalizationDataVersion(ZapppConstant.WEB_APP, webHomeLocalizationVersions => {
-					self.webHomeLocalizationVersions = self.transformListExportVersion(webHomeLocalizationVersions);
-					self.exportHistoryModal.show();
-				});
-			});
+		this.loadListLocalizationDataVersion(appKey, localizationVersions => {
+			self.localizationArray[index].localizationVersions = self.transformListExportVersion(localizationVersions);
+			index++;
+			self.showExportVersionByArrayIndex(index);
 		});
 	}
 
-	exportLocalizationData(type: string, version: string, sheetName: string) {
+	showAllExportVersion() {
+		let i = 0;
+		this.showExportVersionByArrayIndex(i);
+	}
+
+	exportLocalizationData(type: string, version: string, sheetNameKey: string) {
 		let self = this;
 		let fileName = type + '_' + version;
+		let sheetName = this.translate.instant(sheetNameKey);
 		this.loadLocalizationData(type, version, localizationData => {
 			let data = self.convertLocalizationDataToSheetContent(localizationData.data);
 			if (data.length > 0) {
@@ -398,29 +392,15 @@ export class Localization extends ZapppBaseComponent {
 			}
 		});
 	}
-	exportZappperLocalizationData(version: string) {
-		let sheetName = this.translate.instant('LOCALIZATION.ZAPPPER');
-		this.exportLocalizationData(ZapppConstant.DELIVERER_APP, version, sheetName);
-	}
-	exportSenderReceiverLocalizationData(version: string) {
-		let sheetName = this.translate.instant('LOCALIZATION.SENDER_RECEIVER');
-		this.exportLocalizationData(ZapppConstant.SENDER_APP, version, sheetName);
-	}
-	exportWebHomeLocalizationData(version: string) {
-		let sheetName = this.translate.instant('LOCALIZATION.WEB_HOME');
-		this.exportLocalizationData(ZapppConstant.WEB_APP, version, sheetName);
-	}
 
 	isValidSheetName(workbook: any): boolean {
-		if (workbook.SheetNames.length == 0 || workbook.SheetNames.length > 3) {
+		if (workbook.SheetNames.length == 0 || workbook.SheetNames.length > this.localizationArray.length) {
 			return false;
 		}
 		for (let i = 0; i < workbook.SheetNames.length; i++) {
 			let sheetName = workbook.SheetNames[i];
 			let lowercaseSheetName = sheetName.toLowerCase();
-			if (lowercaseSheetName != ZapppConstant.LOCALIZATION_EXCEL_FILE.ZAPPPER_SHEET
-				&& lowercaseSheetName != ZapppConstant.LOCALIZATION_EXCEL_FILE.SENDER_RECEIVER_SHEET
-				&& lowercaseSheetName != ZapppConstant.LOCALIZATION_EXCEL_FILE.WEB_HOME_SHEET) {
+			if (this.validSheetNameArray.indexOf(lowercaseSheetName) == -1) {
 				return false;
 			}
 		}
@@ -498,8 +478,11 @@ export class Localization extends ZapppBaseComponent {
 	}
 
 	hasImportData(): boolean {
-		if (this.zappperLocalizationDataChange.length > 0 || this.senderReceiverLocalizationDataChange.length > 0 || this.webHomeLocalizationDataChange.length > 0) {
-			return true;
+		for (let i = 0; i < this.localizationArray.length; i++) {
+			let localizationObject = this.localizationArray[i];
+			if (localizationObject.localizationDataChange.length > 0) {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -515,16 +498,17 @@ export class Localization extends ZapppBaseComponent {
 	}
 
 	onShowImportReviewModal() {
-		if (this.zappperLocalizationDataChange.length == 0 && this.senderReceiverLocalizationDataChange.length > 0) {
-			this.tabsetSelectTab(this.tabLocalizationDataChange, this.translate.instant('LOCALIZATION.SENDER_RECEIVER'));
-		} else if (this.zappperLocalizationDataChange.length == 0 && this.webHomeLocalizationDataChange.length > 0) {
-			this.tabsetSelectTab(this.tabLocalizationDataChange, this.translate.instant('LOCALIZATION.WEB_HOME'));
-		} else {
-			if (!this.needFocusTab) {
-				this.needFocusTab = this.translate.instant('LOCALIZATION.ZAPPPER');
+		for (let i = 0; i < this.localizationArray.length; i++) {
+			let localizationObject = this.localizationArray[i];
+			if (localizationObject.localizationDataChange.length > 0) {
+				this.tabsetSelectTab(this.tabLocalizationDataChange, this.translate.instant(localizationObject.localizationKey));
+				return;
 			}
-			this.tabsetSelectTab(this.tabLocalizationDataChange, this.needFocusTab);
 		}
+		if (!this.needFocusTab) {
+			this.needFocusTab = this.translate.instant(this.localizationArray[0].localizationKey);
+		}
+		this.tabsetSelectTab(this.tabLocalizationDataChange, this.needFocusTab);
 	}
 
 	onShowExportHistoryModal() {
