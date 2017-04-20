@@ -8,17 +8,9 @@
       </ba-card>
       <ba-card baCardClass="with-scroll table-panel">
           <tabset>
-              <tab heading="{{ 'LOCALIZATION.ZAPPPER' | translate }}">
-                  <localization-table [localizationData]="zappperLocalizationData"
+              <tab *ngFor="let item of localizationArray" heading="{{ item.localizationKey | translate }}">
+                  <localization-table [localizationData]="item.localizationData"
                     [localizationHeader]="localizationHeader" [(pageNumber)]="pageNumber"></localization-table>
-              </tab>
-              <tab heading="{{ 'LOCALIZATION.SENDER_RECEIVER' | translate }}">
-                  <localization-table [localizationData]="senderReceiverLocalizationData"
-                    [localizationHeader]="localizationHeader" [(pageNumber)]="pageNumber2"></localization-table>
-              </tab>
-              <tab heading="{{ 'LOCALIZATION.WEB_HOME' | translate }}">
-                  <localization-table [localizationData]="webHomeLocalizationData"
-                    [localizationHeader]="localizationHeader" [(pageNumber)]="pageNumber3"></localization-table>
               </tab>
           </tabset>
       </ba-card>
@@ -37,17 +29,9 @@ aria-labelledby="importReviewModalLabel" aria-hidden="true" (onShow)="onShowImpo
       </div>
       <div class="modal-body">
           <tabset #tabLocalizationDataChange>
-              <tab heading="{{ 'LOCALIZATION.ZAPPPER' | translate }}">
-                  <localization-table [localizationData]="zappperLocalizationDataChange" [compareLocalizationData]="pureZappperLocalizationData"
+              <tab *ngFor="let item of localizationArray" heading="{{ item.localizationKey | translate }}">
+                  <localization-table [localizationData]="item.localizationDataChange" [compareLocalizationData]="item.pureLocalizationData"
                     [localizationHeader]="localizationHeader" [(pageNumber)]="pageNumber"></localization-table>
-              </tab>
-              <tab heading="{{ 'LOCALIZATION.SENDER_RECEIVER' | translate }}">
-                  <localization-table [localizationData]="senderReceiverLocalizationDataChange" [compareLocalizationData]="pureSenderReceiverLocalizationData"
-                    [localizationHeader]="localizationHeader" [(pageNumber)]="pageNumber2"></localization-table>
-              </tab>
-              <tab heading="{{ 'LOCALIZATION.WEB_HOME' | translate }}">
-                  <localization-table [localizationData]="webHomeLocalizationDataChange" [compareLocalizationData]="pureWebHomeLocalizationData"
-                    [localizationHeader]="localizationHeader" [(pageNumber)]="pageNumber3"></localization-table>
               </tab>
           </tabset>
       </div>
@@ -71,7 +55,7 @@ aria-labelledby="exportHistoryModalLabel" aria-hidden="true" (onShow)="onShowExp
       </div>
       <div class="modal-body">
           <tabset #tabLocalizationVersions>
-              <tab heading="{{ 'LOCALIZATION.ZAPPPER' | translate }}">
+              <tab *ngFor="let exportItem of localizationArray" heading="{{ exportItem.localizationKey | translate }}">
                   <div class="table-responsive">
                     <table class="table">
                       <tr>
@@ -80,47 +64,11 @@ aria-labelledby="exportHistoryModalLabel" aria-hidden="true" (onShow)="onShowExp
                         <th>{{ 'GLOBAL.VERSION' | translate }}</th>
                         <th></th>
                       </tr>
-                      <tr *ngFor="let item of zappperLocalizationVersions; let i = index">
+                      <tr *ngFor="let item of exportItem.localizationVersions; let i = index">
                           <td>{{ i + 1 }}</td>
                           <td>{{ item.formated_created_at }}</td>
                           <td>{{ item.version }}</td>
-                          <td><button type="button" class="btn btn-primary" (click)="exportZappperLocalizationData(item.version)">{{ 'BUTTONS.EXPORT' | translate }}</button></td>
-                      </tr>
-                    </table>
-                  </div>
-              </tab>
-              <tab heading="{{ 'LOCALIZATION.SENDER_RECEIVER' | translate }}">
-                  <div class="table-responsive">
-                    <table class="table">
-                      <tr>
-                        <th>#</th>
-                        <th>{{ 'REPORTS.CREATED_TIME' | translate }}</th>
-                        <th>{{ 'GLOBAL.VERSION' | translate }}</th>
-                        <th></th>
-                      </tr>
-                      <tr *ngFor="let item of senderReceiverLocalizationVersions; let i = index">
-                          <td>{{ i + 1 }}</td>
-                          <td>{{ item.formated_created_at }}</td>
-                          <td>{{ item.version }}</td>
-                          <td><button type="button" class="btn btn-primary" (click)="exportSenderReceiverLocalizationData(item.version)">{{ 'BUTTONS.EXPORT' | translate }}</button></td>
-                      </tr>
-                    </table>
-                  </div>
-              </tab>
-              <tab heading="{{ 'LOCALIZATION.WEB_HOME' | translate }}">
-                  <div class="table-responsive">
-                    <table class="table">
-                      <tr>
-                        <th>#</th>
-                        <th>{{ 'REPORTS.CREATED_TIME' | translate }}</th>
-                        <th>{{ 'GLOBAL.VERSION' | translate }}</th>
-                        <th></th>
-                      </tr>
-                      <tr *ngFor="let item of webHomeLocalizationVersions; let i = index">
-                          <td>{{ i + 1 }}</td>
-                          <td>{{ item.formated_created_at }}</td>
-                          <td>{{ item.version }}</td>
-                          <td><button type="button" class="btn btn-primary" (click)="exportWebHomeLocalizationData(item.version)">{{ 'BUTTONS.EXPORT' | translate }}</button></td>
+                          <td><button type="button" class="btn btn-primary" (click)="exportLocalizationData(exportItem.appKey, item.version, exportItem.localizationKey)">{{ 'BUTTONS.EXPORT' | translate }}</button></td>
                       </tr>
                     </table>
                   </div>
