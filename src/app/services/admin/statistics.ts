@@ -14,4 +14,13 @@ export class StatisticService {
 	getStatisticsCounting() {
 		return this.zapppHttp.get(this.serviceUrl + '/stats/counting');
 	}
+
+	getDeliveryRequestStatistics(days?: number, from?: string, to?: string) {
+		let params = {
+			days: days,
+			from: from,
+			to: to
+		}
+		return this.zapppHttp.get(this.serviceUrl + '/stats/delivery_request_by_date', params);
+	}
 }

@@ -5,7 +5,6 @@
     }
   }
 }
-
 @media screen and (max-width: 1620px) {
   .card.feed-panel.large-card {
     height: 824px;
@@ -23,20 +22,72 @@
 }
 
 .statistic-section {
-    .section-header {
-        font-size: 20px;
-        font-weight: bold;
-    }
-    .statistic-container {
+  .section-header {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .statistic-container {
+    margin-top: 15px;
+
+    .statistic-box {
+      .box-title {
+        font-size: 16px;
+      }
+
+      .box-value {
+        font-size: 25px;
         margin-top: 15px;
-        .statistic-box {
-            .box-title {
-                font-size: 16px;
-            }
-            .box-value {
-                font-size: 25px;
-                margin-top: 15px;
-            }
+      }
+    }
+  }
+}
+
+.dashboard-line-chart {
+  width: 100%;
+  height: 340px;
+  margin-top: -10px;
+}
+
+.card.medium-card.card-chart {
+  min-height: 400px;
+  height: auto;
+}
+
+.card-header.header-with-button {
+  height: auto;
+  padding-bottom: 5px;
+
+  h3 {
+    width: initial;
+    float: left;
+  }
+
+  .btn-group {
+    float: right;
+
+    .btn {
+      border-radius: 0;
+    }
+
+    .btn-chart-query {
+      color: white;
+      background-color: transparent;
+      border: none;
+    }
+
+    .btn-chart-query.active {
+      background-color: #fafafa;
+      color: #333333;
+    }
+  }
+}
+
+#deliveryRequestDateModal {
+    .modal-content {
+        background-color: #67a0d3;
+        form {
+            display: table;
         }
     }
 }

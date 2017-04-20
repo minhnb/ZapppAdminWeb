@@ -36,6 +36,7 @@
         "SENDER": "Sender",
         "DELIVERER": "Deliverer",
         "RECEIVER": "Receiver",
+        "DELIVERIES": "Deliveries",
         "VERSION": "Version"
     },
     "GENDER_TYPE": {
@@ -171,7 +172,11 @@
         "DELIVERING": "Delivering",
         "AVAILABLE": "Available",
         "TOTAL": "Total",
-        "LOOKING_FOR_ZAPPPER": "Looking for Zappper"
+        "LOOKING_FOR_ZAPPPER": "Looking for Zappper",
+        "LAST_7_DAYS": "Last 7 days",
+        "LAST_30_DAYS": "Last 30 days",
+        "LAST_90_DAYS": "Last 90 days",
+        "SELECT_DATE": "Select date"
     },
     "MAP": {
         "YOU_ARE_HERE": "You're here",

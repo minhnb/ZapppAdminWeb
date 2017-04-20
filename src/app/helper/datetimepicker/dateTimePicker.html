@@ -29,7 +29,7 @@
         [startingDay]="startingDay"
         [yearColLimit]="yearColLimit"
         [yearRange]="yearRange"
-        (ngModelChange)="selectDate($event)" ></datepicker>
+        (click)="selectDate($event)" ></datepicker>
         <timepicker [hidden]="hideTimePicker" [(ngModel)]="timeModel"
         [arrowkeys]="arrowkeys"
         [hourStep]="hourStep"
