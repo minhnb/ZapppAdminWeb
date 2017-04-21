@@ -82,6 +82,7 @@ export class DateTimePicker {
     popover: ComponentLoader<DateTimePickerPopoverContainerComponent>;
 	timeModel: Date = new Date();
 	dateTimeModelFormatted: String;
+	isInitializingDateTimeModelValue: boolean = false;
 
 	public touched: boolean = false;
 
@@ -111,6 +112,10 @@ export class DateTimePicker {
 			return;
         }
 
+		if (this.dateTimeModel) {
+			this.isInitializingDateTimeModelValue = true;
+		}
+
         this.popover
 			.attach(DateTimePickerPopoverContainerComponent)
 			.to('body')
@@ -122,6 +127,10 @@ export class DateTimePicker {
 
     selectDate(event) {
         // this.dateTimeModel = event;
+		if (this.isInitializingDateTimeModelValue) {
+			this.isInitializingDateTimeModelValue = false;
+			return;
+		}
 		this.updateDateModelFormatted();
         this.dateTimeModelChange.emit(this.dateTimeModel);
 		if (this.hideTimePicker) {
