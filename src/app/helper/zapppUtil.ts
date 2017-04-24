@@ -53,4 +53,13 @@ export class ZapppUtil {
         var re = '\\d(?=(\\d{' + (sectionLength || 3) + '})+' + (decimalLength > 0 ? '\\.' : '$') + ')';
         return number.toFixed(Math.max(0, ~~decimalLength)).replace(new RegExp(re, 'g'), '$&,');
     };
+
+    static getFare(amount: number, currency: string): string {
+		if (amount == null) return "";
+        var result = ZapppUtil.formatNumber(amount / 100.0, 2);
+		if (currency === 'usd') {
+			return "$" + result;
+		}
+		return [result, currency].filter(Boolean).join(' ');
+	}
 }

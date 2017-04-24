@@ -111,7 +111,8 @@
         "DELIVERY_REQUESTS": "Delivery Requests",
         "TRACK": "Track",
         "DELIVERERS": "Deliverers",
-        "LOCALIZATION": "Localization"
+        "LOCALIZATION": "Localization",
+        "PAY_OUT_TO_ZAPPPER": "Pay out to Zappper"
     },
     "BUTTONS": {
         "ACTIVATE": "Activate",
@@ -163,7 +164,12 @@
         "CARD_FUNDING": "Card funding",
         "FAILURE_CODE": "Failure code",
         "FAILURE_MESSAGE": "Failure message",
-        "DETAILS": "Details"
+        "DETAILS": "Details",
+        "EARNINGS": "Earnings",
+        "ZAPPPER": "Zappper",
+        "PHONE": "Phone",
+        "NOTE_COMMISSION": "*Note: Commission percentage is not applied",
+        "SETTLED_DATE": "Settled date"
     },
     "STATISTIC": {
         "DELIVERERS": "Deliverers",

@@ -66,6 +66,19 @@ export const PAGES_MENU = [
 					}
 				},
 				roles: ['admin']
+			},
+			{
+				path: 'reports/pay-out-to-zappper',
+				data: {
+					menu: {
+						title: 'MENU.PAY_OUT_TO_ZAPPPER',
+						icon: 'ion-grid',
+						selected: false,
+						expanded: false,
+						order: 1,
+					}
+				},
+				roles: ['admin']
 			}
 		]
 	}

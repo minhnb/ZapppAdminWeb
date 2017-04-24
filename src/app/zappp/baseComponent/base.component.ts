@@ -4,6 +4,7 @@ import { ZapppAlert } from '../../helper/zapppAlert';
 import { TranslateService } from 'ng2-translate';
 import { BaThemeSpinner } from '../../theme/services';
 import { ZapppConstant } from '../../helper/zapppConstant';
+import { ZapppUtil } from '../../helper/zapppUtil';
 
 var moment = require('moment');
 
@@ -64,5 +65,9 @@ export class ZapppBaseComponent {
 			result.push('second');
 		}
 		return result.filter(Boolean).join(' ');
+	}
+
+	displayFare(amount: number, currency: string): string {
+		return ZapppUtil.getFare(amount, currency);
 	}
 }
