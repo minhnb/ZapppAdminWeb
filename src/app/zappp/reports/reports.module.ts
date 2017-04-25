@@ -9,10 +9,12 @@ import { DateTimePickerModule } from '../../helper/datetimepicker';
 
 import { routing } from './reports.routing';
 import { Reports } from './reports.component';
-import { DelivererAccounts } from './components/delivererAccounts/delivererAccounts.component';
-import { DeliveryRequests } from './components/deliveryRequests/deliveryRequests.component';
+import { DelivererAccounts } from './components/delivererAccounts';
+import { DeliveryRequests } from './components/deliveryRequests';
 import { DeliveryRequestUserInfo } from './components/deliveryRequests/deliveryRequestUserInfo.component';
 import { DeliveryRequestLocationInfo } from './components/deliveryRequests/deliveryRequestLocationInfo.component';
+import { PayOut } from './components/payOut';
+import { PayOutDetails } from './components/payOutDetails';
 
 @NgModule({
 	imports: [
@@ -30,7 +32,9 @@ import { DeliveryRequestLocationInfo } from './components/deliveryRequests/deliv
 		DelivererAccounts,
 		DeliveryRequests,
 		DeliveryRequestUserInfo,
-		DeliveryRequestLocationInfo
+		DeliveryRequestLocationInfo,
+		PayOut,
+		PayOutDetails
 	],
 	providers: [
 

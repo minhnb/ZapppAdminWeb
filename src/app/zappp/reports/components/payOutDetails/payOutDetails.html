@@ -1,0 +1,33 @@
+<div class="widgets">
+  <div class="row">
+    <div class="col-md-12">
+      <ba-card baCardClass="with-scroll table-panel" title="{{ totalItem }} {{ totalItem > 1 ? 'items' : 'item'}}">
+          <button type="submit" class="btn btn-primary header-top-right" (click)="exportPayOutDetailsData()">{{ 'BUTTONS.EXPORT' | translate }}</button>
+        <div class="table-responsive">
+          <table class="table">
+            <tr>
+              <th>#</th>
+              <th *ngFor="let item of tableHeader">{{ item }}</th>
+            </tr>
+            <tr *ngFor="let item of tableData | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalItem }; let i = index">
+              <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+              <td>{{ item.delivery_request ? item.delivery_request.id : '' }}</td>
+              <td>{{ item.delivery_request && item.delivery_request.creator && item.delivery_request.creator.phone_profile ? item.delivery_request.creator.phone_profile.number : '' }}</td>
+              <td>{{ item.delivery_request && item.delivery_request.destination_location ? item.delivery_request.destination_location.user_phone_number : '' }}</td>
+              <td>{{ item.delivery_request ? timeStampToDateTimeWithSecond(item.delivery_request.created_at) : '' }}</td>
+              <td>{{ item.delivery_request && item.delivery_request.payment_status ? timeStampToDateTimeWithSecond(item.delivery_request.payment_status.created_at) : '' }}</td>
+              <td>{{ item.delivery_request && item.delivery_request.payment_status ? timeStampToDateTimeWithSecond(item.delivery_request.payment_status.modified_at) : '' }}</td>
+              <td>{{ item.payout ? this.displayFare(item.payout.amount, item.payout.currency) : '' }}</td>
+              <td>{{ item.rating != undefined ? item.rating : '' }}</td>
+            </tr>
+          </table>
+          <div *ngIf="tableData.length" class="total-cost">{{ 'REPORTS.COST_TOTAL' | translate }}: {{ totalAmount }}</div>
+          <pagination-controls (pageChange)="pageChanged($event)" maxSize="7" directionLinks="true" autoHide="true" previousLabel="" nextLabel="">
+          </pagination-controls>
+          <div class="commission-note">{{ 'REPORTS.NOTE_COMMISSION' | translate }}</div>
+        </div>
+      </ba-card>
+    </div>
+  </div>
+
+</div>

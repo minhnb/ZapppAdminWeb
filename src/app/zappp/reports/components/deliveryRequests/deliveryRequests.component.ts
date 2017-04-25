@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation, Injector, ViewChild, ElementRef } from '@
 import { ZapppBaseComponent } from '../../../baseComponent/base.component';
 import { DeliveryService } from '../../../../services/admin/delivery';
 import { ZapppConstant } from '../../../../helper/zapppConstant';
+import { ZapppUtil } from '../../../../helper/zapppUtil';
 import { DateTimePicker } from '../../../../helper/datetimepicker';
 
 import { ModalDirective } from 'ng2-bootstrap';
@@ -86,15 +87,6 @@ export class DeliveryRequests extends ZapppBaseComponent {
 		)
 	}
 
-	getFare(amount: number, currency: string): string {
-		if (amount == null) return "";
-        var result = (amount / 100.0).toFixed(2);
-		if (currency === 'usd') {
-			return "$" + result;
-		}
-		return [result, currency].filter(Boolean).join(' ');
-	}
-
 	getAddressLocation(locationData: any): string {
 		let street = [locationData.street_number, locationData.street_name].filter(Boolean).join(' ');
 		let result = [street, locationData.city, locationData.country];
@@ -126,7 +118,7 @@ export class DeliveryRequests extends ZapppBaseComponent {
 
 			deliveryRequest.fare = "";
 			if (deliveryRequest.quotation && deliveryRequest.quotation.amount != null) {
-				deliveryRequest.fare = this.getFare(deliveryRequest.quotation.amount, deliveryRequest.quotation.currency);
+				deliveryRequest.fare = ZapppUtil.getFare(deliveryRequest.quotation.amount, deliveryRequest.quotation.currency);
 			}
 
 			deliveryRequest.status = "";
