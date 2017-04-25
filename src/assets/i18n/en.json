@@ -3,10 +3,55 @@
         "EMAIL": "Email",
         "PASSWORD": "Password",
         "NAME": "Name",
-        "FULL_NAME": "Full Name",
-        "PHONE_NUMBER": "Phone Number",
+        "USERNAME": "Username",
+        "FULL_NAME": "Full name",
+        "FIRST_NAME": "First name",
+        "LAST_NAME": "Last name",
+        "PHONE_NUMBER": "Phone number",
+        "BIRTHDAY": "Birthday",
+        "IDENTIFICATION_NUMBER": "Identification number",
+        "GENDER": "Gender",
+        "PHOTO": "Photo",
         "PIN": "PIN",
-        "BACK": "Back"
+        "COUNTRY": "Country",
+        "ADDRESS": "Address",
+        "HOME_ADDRESS": "Home address",
+        "AVAILABLE_TRANSPORTATION": "Available transportation",
+        "PAYMENT_CARD": "Payment card",
+        "BANK_ACCOUNT_INFO": "Bank account info",
+        "SWIFT_CODE": "Swift code",
+        "ACCOUNT_NUMBER": "Account number",
+        "RATING": "Rating",
+        "BACK": "Back",
+        "SEARCH": "Search",
+        "FROM": "From",
+        "TO": "To",
+        "NOTE": "Note",
+        "SIZE": "Size",
+        "WEIGHT": "Weight",
+        "DESCRIPTION": "Description",
+        "AMOUNT": "Amount",
+        "DISTANCE": "Distance",
+        "DURATION": "Duration",
+        "SENDER": "Sender",
+        "DELIVERER": "Deliverer",
+        "RECEIVER": "Receiver",
+        "DELIVERIES": "Deliveries",
+        "VERSION": "Version"
+    },
+    "GENDER_TYPE": {
+        "MALE": "Male",
+        "FEMALE": "Female",
+        "OTHER": "Other"
+    },
+    "TRANSPORTATION": {
+        "WALK": "Walk",
+        "BICYCLE": "Bicycle",
+        "VEHICLE": "Vehicle"
+    },
+    "PROFILE_PICTURE": {
+        "ADD": "Add profile picture",
+        "CHANGE": "Change profile picture"
     },
     "LOG_IN": {
         "BOX_TITLE": "Sign in to Zappp",
@@ -21,32 +66,65 @@
     "SIGN_UP": {
         "BOX_TITLE": "Sign up to Zappp",
         "LOG_IN_LINK_TEXT": "Already have an Zappp account? Sign in!",
-        "CONFIRM_PASSWORD": "Repeat",
-        "SUBMIT_BUTTON_TEXT": "Sign up",
+        "ENTER_YOUR_PASSWORD": "Enter your password",
+        "CONFIRM_PASSWORD": "Re-enter your passsword",
+        "SUBMIT_BUTTON_TEXT": "Register",
         "SIGN_UP_WITH_THIRD_PARTY_ACCOUNT": "or Sign up with one click",
         "SIGN_UP_WITH_FACEBOOK": "Sign up with Facebook",
         "SIGN_UP_WITH_GOOGLE": "Sign up with Google Plus",
-        "ERROR_PASSWORD_DONT_MATCH": "Passwords don't match."
+        "SIGN_UP_SUCCESSFULLY": "Your account has been created successfully. It will be reviewed by Zappp before you can login."
     },
     "LOGIN_BY_PHONE": {
         "SEND_PIN": "Send PIN",
         "ALREADY_GOT_PIN_CODE": "I already got PIN code"
     },
+    "FORGOT_PASSWORD": {
+        "BOX_TITLE": "Forgot password",
+        "RESET_PASSWORD": "Reset password",
+        "SMS_CODE": "SMS code",
+        "ENTER_NEW_PASSWORD": "Enter new password",
+        "CONFIRM_NEW_PASSWORD": "Re-enter new password",
+        "LOG_IN_LINK_TEXT": "Log in"
+    },
     "ERROR": {
         "LOGIN_BY_PHONE": {
             "BAD_REQUEST": "Couldn't send PIN code to your phone number. Please double check."
+        },
+        "LOGIN": {
+            "WRONG_USERNAME_OR_PASSWORD": "Wrong username or password"
+        },
+        "CONNECTION": "Couldn't connect to server. Please double check and try again.",
+        "UNKNOWN": "Unknown error. Please try again later.",
+        "LOCALIZATION": {
+            "INVALID_TEMPLATE": "Invalid template. Please try another file.",
+            "TEMPLATE_CHANGED": "The template has been changed from server side. Please export the lastest version and try importing it again."
         }
+    },
+    "CONFIRM": {
+        "DEACTIVATE_DELIVERER": "Are you sure you want to deactivate deliverer {{name}} ?"
     },
     "MENU": {
         "HOME": "Home",
         "DASHBOARD": "Dashboard",
         "REPORTS": "Reports",
         "DELIVERER_ACCOUNTS": "Deliverer Accounts",
-        "DELIVERY_REQUESTS": "Delivery Requests"
+        "DELIVERY_REQUESTS": "Delivery Requests",
+        "TRACK": "Track",
+        "DELIVERERS": "Deliverers",
+        "LOCALIZATION": "Localization",
+        "PAY_OUT_TO_ZAPPPER": "Pay out to Zappper",
+        "PAY_OUT_DETAILS": "Pay out details"
     },
     "BUTTONS": {
         "ACTIVATE": "Activate",
-        "DEACTIVATE": "Deactivate"
+        "DEACTIVATE": "Deactivate",
+        "TRACK": "Track",
+        "SEARCH": "Search",
+        "CLEAR_SEARCH": "Clear",
+        "IMPORT": "Import",
+        "EXPORT": "Export",
+        "SUBMIT": "Submit",
+        "RESEND": "Resend"
     },
     "REPORTS": {
         "SENDER_NAME": "Sender Name",
@@ -54,6 +132,129 @@
         "PICK_UP_PLACE": "Pick-up Place",
         "DESTINATION": "Destination",
         "FARE": "Fare",
-        "STATUS": "Status"
+        "STATUS": "Status",
+        "REQUEST_STATUS": "Request Status",
+        "PAYMENT_STATUS": "Payment Status",
+        "PHONE_NUMBER": "Phone Number",
+        "CREATED_TIME": "Created Time",
+        "ACTIVATED": "Active",
+        "DEACTIVATED": "Inactive",
+        "DELIVERERS_MAPS": {
+            "SEARCH_PLACEHOLDER": "Deliverer name or phone number",
+            "REMOVE_SEARCH": "Remove search",
+            "USER_INVISIBLE": "This user is invisible"
+        },
+        "ITEM": "item",
+        "ITEMS": "items",
+        "SELECT_REQUEST_STATUS": "Select Request Status",
+        "SELECT_PAYMENT_STATUS": "Select Payment Status",
+        "REQUEST_DETAILS": "Request details",
+        "SENDER_INFO": "Sender info",
+        "RECEIVER_INFO": "Receiver info",
+        "DELIVERER_INFO": "Deliverer info",
+        "PARCEL_INFO": "Parcel info",
+        "RECEIPT": "Receipt",
+        "USER_COMPANY": "User company",
+        "PICK_UP_TIME": "Pick up time",
+        "REQUEST_STATUS_HISTORY": "Request Status History",
+        "DELIVERY_TYPE": "Delivery Type",
+        "CHARGE_TIME": "Charge Time",
+        "SELLER_MESSAGE": "Seller message",
+        "CARD_BRAND": "Card Brand",
+        "CARD_LAST_4": "Last 4 numbers",
+        "CARD_FUNDING": "Card funding",
+        "FAILURE_CODE": "Failure code",
+        "FAILURE_MESSAGE": "Failure message",
+        "DETAILS": "Details",
+        "EARNINGS": "Earnings",
+        "ZAPPPER": "Zappper",
+        "PHONE": "Phone",
+        "NOTE_COMMISSION": "*Note: Commission percentage is not applied",
+        "SETTLED_DATE": "Settled date",
+        "DELIVERY_ID": "Delivery ID",
+        "SENDER_PHONE": "Sender phone",
+        "RECEIVER_PHONE": "Receiver phone",
+        "DELIVERY_CREATED": "Delivery created",
+        "CHARGED": "Charged",
+        "SETTLED": "Settled",
+        "COST": "Cost",
+        "RATING": "Rating",
+        "COST_TOTAL": "Cost total",
+        "TRANSACTION_SETTLED_DATE": "Transaction settled date"
+    },
+    "STATISTIC": {
+        "DELIVERERS": "Deliverers",
+        "SENDERS_AND_RECEIVERS": "Senders/Receivers",
+        "DELIVERY_REQUESTS": "Delivery Requests",
+        "DELIVERING": "Delivering",
+        "AVAILABLE": "Available",
+        "TOTAL": "Total",
+        "LOOKING_FOR_ZAPPPER": "Looking for Zappper",
+        "LAST_7_DAYS": "Last 7 days",
+        "LAST_30_DAYS": "Last 30 days",
+        "LAST_90_DAYS": "Last 90 days",
+        "SELECT_DATE": "Select date"
+    },
+    "MAP": {
+        "YOU_ARE_HERE": "You're here",
+        "UNKNOWN_ADDRESS": "Unknown address",
+        "COULDNT_GET_ADDRESS": "Couldn't get address"
+    },
+    "DIALOG": {
+        "ERROR": "Error",
+        "INFO": "Information",
+        "WARNING": "Warning",
+        "OK": "Ok",
+        "CANCEL": "Cancel"
+    },
+    "INFORM": {
+        "NO_RESULT_FOUND": "No result found",
+        "IMPORT_DATA_SUCCESSFULLY": "Import data successfully"
+    },
+    "LOCALIZATION": {
+        "ZAPPPER": "Zappper",
+        "SENDER_RECEIVER": "Sender_Receiver",
+        "WEB_HOME": "Web_Home",
+        "SERVER": "Server",
+        "NO_CHANGES": "No changes",
+        "IMPORT_CHANGES_COMPARISON": "Import - Changes comparison"
+    },
+    "SYNC": {
+        "STR_LABEL_INPUT_PHONE_NUMBER_TO_RESET_PASSWORD": "Please enter the phone number using in your account",
+        "STR_LABEL_CHECK_PHONE_FOR_SMS_CODE": "Please check your phone for a text message with your code.",
+        "STR_MSG_PASSWORD_CHANGED_SUCCESS": "Your password has been changed successfully. You can login now.",
+        "STR_LABEL_RESEND_SMS_CODE": "Resend the code",
+
+        "STR_ERR_FIRST_NAME_IS_REQUIRED": "First name is required.",
+        "STR_ERR_LAST_NAME_IS_REQUIRED": "Last name is required.",
+        "STR_ERR_NAME_IS_REQUIRED": "Name is required.",
+        "STR_ERR_EMAIL_IS_REQUIRED": "Email is required.",
+        "STR_ERR_EMAIL_IS_INVALID": "Email is invalid.",
+        "STR_ERR_USERNAME_IS_REQUIRED": "Username is required.",
+        "STR_ERR_USERNAME_LENGTH": "Username should be longer than 3 and shorter than 30 characters.",
+        "STR_ERR_USERNAME_FORMAT": "Username can only contain letters, numbers, underscores and dots.",
+        "STR_ERR_PASSWORD_IS_REQUIRED": "Password is required.",
+        "STR_ERR_PASSWORD_LENGTH": "Password should be longer than 3 characters.",
+        "STR_ERR_PASSWORD_CONFIRM_PASSWORD_NOT_MATCH": "Your password and confirm password do not match.",
+        "STR_ERR_BIRTHDAY_IS_REQUIRED": "Birthday is required.",
+        "STR_ERR_ID_IS_REQUIRED": "Identification number is required.",
+        "STR_ERR_GENDER_IS_REQUIRED": "Gender is required.",
+        "STR_ERR_PHOTO_IS_REQUIRED": "Photo is required.",
+        "STR_ERR_PHONE_NUMBER_IS_REQUIRED": "Phone number is required.",
+        "STR_ERR_INVALID_PHONE_NUMBER": "Invalid phone number.",
+        "STR_ERR_COUNTRY_IS_REQUIRED": "Country is required.",
+        "STR_ERR_HOME_ADDRESS_IS_REQUIRED": "Home address is required.",
+        "STR_ERR_MISSING_VEHICLE": "Please select at least 1.",
+
+        "STR_ERR_MISSING_BANK_INFO": "Swift code and account number are required.",
+        "STR_SERVER_ERR_EMAIL_IS_IN_USE": "Email is already in use. Please try another one.",
+        "STR_SERVER_ERR_ID_IS_IN_USE": "ID is already in use.",
+        "STR_SERVER_ERR_PHONE_NUMBER_IS_IN_USE": "Your phone number is already in use. Please try another one or login with the account which is associated with this phone number.",
+        "STR_SERVER_ERR_USERNAME_IS_IN_USE": "Username is already in use. Please try another one.",
+        "STR_SERVER_ERR_ACCOUNT_NOT_FOUND": "No account registered with that information. Please input the correct phone number.",
+        "STR_MSG_INVALID_VERIFICATION_CODE_SMS": "Invalid SMS code.",
+        "STR_SERVER_ERR_EXPIRED_PASSWORD_RESET_CODE": "Your code got expired. Please click \"Resend\" to get a new code.",
+        "STR_SERVER_ERR_PHONE_NUMBER_IS_IN_USE": "Your phone number is already in use. Please try another one or login with the account which is accociated with this phone number.",
+        "STR_SERVER_MSG_PHONE_NUMBER_REGISTERED_WITH_SENDER_APP": "This phone number was registered as a Sender / Receiver with Zappp already. Please input your password and complete your deliverer profile."
     }
 }

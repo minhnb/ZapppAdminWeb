@@ -1,5 +1,168 @@
 @import "theme/theme";
 
-#preloader {
-    background: rgba(0, 0, 0, 0.5);
+.modal-footer .btn.btn-default {
+  color: inherit;
+  margin-left: 15px;
+  border-color: #e5e5e5;
+}
+
+ul.ng2-pagination {
+  padding: 0;
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+  margin-top: 15px;
+
+  li {
+    cursor: pointer;
+
+    a:hover,
+    button:hover {
+      background: #999999;
+    }
+  }
+}
+
+select {
+  -moz-appearance: none;
+  -moz-user-select: none;
+  -webkit-appearance: none;
+  -webkit-user-select: none;
+  background-color: rgba(255, 255, 255, 0.1);
+  background-image: url($images-root + 'zappp/select-arrow-down.png');
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+  border: solid 1px rgba(255, 255, 255, 0.6);
+  border-radius: 4px;
+  color: inherit;
+  font-size: inherit;
+  height: 33px;
+  left: 0;
+  outline: none;
+  overflow: hidden;
+  padding: 0.5rem 0.75rem;
+  position: relative;
+  text-overflow: ellipsis;
+  top: 1px;
+  white-space: nowrap;
+  width: 100%;
+  z-index: 10;
+
+  &:active,
+  &:focus {
+    outline: none;
+    color: inherit;
+  }
+
+  option[value=""][disabled] {
+    display: none;
+  }
+}
+
+select.form-control {
+  &,
+  &:active,
+  &:focus {
+    background-image: url("assets/img/zappp/select-arrow-down.png");
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+  }
+}
+
+.phone-number-group {
+  position: relative;
+
+  input {
+    padding-left: 95px;
+  }
+
+  select {
+    background-color: #2f4959;
+    background-image: url($images-root + 'zappp/select-arrow-down.png'), linear-gradient(#2f4959, #2f4959 40%, #2f4959);
+    border: none;
+    border-radius: 5px 0 0 5px;
+    color: inherit;
+    font-size: inherit;
+    height: calc(100% - 2px);
+    width: 85px;
+    padding: 7px 5px;
+    position: absolute;
+    margin-left: 1px;
+
+    &:active,
+    &:focus {
+      outline: none;
+      color: inherit;
+    }
+  }
+}
+
+table.table {
+  th {
+    padding: 8px;
+  }
+
+  tbody > tr > td:first-child {
+    text-align: left;
+  }
+
+  tr.function-row {
+    cursor: pointer;
+  }
+}
+
+form.table-search {
+  .form-group {
+    margin-bottom: 10px;
+  }
+
+  .button-row {
+    text-align: center;
+
+    button {
+      margin: 10px 10px 0;
+    }
+  }
+}
+
+.has-error .input-group-addon,
+.has-success .input-group-addon,
+span.input-group-addon {
+  background: transparent;
+  color: inherit;
+}
+
+span.input-group-addon {
+  border-radius: 0 5px 5px 0;
+  border-color: rgba(255, 255, 255, 0.49);
+}
+
+.has-error .input-group-addon {
+  border: 1px solid #fa758e;
+}
+
+.has-success .input-group-addon {
+  border: 1px solid #a2db59;
+}
+
+.auth-block .form-group a.forgot-pass {
+  margin-bottom: 0;
+}
+span.help-block.sub-little-text {
+    color: #cd3333;
+}
+
+.card {
+  .card-body {
+    .header-top-right {
+      position: absolute;
+      right: 15px;
+      top: 7px;
+    }
+  }
+}
+.commission-note {
+    margin-top: 15px;
 }

@@ -1,0 +1,88 @@
+.google-maps {
+    width: 100%;
+    height: calc(100vh - 283px);
+
+    .center-marker {
+        position: absolute;
+        background: url(https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi.png) no-repeat;
+        top: 50%;
+        left: 50%;
+        z-index: 1;
+        margin-left: -11px;
+        margin-top: -40px;
+        height: 40px;
+        width: 22px;
+        cursor: pointer;
+        display: block;
+    }
+}
+
+.google-maps.hide-center-marker {
+    .center-marker {
+        display: none;
+    }
+}
+
+.search {
+    margin: 0 0 20px 0;
+    width: 100%;
+
+    input {
+        background: transparent;
+        width: calc(100% - 45px);
+        padding: 0;
+        margin: 0 0 0 -3px;
+        max-width: 500px;
+    }
+
+    i {
+        cursor: inherit;
+    }
+
+    i.remove-search {
+        cursor: pointer;
+    }
+
+    .search-result {
+        position: absolute;
+        width: 100%;
+        max-width: 500px;
+        background: #ffffff;
+        z-index: 1;
+        border: solid 1px #dddddd;
+        border-top: none;
+        color: #666666;
+
+        ul.list-deliverer {
+            margin: 0;
+            padding: 5px;
+            li {
+                list-style: none;
+                padding: 8px 15px;
+                border-bottom: 1px solid #dddddd;
+                span:first-child {
+                    font-weight: bold;
+                    margin-right: 20px;
+                }
+            }
+            li:hover {
+                background: #f0f0f0;
+            }
+            li:active, li.active {
+                background: #2196FC;
+                color: #ffffff;
+            }
+            li:last-child {
+                border-bottom: none;
+            }
+        }
+
+        .no-result {
+            padding: 10px;
+        }
+    }
+}
+
+.search.search-group {
+    display: block;
+}

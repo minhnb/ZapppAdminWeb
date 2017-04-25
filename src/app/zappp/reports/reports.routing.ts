@@ -1,8 +1,10 @@
 import { Routes, RouterModule }  from '@angular/router';
 
 import { Reports } from './reports.component';
-import { DelivererAccounts } from './components/delivererAccounts/delivererAccounts.component';
-import { DeliveryRequests } from './components/deliveryRequests/deliveryRequests.component';
+import { DelivererAccounts } from './components/delivererAccounts';
+import { DeliveryRequests } from './components/deliveryRequests';
+import { PayOut } from './components/payOut';
+import { PayOutDetails } from './components/payOutDetails';
 
 // noinspection TypeScriptValidateTypes
 const routes: Routes = [
@@ -11,7 +13,9 @@ const routes: Routes = [
 		component: Reports,
 		children: [
 			{ path: 'deliverer-accounts', component: DelivererAccounts },
-			{ path: 'delivery-requests', component: DeliveryRequests }
+			{ path: 'delivery-requests', component: DeliveryRequests },
+			{ path: 'pay-out-to-zappper', component: PayOut },
+			{ path: 'pay-out-details/:deliveryId/:from/:to', component: PayOutDetails }
 		]
 	}
 ];

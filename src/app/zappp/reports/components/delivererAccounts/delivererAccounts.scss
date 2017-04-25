@@ -1,3 +1,21 @@
+.action-button {
+    min-width: 100px;
+}
 .status-button {
-  width: 60px;
+    cursor: auto;
+    &:hover {
+        transform: none;
+    }
+}
+button.btn.btn-success.status-button {
+    &:hover, &:focus, &:active, &:target {
+        background: #8bd22f;
+        border-color: #8bd22f;
+    }
+}
+button.btn.btn-danger.status-button {
+    &:hover, &:focus, &:active, &:target {
+        background: #f95372;
+        border-color: #f95372;
+    }
 }

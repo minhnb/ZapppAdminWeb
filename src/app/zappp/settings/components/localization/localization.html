@@ -1,0 +1,80 @@
+<div class="widgets">
+  <div class="row">
+    <div class="col-md-12">
+      <ba-card baCardClass="with-scroll table-panel">
+          <button type="button" class="btn btn-primary" (click)="importExcelFile()">{{ 'BUTTONS.IMPORT' | translate }}</button>
+          <button type="button" class="btn btn-primary" (click)="showAllExportVersion()">{{ 'BUTTONS.EXPORT' | translate }}</button>
+          <input #inputImportExcelFile type="file" accept=".xls,.xlsx" style="display: none;" (change)="readExcelFile($event)"/>
+      </ba-card>
+      <ba-card baCardClass="with-scroll table-panel">
+          <tabset>
+              <tab *ngFor="let item of localizationArray" heading="{{ item.localizationKey | translate }}">
+                  <localization-table [localizationData]="item.localizationData"
+                    [localizationHeader]="localizationHeader" [(pageNumber)]="pageNumber"></localization-table>
+              </tab>
+          </tabset>
+      </ba-card>
+    </div>
+  </div>
+</div>
+<div bsModal #importReviewModal="bs-modal" id="importReviewModal" class="modal fade" tabindex="-1" role="dialog"
+aria-labelledby="importReviewModalLabel" aria-hidden="true" (onShow)="onShowImportReviewModal()">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header no-title">
+        <span>{{ 'LOCALIZATION.IMPORT_CHANGES_COMPARISON' | translate }}</span>
+        <button type="button" class="close pull-right" (click)="importReviewModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+          <tabset #tabLocalizationDataChange>
+              <tab *ngFor="let item of localizationArray" heading="{{ item.localizationKey | translate }}">
+                  <localization-table [localizationData]="item.localizationDataChange" [compareLocalizationData]="item.pureLocalizationData"
+                    [localizationHeader]="localizationHeader" [(pageNumber)]="pageNumber"></localization-table>
+              </tab>
+          </tabset>
+      </div>
+      <div class="modal-footer">
+        <span class="table-no-change red-text" [hidden]="hasImportData()">{{ 'LOCALIZATION.NO_CHANGES' | translate }}</span>
+        <button type="button" class="btn btn-primary" [disabled]="!hasImportData()" (click)="importLocalizationData()">{{ 'BUTTONS.IMPORT' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #exportHistoryModal="bs-modal" id="exportHistoryModal" class="modal fade" tabindex="-1" role="dialog"
+aria-labelledby="exportHistoryModalLabel" aria-hidden="true" (onShow)="onShowExportHistoryModal()">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header no-title">
+        <span>{{ 'BUTTONS.EXPORT' | translate }}</span>
+        <button type="button" class="close pull-right" (click)="exportHistoryModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+          <tabset #tabLocalizationVersions>
+              <tab *ngFor="let exportItem of localizationArray" heading="{{ exportItem.localizationKey | translate }}">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <tr>
+                        <th>#</th>
+                        <th>{{ 'REPORTS.CREATED_TIME' | translate }}</th>
+                        <th>{{ 'GLOBAL.VERSION' | translate }}</th>
+                        <th></th>
+                      </tr>
+                      <tr *ngFor="let item of exportItem.localizationVersions; let i = index">
+                          <td>{{ i + 1 }}</td>
+                          <td>{{ item.formated_created_at }}</td>
+                          <td>{{ item.version }}</td>
+                          <td><button type="button" class="btn btn-primary" (click)="exportLocalizationData(exportItem.appKey, item.version, exportItem.localizationKey)">{{ 'BUTTONS.EXPORT' | translate }}</button></td>
+                      </tr>
+                    </table>
+                  </div>
+              </tab>
+          </tabset>
+      </div>
+    </div>
+  </div>
+</div>

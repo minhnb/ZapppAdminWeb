@@ -44,12 +44,30 @@ export class BaMenu {
 	public selectMenuAndNotify(): void {
 		if (this.menuItems) {
 			this.menuItems = this._service.selectMenuItem(this.menuItems);
-			this._state.notifyDataChanged('menu.activeLink', this._service.getCurrentItem());
+			let currentMenuItem = this._service.getCurrentItem();
+			if (Object.keys(currentMenuItem).length > 0) {
+				this._state.notifyDataChanged('menu.activeLink', currentMenuItem);
+			}
 		}
 	}
 
 	public ngOnInit(): void {
 		this.menuItems = this._service.convertRoutesToMenus(this.menuRoutes);
+		this.menuItems.map(menuItem => {
+			let paths = [];
+			menuItem.route.paths.forEach(path => {
+				if (path.indexOf('/') > 0) {
+					let splitedPath = path.split('/');
+					splitedPath.forEach(childrenPath => {
+						paths.push(childrenPath);
+					});
+				} else {
+					paths.push(path);
+				}
+			});
+			menuItem.route.paths = paths;
+			return menuItem;
+		});
 	}
 
 	public ngOnDestroy(): void {

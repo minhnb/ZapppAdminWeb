@@ -20,6 +20,11 @@ const routes: Routes = [
 		loadChildren: () => System.import('./register/register.module')
 	},
 	{
+		path: 'forgot-password',
+		canActivate: [AuthLoggedIn],
+		loadChildren: () => System.import('./forgotPassword/forgotPassword.module')
+	},
+	{
 		path: '',
 		component: Zappp,
 		canActivate: [AuthGuard],
@@ -37,12 +42,12 @@ const routes: Routes = [
 				loadChildren: () => System.import('./reports/reports.module')
 			},
 			{
-				path: 'tables',
-				loadChildren: () => System.import('./tables/tables.module')
+				path: 'track',
+				loadChildren: () => System.import('./track/track.module')
 			},
 			{
-				path: 'maps',
-				loadChildren: () => System.import('./maps/maps.module')
+				path: 'settings',
+				loadChildren: () => System.import('./settings/settings.module')
 			}
 		]
 	}

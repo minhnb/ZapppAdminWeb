@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="row">
+      <ba-card class="statistic-section col-xlg-3 col-lg-4 col-md-6 col-sm-12 col-xs-12" *ngFor="let statistic of listStatistic">
+        <div class="section-header">{{ statistic.header }}</div>
+        <div class="row statistic-container">
+          <div class="statistic-box" *ngFor="let box of statistic.boxes" [ngClass]="box.class">
+            <div class="box-title">{{ box.title }}</div>
+            <div class="box-value">{{ displayStatisticValue(box.value) }}</div>
+          </div>
+        </div>
+      </ba-card>
+    </div>
+    <div class="row">
+      <div class="col-xlg-8 col-xl-12 col-lg-12 col-md-7 col-sm-12 col-xs-12">
+        <div baCardBlur class="animated fadeIn card medium-card card-chart" zoom-in>
+          <div class="card-header clearfix header-with-button">
+            <h3 class="card-title">{{ 'GLOBAL.DELIVERIES' | translate }}</h3>
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button type="button" class="btn btn-chart-query" [ngClass]="activeButtonNumber == 0 ? 'active' : ''"
+              (click)="loadDeliveryRequestByLastDays(7, 0)">{{ 'STATISTIC.LAST_7_DAYS' | translate }}</button>
+              <button type="button" class="btn btn-chart-query" [ngClass]="activeButtonNumber == 1 ? 'active' : ''"
+              (click)="loadDeliveryRequestByLastDays(30, 1)">{{ 'STATISTIC.LAST_30_DAYS' | translate }}</button>
+              <button type="button" class="btn btn-chart-query" [ngClass]="activeButtonNumber == 2 ? 'active' : ''"
+              (click)="loadDeliveryRequestByLastDays(90, 2)">{{ 'STATISTIC.LAST_90_DAYS' | translate }}</button>
+              <button type="button" class="btn btn-chart-query" [ngClass]="activeButtonNumber == 3 ? 'active' : ''"
+              (click)="showDeliveryRequestDateModal()"><span><i class="ion-calendar"></i></span></button>
+            </div>
+          </div>
+          <div class="card-body">
+            <ba-am-chart baAmChartClass="dashboard-line-chart" [baAmChartConfiguration]="chartData" (onChartReady)="initChart($event)"></ba-am-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div bsModal #deliveryRequestDateModal="bs-modal" class="modal fade" id="deliveryRequestDateModal" tabindex="-1" role="dialog" aria-labelledby="deliveryRequestDateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header no-title">
+        <span>{{ 'STATISTIC.SELECT_DATE' | translate }}</span>
+        <button type="button" class="close pull-right" (click)="deliveryRequestDateModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+          <form>
+              <div class="form-group col-sm-6 col-xs-12">
+                <datetimepicker #fromDateTimePicker [(dateTimeModel)]="fromDate" placeholder="{{ 'GLOBAL.FROM' | translate }} {{ formatDateTime }}" [formatDateTime]="formatDate" [hideTimePicker]="true"></datetimepicker>
+              </div>
+              <div class="form-group col-sm-6 col-xs-12">
+                <datetimepicker #toDateTimePicker [(dateTimeModel)]="toDate" placeholder="{{ 'GLOBAL.TO' | translate }} {{ formatDateTime }}" [formatDateTime]="formatDate" [hideTimePicker]="true"></datetimepicker>
+              </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="loadDeliveryRequestFromDateToDate(3)" [disabled]="!fromDate || !toDate || fromDate > toDate">{{ 'BUTTONS.SUBMIT' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>

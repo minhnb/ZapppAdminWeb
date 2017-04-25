@@ -1,0 +1,20 @@
+<div class="search search-group">
+  <i class="ion-ios-search-strong"></i>
+  <input type="text" [(ngModel)]="searchKey" placeholder="{{ 'REPORTS.DELIVERERS_MAPS.SEARCH_PLACEHOLDER' | translate }}"
+  (keyup)="inputSearchOnKeyUp($event)" (keydown)="inputSearchOnKeyDown($event)">
+  <i class="ion-close remove-search" title="{{ 'REPORTS.DELIVERERS_MAPS.REMOVE_SEARCH' | translate }}"
+  (click)="clearSearch()"></i>
+  <div class="search-result" [hidden]="!showSearchResult">
+      <ul class="list-deliverer" [hidden]="listDisplayDeliverer.length==0">
+          <li *ngFor="let item of listDisplayDeliverer; let i = index"
+          (click)="updateSelectedDelivererLocation(item)"
+          [ngClass]="item.selected ? 'active' : ''">
+              <span>{{item.name}}</span>
+              <span>{{item.phone}}</span>
+          </li>
+      </ul>
+      <div class="no-result" [hidden]="listDisplayDeliverer.length">{{ 'INFORM.NO_RESULT_FOUND' | translate}}</div>
+  </div>
+</div>
+
+<div class="google-maps" [ngClass]="showCenterMarker ? '' : 'hide-center-marker'"></div>

@@ -2,13 +2,13 @@
 
 .picture-group {
   border: 1px dashed #b8b8b8;
-  width: 202px;
-  height: 202px;
+  width: 142px;
+  height: 142px;
   position: relative;
   cursor: pointer;
   .picture-wrapper {
-    width: 200px;
-    height: 200px;
+    width: 140px;
+    height: 140px;
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -38,7 +38,7 @@
   }
   a.change-picture {
     display: none;
-    width: 202px;
+    width: 142px;
     background: rgba(0, 0, 0, 0.7);
     transition: all 200ms ease-in-out;
     color: $default-text;

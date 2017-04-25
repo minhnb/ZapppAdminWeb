@@ -1,0 +1,50 @@
+<div class="widgets">
+  <div class="row">
+    <div class="col-md-12">
+      <ba-card baCardClass="with-scroll table-panel" title="{{ 'GLOBAL.SEARCH' | translate }}">
+        <form class="table-search">
+          <div class="row">
+            <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
+              <datetimepicker #fromDateTimePicker [(dateTimeModel)]="fromDate" placeholder="{{ 'GLOBAL.FROM' | translate }} {{ formatDateTime }}" [formatDateTime]="formatDateTime" [hideTimePicker]="true"></datetimepicker>
+            </div>
+            <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
+              <datetimepicker #toDateTimePicker [(dateTimeModel)]="toDate" placeholder="{{ 'GLOBAL.TO' | translate }} {{ formatDateTime }}" [formatDateTime]="formatDateTime" [hideTimePicker]="true"></datetimepicker>
+            </div>
+            <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
+              <input type="text" class="form-control" [(ngModel)]="delivererQuery" [ngModelOptions]="{standalone: true}" placeholder="{{ 'GLOBAL.DELIVERER' | translate }}" />
+            </div>
+          </div>
+          <div class="row button-row">
+            <button type="button" class="btn btn-default" (click)="clearSearch()">{{ 'BUTTONS.CLEAR_SEARCH' | translate }}</button>
+            <button type="submit" class="btn btn-primary" (click)="searchDelivererAccount()">{{ 'BUTTONS.SEARCH' | translate }}</button>
+          </div>
+        </form>
+      </ba-card>
+      <ba-card baCardClass="with-scroll table-panel" title="{{ totalItem }} {{ totalItem > 1 ? 'items' : 'item'}}">
+          <button type="submit" class="btn btn-primary header-top-right" (click)="exportPayOutData()">{{ 'BUTTONS.EXPORT' | translate }}</button>
+        <div class="table-responsive">
+          <table class="table">
+            <tr>
+              <th>#</th>
+              <th *ngFor="let item of tableHeader">{{ item }}</th>
+            </tr>
+            <tr class="function-row" *ngFor="let item of tableData | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalItem }; let i = index" (click)="item.deliverer ? goToPayOutDetails(item.deliverer.id) : ''">
+              <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+              <td>{{ item.deliverer ? item.deliverer.name : '' }}</td>
+              <td>{{ item.deliverer && item.deliverer.phone_profile ? item.deliverer.phone_profile.number : '' }}</td>
+              <td>{{ item.payout ? this.displayFare(item.payout.amount, item.payout.currency) : '' }}</td>
+            </tr>
+            <tr *ngIf="tableData.length > 0">
+                <th *ngFor="let item of tableHeader"></th>
+                <th>{{ totalAmount }}</th>
+            </tr>
+          </table>
+          <pagination-controls (pageChange)="pageChanged($event)" maxSize="7" directionLinks="true" autoHide="true" previousLabel="" nextLabel="">
+          </pagination-controls>
+          <div class="commission-note">{{ 'REPORTS.NOTE_COMMISSION' | translate }}</div>
+        </div>
+      </ba-card>
+    </div>
+  </div>
+
+</div>

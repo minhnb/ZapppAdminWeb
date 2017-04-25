@@ -1,3 +1,47 @@
+@import '../../../../theme/components/baPictureUploader/baPictureUploader.scss';
 .status-button {
   width: 60px;
+}
+#trackModal {
+    .modal-dialog {
+        margin-top: 66px;
+        .modal-header.no-title {
+            padding: 15px 15px 0 0;
+            border: none;
+            & > span {
+                margin-left: 15px;
+                color: #333333;
+            }
+        }
+        .google-maps {
+            width: 100%;
+            height: calc(100vh - 177px);
+
+            .info-window {
+                color: #333333;
+            }
+        }
+    }
+}
+
+#detailModal {
+    color: #333333;
+
+    div.header {
+        font-weight: bold;
+        margin: 15px 0 15px 0;
+        text-transform: capitalize;
+    }
+    .row.user-info {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+    .request-info {
+        margin-left: 15px;
+    }
+    .modal-body {
+        max-height: calc(100vh - 70px);
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
 }
