@@ -473,4 +473,10 @@ export class DeliveryRequests extends ZapppBaseComponent {
 			this.detailModal.show();
 		});
 	}
+
+	goToDetailsPage(deliveryRequestId: string) {
+		let linkArray = ['reports/delivery-request-details', deliveryRequestId];
+		let link = linkArray.join('/');
+		window.open(link);
+	}
 }
