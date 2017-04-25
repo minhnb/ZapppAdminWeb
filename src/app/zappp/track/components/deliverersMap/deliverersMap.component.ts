@@ -33,6 +33,9 @@ export class DeliverersMap extends ZapppBaseComponent implements OnDestroy {
 	updateSelectedDelivererLocationTimer: any;
 	alertWhenNotFoundLocation: Boolean;
 
+	maxDistance = 10000;
+	mapCircle: any = null;
+
 	@HostListener('document:click', ['$event'])
 	clickout(event) {
 		let searchResultElement = this._elementRef.nativeElement.querySelector('.search-result');
@@ -90,10 +93,11 @@ export class DeliverersMap extends ZapppBaseComponent implements OnDestroy {
 			self.google = google;
 			self.map = new google.maps.Map(self.googleMapsElement, {
 				center: new google.maps.LatLng(latitude, longitude),
-				zoom: 15,
+				zoom: 12,
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			});
 			self.createCurrentMarker(latitude, longitude);
+			this.createMapCircleRadius();
 
 			google.maps.event.addListener(self.map, 'dragend', function() {
 				self.reloadMapAfterCenterPointChanged();
@@ -116,6 +120,8 @@ export class DeliverersMap extends ZapppBaseComponent implements OnDestroy {
 		if (this.lat == lat && this.long == long) {
 			return;
 		}
+		this.removeMapCircleRadius();
+		this.createMapCircleRadius();
 		this.clearAllTimer();
 		this.autoUpdateDeliverersMap(lat, long);
 
@@ -124,8 +130,7 @@ export class DeliverersMap extends ZapppBaseComponent implements OnDestroy {
 	}
 
 	loadListDelivererNearBy(latitude: number, longitude: number) {
-		let maxDistance = 10000;
-		this.deliveryService.listDelivererNearBy(latitude, longitude, maxDistance).subscribe(
+		this.deliveryService.listDelivererNearBy(latitude, longitude, this.maxDistance).subscribe(
 			res => {
 				this.removeAllDelivererMarkers();
 				res.forEach(deliverer => {
@@ -167,6 +172,25 @@ export class DeliverersMap extends ZapppBaseComponent implements OnDestroy {
 		};
 		let marker = this.createMarker(latitude, longitude, markerImage, title);
 		this.markers.push(marker);
+	}
+
+	createMapCircleRadius() {
+		this.mapCircle = new this.google.maps.Circle({
+            strokeColor: '#5499C7',
+            strokeOpacity: 0.8,
+            strokeWeight: 0,
+            fillColor: '#5499C7',
+            fillOpacity: 0.35,
+            map: this.map,
+            center: this.map.getCenter(),
+            radius: this.maxDistance
+		});
+	}
+
+	removeMapCircleRadius() {
+		if (this.mapCircle) {
+			this.mapCircle.setMap(null);
+		}
 	}
 
 	removeAllDelivererMarkers() {
