@@ -67,4 +67,8 @@ export class DeliveryService {
 		let params = ZapppUtil.buildQueryParams(search, sortBy, paging, limit, offset);
 		return this.zapppHttp.get(this.serviceUrl + '/payout', params);
 	}
+	getDelivererPayOutByDelivererId(delivererId: string, search: any, sortBy?: any, paging?: Boolean, limit?: number, offset?: number) {
+		let params = ZapppUtil.buildQueryParams(search, sortBy, paging, limit, offset);
+		return this.zapppHttp.get(this.serviceUrl + '/payout/' + delivererId, params);
+	}
 }

@@ -36,7 +36,7 @@ export const PAGES_MENU = [
 						icon: 'ion-grid',
 						selected: false,
 						expanded: false,
-						order: 1,
+						order: 2,
 					}
 				},
 				roles: ['admin']
@@ -49,7 +49,7 @@ export const PAGES_MENU = [
 						icon: 'ion-ios-location-outline',
 						selected: false,
 						expanded: false,
-						order: 2
+						order: 3
 					}
 				},
 				roles: ['admin']
@@ -62,7 +62,7 @@ export const PAGES_MENU = [
 						icon: 'ion-gear-b',
 						selected: false,
 						expanded: false,
-						order: 3
+						order: 4
 					}
 				},
 				roles: ['admin']
@@ -75,7 +75,7 @@ export const PAGES_MENU = [
 						icon: 'ion-grid',
 						selected: false,
 						expanded: false,
-						order: 1,
+						order: 5
 					}
 				},
 				roles: ['admin']

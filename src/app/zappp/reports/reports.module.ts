@@ -14,6 +14,7 @@ import { DeliveryRequests } from './components/deliveryRequests';
 import { DeliveryRequestUserInfo } from './components/deliveryRequests/deliveryRequestUserInfo.component';
 import { DeliveryRequestLocationInfo } from './components/deliveryRequests/deliveryRequestLocationInfo.component';
 import { PayOut } from './components/payOut';
+import { PayOutDetails } from './components/payOutDetails';
 
 @NgModule({
 	imports: [
@@ -32,7 +33,8 @@ import { PayOut } from './components/payOut';
 		DeliveryRequests,
 		DeliveryRequestUserInfo,
 		DeliveryRequestLocationInfo,
-		PayOut
+		PayOut,
+		PayOutDetails
 	],
 	providers: [
 

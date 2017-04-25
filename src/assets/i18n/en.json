@@ -112,7 +112,8 @@
         "TRACK": "Track",
         "DELIVERERS": "Deliverers",
         "LOCALIZATION": "Localization",
-        "PAY_OUT_TO_ZAPPPER": "Pay out to Zappper"
+        "PAY_OUT_TO_ZAPPPER": "Pay out to Zappper",
+        "PAY_OUT_DETAILS": "Pay out details"
     },
     "BUTTONS": {
         "ACTIVATE": "Activate",
@@ -169,7 +170,17 @@
         "ZAPPPER": "Zappper",
         "PHONE": "Phone",
         "NOTE_COMMISSION": "*Note: Commission percentage is not applied",
-        "SETTLED_DATE": "Settled date"
+        "SETTLED_DATE": "Settled date",
+        "DELIVERY_ID": "Delivery ID",
+        "SENDER_PHONE": "Sender phone",
+        "RECEIVER_PHONE": "Receiver phone",
+        "DELIVERY_CREATED": "Delivery created",
+        "CHARGED": "Charged",
+        "SETTLED": "Settled",
+        "COST": "Cost",
+        "RATING": "Rating",
+        "COST_TOTAL": "Cost total",
+        "TRANSACTION_SETTLED_DATE": "Transaction settled date"
     },
     "STATISTIC": {
         "DELIVERERS": "Deliverers",

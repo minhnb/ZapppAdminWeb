@@ -70,4 +70,23 @@ export class ZapppBaseComponent {
 	displayFare(amount: number, currency: string): string {
 		return ZapppUtil.getFare(amount, currency);
 	}
+
+	initColKeys(maxColumns: number): Array<string> {
+		let colKeys = [];
+		for (let i = 0; i < maxColumns; i++) {
+			colKeys.push('col' + i);
+		}
+		return colKeys;
+	}
+
+	createExcelRow(data: Array<string>, colKeys: Array<string>): any {
+		let result = {};
+		for (let i = 0; i < data.length; i++) {
+			result[colKeys[i]] = data[i];
+		}
+		for (let i = data.length; i < colKeys.length; i++) {
+			result[colKeys[i]] = '';
+		}
+		return result;
+	}
 }

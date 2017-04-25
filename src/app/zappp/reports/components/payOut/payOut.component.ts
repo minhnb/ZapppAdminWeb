@@ -29,6 +29,9 @@ export class PayOut extends ZapppBaseComponent {
 	delivererQuery: String;
 	searchQuery: any = {};
 
+	lastFromDate: Date;
+	lastToDate: Date;
+
 	tableHeader: Array<string> = [];
 	totalAmount: string = '';
 
@@ -56,7 +59,7 @@ export class PayOut extends ZapppBaseComponent {
 		this.deliveryService.getDelivererPayOut(this.searchQuery, sortBy, true, this.pageSize, start).subscribe(
 			res => {
 				this.totalItem = res.total;
-				this.tableData = this.convertPayOutDataToTableData(res.data);
+				this.tableData = res.data;
 				this.totalAmount = this.displayFare(res.meta.total_amount, res.meta.currency);
 			},
 			error => {
@@ -108,17 +111,19 @@ export class PayOut extends ZapppBaseComponent {
 	}
 
 	searchDelivererAccount() {
+		this.lastFromDate = this.fromDate;
+		this.lastToDate = this.toDate;
 		this.searchQuery = this.buildSearchQuery();
 		this.listDelivererPayOut();
 	}
 
 	buildSearchQuery() {
 		let search: any = {};
-		if (this.fromDate) {
-			search.from = moment(this.fromDate).format(ZapppConstant.SERVER_FORMAT_DATE);
+		if (this.lastFromDate) {
+			search.from = moment(this.lastFromDate).format(ZapppConstant.SERVER_FORMAT_DATE);
 		}
-		if (this.toDate) {
-			search.to = moment(this.toDate).format(ZapppConstant.SERVER_FORMAT_DATE);
+		if (this.lastToDate) {
+			search.to = moment(this.lastToDate).format(ZapppConstant.SERVER_FORMAT_DATE);
 		}
 		if (this.delivererQuery) {
 			search.query = this.delivererQuery;
@@ -134,25 +139,6 @@ export class PayOut extends ZapppBaseComponent {
 		this.fromDate = thisMoment.clone().subtract(currentDayInWeek - mondayInWeek, 'days').toDate();
 		this.fromDateTimePicker.setDate(this.fromDate);
 		this.toDateTimePicker.setDate(this.toDate);
-	}
-
-	createExcelRow(data: Array<string>, colKeys: Array<string>): any {
-		let result = {};
-		for (let i = 0; i < data.length; i++) {
-			result[colKeys[i]] = data[i];
-		}
-		for (let i = data.length; i < colKeys.length; i++) {
-			result[colKeys[i]] = '';
-		}
-		return result;
-	}
-
-	initColKeys(maxColumns: number): Array<string> {
-		let colKeys = [];
-		for (let i = 0; i < maxColumns; i++) {
-			colKeys.push('col' + i);
-		}
-		return colKeys;
 	}
 
 	exportPayOutData() {
@@ -171,8 +157,8 @@ export class PayOut extends ZapppBaseComponent {
 		let settledDateText = this.translate.instant('REPORTS.SETTLED_DATE');
 		let settledDateTtitleRow = this.createExcelRow([settledDateText], colKeys);
 
-		let fromText = this.translate.instant('GLOBAL.FROM') + ': ' + moment(this.fromDate).format(ZapppConstant.SERVER_FORMAT_DATE);
-		let toText = this.translate.instant('GLOBAL.TO') + ': ' + moment(this.toDate).format(ZapppConstant.SERVER_FORMAT_DATE);
+		let fromText = this.translate.instant('GLOBAL.FROM') + ': ' + moment(this.fromDate).format(ZapppConstant.SERVER_FORMAT_DATE_WITH_SPLASH);
+		let toText = this.translate.instant('GLOBAL.TO') + ': ' + moment(this.toDate).format(ZapppConstant.SERVER_FORMAT_DATE_WITH_SPLASH);
 		let settledDateRow = this.createExcelRow([fromText, toText], colKeys);
 
 		let headerRow = this.createExcelRow(this.tableHeader, colKeys);
@@ -191,7 +177,14 @@ export class PayOut extends ZapppBaseComponent {
 		let lastRow = this.createExcelRow([noteText], colKeys);
 		data.push(lastRow);
 
-		let fileName = 'Payout_' + moment(this.fromDate).format(ZapppConstant.SERVER_FORMAT_DATE) + '_' + moment(this.toDate).format(ZapppConstant.SERVER_FORMAT_DATE);
+		let fileName = 'Payout_' + moment(this.lastFromDate).format(ZapppConstant.SERVER_FORMAT_DATE) + '_' + moment(this.lastToDate).format(ZapppConstant.SERVER_FORMAT_DATE);
 		alasql("SELECT * INTO XLSX('" + fileName + ".xlsx',{ headers: false}) FROM ? ", [data]);
+	}
+
+	goToPayOutDetails(delivererId) {
+		let linkArray = ['reports/pay-out-details', delivererId, moment(this.lastFromDate).format(ZapppConstant.SERVER_FORMAT_DATE), moment(this.lastToDate).format(ZapppConstant.SERVER_FORMAT_DATE)];
+		let link = linkArray.join('/');
+		// this.router.navigate(linkArray);
+		window.open(link);
 	}
 }
