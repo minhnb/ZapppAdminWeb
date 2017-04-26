@@ -249,7 +249,7 @@ export class DeliverersMap extends ZapppBaseComponent implements OnDestroy {
 			let deliveryStatus = deliveryRequest.current_status && deliveryRequest.current_status.status ? deliveryRequest.current_status.status : '';
 			result += '<div class="bold-text">' + this.translate.instant('REPORTS.CURRENT_JOB') + ':' + '</div>';
 			result += '<div class="request-info">' +
-				'<span>- ' + this.translate.instant('REPORTS.DELIVERY_ID') + ': ' + deliveryRequest.id + '</span>' + '<br/>' +
+				'<span>- ' + this.translate.instant('REPORTS.DELIVERY_ID') + ': ' + '<a href="/reports/delivery-request-details/' + deliveryRequest.id + '" target="_blank">' + deliveryRequest.id + '</a>' + '</span>' + '<br/>' +
 				'<span>- ' + this.translate.instant('REPORTS.STATUS') + ': ' + deliveryStatus + '</span>' + '<br/>' +
 				'<span>- ' + this.translate.instant('GLOBAL.FROM') + ': ' + creatorName + '</span>' + '<br/>' +
 				'<span>' + deliveryRequest.pickup_location.full_address + '</span>' + '<br/>' +
