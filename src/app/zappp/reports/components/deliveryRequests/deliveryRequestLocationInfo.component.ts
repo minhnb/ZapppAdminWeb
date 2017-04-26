@@ -18,6 +18,14 @@ import { Component, ViewEncapsulation, Input} from '@angular/core';
 			<div class="col-xs-8 col-sm-9 col-md-10">{{ locationInfo.lat }}</div>
 		</div>
 		<div class="row user-info">
+			<div class="col-xs-4 col-sm-3 col-md-2">{{ 'REPORTS.USER_NAME' | translate }}</div>
+			<div class="col-xs-8 col-sm-9 col-md-10">{{ locationInfo.user_name }}</div>
+		</div>
+		<div class="row user-info">
+			<div class="col-xs-4 col-sm-3 col-md-2">{{ 'REPORTS.USER_PHONE_NUMBER' | translate }}</div>
+			<div class="col-xs-8 col-sm-9 col-md-10">{{ locationInfo.user_phone_number }}</div>
+		</div>
+		<div class="row user-info">
 			<div class="col-xs-4 col-sm-3 col-md-2">{{ 'REPORTS.USER_COMPANY' | translate }}</div>
 			<div class="col-xs-8 col-sm-9 col-md-10">{{ locationInfo.user_company }}</div>
 		</div>
