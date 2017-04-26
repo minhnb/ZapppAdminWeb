@@ -50,7 +50,7 @@ export class DeliveryRequests extends ZapppBaseComponent {
 	paymentStatus: String = '';
 	searchQuery: any = {};
 
-	defaultPicture = 'assets/img/theme/no-photo.png';
+	defaultPicture = ZapppConstant.NO_PICTURE;
 
 	constructor(private injector: Injector, private deliveryService: DeliveryService, private _elementRef: ElementRef) {
 		super(injector);

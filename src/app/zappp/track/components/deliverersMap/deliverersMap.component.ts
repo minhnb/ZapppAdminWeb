@@ -35,6 +35,8 @@ export class DeliverersMap extends ZapppBaseComponent implements OnDestroy {
 
 	maxDistance = 10000;
 	mapCircle: any = null;
+	infoWindow: any;
+	defaultPicture = ZapppConstant.NO_PICTURE;
 
 	@HostListener('document:click', ['$event'])
 	clickout(event) {
@@ -83,11 +85,12 @@ export class DeliverersMap extends ZapppBaseComponent implements OnDestroy {
 	}
 
 	createDeliverersMap(latitude: number, longitude: number) {
-		this.initMap(latitude, longitude);
-		this.autoUpdateDeliverersMap(latitude, longitude);
+		this.initMap(latitude, longitude, () => {
+			this.autoUpdateDeliverersMap(latitude, longitude);
+		});
 	}
 
-	initMap(latitude: number, longitude: number) {
+	initMap(latitude: number, longitude: number, callback?: () => void) {
 		let self = this;
 		GoogleMapsLoader.load((google) => {
 			self.google = google;
@@ -95,6 +98,9 @@ export class DeliverersMap extends ZapppBaseComponent implements OnDestroy {
 				center: new google.maps.LatLng(latitude, longitude),
 				zoom: 12,
 				mapTypeId: google.maps.MapTypeId.ROADMAP
+			});
+			self.infoWindow = new google.maps.InfoWindow({
+				content: ''
 			});
 			self.createCurrentMarker(latitude, longitude);
 			this.createMapCircleRadius();
@@ -106,6 +112,10 @@ export class DeliverersMap extends ZapppBaseComponent implements OnDestroy {
 			google.maps.event.addListener(self.map, 'zoom_changed', function() {
 				self.reloadMapAfterCenterPointChanged();
 			});
+
+			if (callback) {
+				callback();
+			}
 		});
 	}
 
@@ -172,7 +182,12 @@ export class DeliverersMap extends ZapppBaseComponent implements OnDestroy {
 			anchor: new this.google.maps.Point(0, 32)
 		};
 		let marker = this.createMarker(latitude, longitude, markerImage, deliverer.name);
+		let delivererId = deliverer.id;
+		marker.delivererId = delivererId;
 		this.markers.push(marker);
+		if (delivererId) {
+			this.addInfoWindow(marker, delivererId);
+		}
 	}
 
 	createMapCircleRadius() {
@@ -199,6 +214,72 @@ export class DeliverersMap extends ZapppBaseComponent implements OnDestroy {
 			marker.setMap(null);
 		})
 		this.markers = [];
+	}
+
+	addInfoWindow(marker: any, content: string) {
+		let self = this;
+		marker.addListener('click', function() {
+			let delivererId = marker.delivererId;
+			self.getDelivererInfo(delivererId, res => {
+				marker.infoWindowContent = self.buildDelivererInfoWindowHTMLCode(res);
+				self.showInfoWindow(marker);
+			});
+        });
+	}
+
+	buildDelivererInfoWindowHTMLCode(res: any): string {
+		let deliverer = res.deliverer;
+		let result = '';
+		let phoneNumberText = deliverer.phone_profile && deliverer.phone_profile.number ? (' (' + deliverer.phone_profile.number + ')') : '';
+		let userAvatar = deliverer.avatar && deliverer.avatar.url ? deliverer.avatar.url : this.defaultPicture;
+		let status = res.current_request ? this.translate.instant('REPORTS.WORKING') : this.translate.instant('REPORTS.AVAILABLE');
+		result += '<div class="user-info">' +
+			'<div>' +
+			'<img src="' + userAvatar + '">' +
+			'</div>' +
+			'<div>' +
+			'<span>' + deliverer.name + phoneNumberText + '</span>' + '<br/>' +
+			'<span>' + this.translate.instant('REPORTS.STATUS') + ': ' + status + '</span>' +
+			'</div>' +
+			'</div>';
+		if (res.current_request) {
+			let deliveryRequest = res.current_request;
+			let creatorName = deliveryRequest.pickup_location ? deliveryRequest.pickup_location.user_name : '';
+			let receiverName = deliveryRequest.destination_location ? deliveryRequest.destination_location.user_name : '';
+			let deliveryStatus = deliveryRequest.current_status && deliveryRequest.current_status.status ? deliveryRequest.current_status.status : '';
+			result += '<div class="bold-text">' + this.translate.instant('REPORTS.CURRENT_JOB') + ':' + '</div>';
+			result += '<div class="request-info">' +
+				'<span>- ' + this.translate.instant('REPORTS.DELIVERY_ID') + ': ' + deliveryRequest.id + '</span>' + '<br/>' +
+				'<span>- ' + this.translate.instant('REPORTS.STATUS') + ': ' + deliveryStatus + '</span>' + '<br/>' +
+				'<span>- ' + this.translate.instant('GLOBAL.FROM') + ': ' + creatorName + '</span>' + '<br/>' +
+				'<span>' + deliveryRequest.pickup_location.full_address + '</span>' + '<br/>' +
+				'<span>- ' + this.translate.instant('GLOBAL.TO') + ': ' + receiverName + '</span>' + '<br/>' +
+				'<span>' + deliveryRequest.destination_location.full_address + '</span>' + '<br/>' +
+				'</div>';
+		}
+		return result;
+	}
+
+	showInfoWindow(marker: any) {
+		this.infoWindow.setContent(this.generateInfoWindowContent(marker.infoWindowContent));
+		this.infoWindow.open(this.map, marker);
+	}
+
+	generateInfoWindowContent(content: string): string {
+		return '<div class="info-window">' + content + '<div>';
+	}
+
+	getDelivererInfo(delivererId: string, callback?: (res: any) => void) {
+		this.deliveryService.getDelivererInfo(delivererId).subscribe(
+			res => {
+				if (callback) {
+					callback(res);
+				}
+			},
+			error => {
+				this.zapppAlert.showError(error.message);
+			}
+		);
 	}
 
 	autoUpdateDeliverersMap(latitude: number, longitude: number) {

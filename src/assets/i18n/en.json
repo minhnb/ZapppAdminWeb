@@ -181,7 +181,10 @@
         "RATING": "Rating",
         "COST_TOTAL": "Cost total",
         "TRANSACTION_SETTLED_DATE": "Transaction settled date",
-        "ZAPPPER_NAME_OR_PHONE_NUMBER": "Zappper name or phone number"
+        "ZAPPPER_NAME_OR_PHONE_NUMBER": "Zappper name or phone number",
+        "CURRENT_JOB": "Current job (accepted)",
+        "AVAILABLE": "Available",
+        "WORKING": "Working"
     },
     "STATISTIC": {
         "DELIVERERS": "Deliverers",

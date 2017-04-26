@@ -41,5 +41,7 @@ export const ZapppConstant = {
         BICYCLING: "bicycling",
         WALKING: "walking",
         DRIVING: "driving"
-    }
+    },
+    NO_PICTURE: 'assets/img/theme/no-photo.png',
+    NO_PICTURE_WITH_ADD_BUTTON: 'assets/img/zappp/no-photo.png'
 };

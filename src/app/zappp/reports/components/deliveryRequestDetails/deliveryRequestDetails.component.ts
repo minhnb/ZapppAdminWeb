@@ -22,7 +22,7 @@ var moment = require('moment');
 export class DeliveryRequestDetails extends ZapppBaseComponent {
 
 	selectedDeliveryRequest: any;
-	defaultPicture = 'assets/img/theme/no-photo.png';
+	defaultPicture = ZapppConstant.NO_PICTURE;
 
 	private sub: any;
 	deliveryRequestId: string;
