@@ -180,7 +180,8 @@
         "COST": "Cost",
         "RATING": "Rating",
         "COST_TOTAL": "Cost total",
-        "TRANSACTION_SETTLED_DATE": "Transaction settled date"
+        "TRANSACTION_SETTLED_DATE": "Transaction settled date",
+        "ZAPPPER_NAME_OR_PHONE_NUMBER": "Zappper name or phone number"
     },
     "STATISTIC": {
         "DELIVERERS": "Deliverers",
