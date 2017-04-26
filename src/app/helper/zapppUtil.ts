@@ -62,4 +62,12 @@ export class ZapppUtil {
 		}
 		return [result, currency].filter(Boolean).join(' ');
 	}
+
+    static getDelivererImageByVehicle(vehicle: string) {
+		let validVehicles = [ZapppConstant.VEHICLE.BICYCLING, ZapppConstant.VEHICLE.WALKING, ZapppConstant.VEHICLE.DRIVING];
+        if (validVehicles.indexOf(vehicle) == -1) {
+            vehicle = ZapppConstant.VEHICLE.DRIVING;
+        }
+        return 'assets/img/zappp/' + vehicle + '.png';
+	}
 }

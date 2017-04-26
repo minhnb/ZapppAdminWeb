@@ -136,8 +136,8 @@ export class DeliverersMap extends ZapppBaseComponent implements OnDestroy {
 				res.forEach(deliverer => {
 					let latitude = deliverer.location.lat;
 					let longitude = deliverer.location.long;
-					let title = deliverer.deliverer.name;
-					this.createDelivererMarker(latitude, longitude, title);
+					deliverer.deliverer.vehicle = deliverer.vehicle;
+					this.createDelivererMarker(latitude, longitude, deliverer.deliverer);
 				});
 			},
 			error => {
@@ -164,13 +164,14 @@ export class DeliverersMap extends ZapppBaseComponent implements OnDestroy {
 		this.googleMapsElement.insertAdjacentHTML('beforeend', '<div class="center-marker"></div>');
 	}
 
-	createDelivererMarker(latitude: number, longitude: number, title: string) {
+	createDelivererMarker(latitude: number, longitude: number, deliverer: any) {
 		let markerImage = {
-			path: this.google.maps.SymbolPath.CIRCLE,
-			strokeColor: '#186A3B',
-            scale: 8
+			url: ZapppUtil.getDelivererImageByVehicle(deliverer.vehicle),
+			size: new this.google.maps.Size(32, 32),
+			origin: new this.google.maps.Point(0, 0),
+			anchor: new this.google.maps.Point(0, 32)
 		};
-		let marker = this.createMarker(latitude, longitude, markerImage, title);
+		let marker = this.createMarker(latitude, longitude, markerImage, deliverer.name);
 		this.markers.push(marker);
 	}
 
@@ -338,6 +339,7 @@ export class DeliverersMap extends ZapppBaseComponent implements OnDestroy {
 		transformedDeliverer.phone = deliverer.deliverer.phone_profile ? deliverer.deliverer.phone_profile.number : '';
 		transformedDeliverer.location = deliverer.location;
 		transformedDeliverer.selected = false;
+		transformedDeliverer.vehicle = deliverer.vehicle;
 		return transformedDeliverer;
 	}
 
@@ -355,8 +357,7 @@ export class DeliverersMap extends ZapppBaseComponent implements OnDestroy {
 	centerDelivererMarker(deliverer: any) {
 		let latitude = deliverer.location.lat;
 		let longitude = deliverer.location.long;
-		let title = deliverer.name;
-		this.createDelivererMarker(latitude, longitude, title);
+		this.createDelivererMarker(latitude, longitude, deliverer);
 		let point = new this.google.maps.LatLng(latitude, longitude);
 		this.map.setCenter(point);
 	}

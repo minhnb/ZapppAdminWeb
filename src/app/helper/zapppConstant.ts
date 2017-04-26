@@ -36,5 +36,10 @@ export const ZapppConstant = {
         SENDER_RECEIVER_SHEET: 'sender_receiver',
         WEB_HOME_SHEET: 'web_home',
         SERVER_SHEET: 'server'
+    },
+    VEHICLE: {
+        BICYCLING: "bicycling",
+        WALKING: "walking",
+        DRIVING: "driving"
     }
 };
