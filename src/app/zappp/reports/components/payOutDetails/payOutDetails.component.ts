@@ -170,7 +170,8 @@ export class PayOutDetails extends ZapppBaseComponent {
 		let zappperRow = this.createExcelRow([zappperText, zappper.name], colKeys);
 
 		let phoneText = this.translate.instant('REPORTS.PHONE');
-		let phoneRow = this.createExcelRow([phoneText, zappper.phone_profile ? zappper.phone_profile.number : ''], colKeys);
+		let phoneNumber = zappper.phone_profile ? zappper.phone_profile.number : '';
+		let phoneRow = this.createExcelRow([phoneText, phoneNumber], colKeys);
 
 		let settledDateText = this.translate.instant('REPORTS.TRANSACTION_SETTLED_DATE');
 		let fromText = this.translate.instant('GLOBAL.FROM') + ': ' + moment(this.fromDate).format(ZapppConstant.SERVER_FORMAT_DATE_WITH_SPLASH);
@@ -197,7 +198,8 @@ export class PayOutDetails extends ZapppBaseComponent {
 		let lastRow = this.createExcelRow([noteText], colKeys);
 		data.push(lastRow);
 
-		let fileName = 'Payout_' + moment(this.fromDate).format(ZapppConstant.SERVER_FORMAT_DATE) + '_' + moment(this.toDate).format(ZapppConstant.SERVER_FORMAT_DATE);
+		let fileNameCombine = ['Payout_Details', phoneNumber, moment(this.fromDate).format(ZapppConstant.SERVER_FORMAT_DATE), moment(this.toDate).format(ZapppConstant.SERVER_FORMAT_DATE)]
+		let fileName = fileNameCombine.filter(Boolean).join('_');
 		alasql("SELECT * INTO XLSX('" + fileName + ".xlsx',{ headers: false}) FROM ? ", [data]);
 	}
 }

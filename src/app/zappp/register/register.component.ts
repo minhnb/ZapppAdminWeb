@@ -60,7 +60,7 @@ export class Register extends ZapppBaseComponent {
 		label: 'name',
 		baCheckboxClass: 'class'
     };
-	public defaultPicture = 'assets/img/zappp/no-photo.png';
+	public defaultPicture = ZapppConstant.NO_PICTURE_WITH_ADD_BUTTON;
 	public checkboxModel: Array<any>;
 	formatDateTime: String;
 	signUpErrorCode: string = '';
