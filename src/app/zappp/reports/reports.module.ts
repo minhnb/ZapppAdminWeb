@@ -13,6 +13,7 @@ import { DelivererAccounts } from './components/delivererAccounts';
 import { DeliveryRequests } from './components/deliveryRequests';
 import { DeliveryRequestUserInfo } from './components/deliveryRequests/deliveryRequestUserInfo.component';
 import { DeliveryRequestLocationInfo } from './components/deliveryRequests/deliveryRequestLocationInfo.component';
+import { DeliveryRequestDetails } from './components/deliveryRequestDetails';
 import { PayOut } from './components/payOut';
 import { PayOutDetails } from './components/payOutDetails';
 
@@ -33,6 +34,7 @@ import { PayOutDetails } from './components/payOutDetails';
 		DeliveryRequests,
 		DeliveryRequestUserInfo,
 		DeliveryRequestLocationInfo,
+		DeliveryRequestDetails,
 		PayOut,
 		PayOutDetails
 	],

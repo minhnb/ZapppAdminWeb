@@ -1,0 +1,19 @@
+@import '../../../../theme/components/baPictureUploader/baPictureUploader.scss';
+.details-panel .card-body {
+    div.header {
+        font-weight: bold;
+        margin: 15px 0 15px 0;
+        text-transform: capitalize;
+    }
+    .row.user-info {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+    .request-info {
+        margin-left: 15px;
+    }
+    & > .row {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+}

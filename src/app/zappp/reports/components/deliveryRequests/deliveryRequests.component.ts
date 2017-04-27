@@ -50,7 +50,7 @@ export class DeliveryRequests extends ZapppBaseComponent {
 	paymentStatus: String = '';
 	searchQuery: any = {};
 
-	defaultPicture = 'assets/img/theme/no-photo.png';
+	defaultPicture = ZapppConstant.NO_PICTURE;
 
 	constructor(private injector: Injector, private deliveryService: DeliveryService, private _elementRef: ElementRef) {
 		super(injector);
@@ -472,5 +472,11 @@ export class DeliveryRequests extends ZapppBaseComponent {
 			this.selectedDeliveryRequest = res;
 			this.detailModal.show();
 		});
+	}
+
+	goToDetailsPage(deliveryRequestId: string) {
+		let linkArray = ['reports/delivery-request-details', deliveryRequestId];
+		let link = linkArray.join('/');
+		window.open(link);
 	}
 }

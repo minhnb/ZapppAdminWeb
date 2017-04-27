@@ -11,7 +11,6 @@
               <datetimepicker #toDateTimePicker [(dateTimeModel)]="toDate" placeholder="{{ 'GLOBAL.TO' | translate }} {{ formatDateTime }}" [formatDateTime]="formatDateTime"></datetimepicker>
             </div>
             <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12">
-              <!-- <input type="text" class="form-control" placeholder="{{ 'REPORTS.STATUS' | translate }}" /> -->
               <select #selectStatus class="form-control" [(ngModel)]="deliveryStatus" [ngModelOptions]="{standalone: true}">
                 <option value="">{{ 'REPORTS.SELECT_REQUEST_STATUS' | translate }}</option>
                 <option value="Accepted">Accepted</option>
@@ -67,7 +66,7 @@
               <th>{{ 'REPORTS.PAYMENT_STATUS' | translate }}</th>
               <th></th>
             </tr>
-            <tr class="function-row" *ngFor="let item of tableData | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalItem }; let i = index" (click)="showDetailPopUp(item.id)">
+            <tr class="function-row" *ngFor="let item of tableData | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalItem }; let i = index" (click)="goToDetailsPage(item.id)">
               <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
               <td>{{ item.formated_created_at }}</td>
               <td>{{ item.sender.name }}</td>
@@ -194,7 +193,7 @@
             </div>
             <div class="row user-info">
               <div class="col-xs-4">{{ 'GLOBAL.AMOUNT' | translate }}</div>
-              <div class="col-xs-8">{{ getFare(selectedDeliveryRequest.quotation.amount, selectedDeliveryRequest.quotation.currency) }}</div>
+              <div class="col-xs-8">{{ displayFare(selectedDeliveryRequest.quotation.amount, selectedDeliveryRequest.quotation.currency) }}</div>
             </div>
           </div>
         </div>
@@ -248,11 +247,6 @@
             </div>
           </div>
         </div>
-
-        <!-- <div class="col-xs-12 header">Parcel info</div>
-        <div class="col-xs-12 header">Receipt</div>
-        <div class="col-xs-12 header">Delivery status</div>
-        <div class="col-xs-12 header">Payment status</div> -->
       </div>
     </div>
   </div>
