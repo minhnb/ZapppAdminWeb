@@ -76,4 +76,18 @@ export class DeliveryService {
 	getDelivererInfo(delivererId: string) {
 		return this.zapppHttp.get(this.serviceUrl + '/deliverers/' + delivererId);
 	}
+
+	cancelDeliveyRequest(deliveryRequestId: string, reason: string): Observable<any> {
+		let body = {
+			status: "Canceled",
+			reason: reason
+		};
+		let url = this.serviceUrl + '/delivery_requests/' + deliveryRequestId + '/status';
+		return this.zapppHttp.post(url, body);
+	}
+
+	refundDeliveyRequest(deliveryRequestId: string): Observable<any> {
+		let url = this.serviceUrl + '/delivery_requests/' + deliveryRequestId + '/refund';
+		return this.zapppHttp.post(url, {});
+	}
 }

@@ -1,10 +1,10 @@
 <div class="auth-main" [ngClass]="registerFormStepCount==3 ? 'register-page' : ''">
-  <div class="auth-block" [hidden]="registerFormStepCount != 1">
+  <div class="auth-block register-with-captcha" [hidden]="registerFormStepCount != 1">
     <h1>{{ 'SIGN_UP.BOX_TITLE' | translate }}</h1>
     <a routerLink="/login" class="auth-link">{{ 'SIGN_UP.LOG_IN_LINK_TEXT' | translate }}</a>
 
     <form [formGroup]="checkPhoneNumberForm" (ngSubmit)="checkPhoneNumber()" class="form-horizontal">
-      <div class="form-group" [ngClass]="{'has-error': (!phoneNumber.valid && phoneNumber.touched), 'has-success': (phoneNumber.valid && phoneNumber.touched)}">
+      <div class="form-group with-error-text" [ngClass]="{'has-error': (!phoneNumber.valid && phoneNumber.touched), 'has-success': (phoneNumber.valid && phoneNumber.touched)}">
         <div class="phone-number-group">
           <select #selectCountryCode [formControl]="phoneNumberCountryCode">
                 <option value="HK">+852</option>
@@ -15,8 +15,11 @@
         <span *ngIf="phoneNumber.value.length == 0 && phoneNumber.touched" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_PHONE_NUMBER_IS_REQUIRED' | translate }}</span>
         <span *ngIf="!phoneNumber.valid && phoneNumber.value.length > 0 && phoneNumber.touched" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_INVALID_PHONE_NUMBER' | translate }}</span>
       </div>
-      <div class="form-group">
-        <button [disabled]="!checkPhoneNumberForm.valid" type="submit" class="btn btn-default btn-auth">{{ 'BUTTONS.SUBMIT' | translate }}</button>
+      <div>
+          <re-captcha #reCaptchaRef (resolved)="recaptchaResolved($event)" siteKey="{{ RECAPTCHA_KEY }}"></re-captcha>
+      </div>
+      <div class="form-group text-center">
+        <button [disabled]="!checkPhoneNumberForm.valid || !recaptchaResponse" type="submit" class="btn btn-default btn-auth">{{ 'BUTTONS.SUBMIT' | translate }}</button>
       </div>
     </form>
   </div>

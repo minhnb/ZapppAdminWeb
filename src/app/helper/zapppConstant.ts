@@ -43,5 +43,22 @@ export const ZapppConstant = {
         DRIVING: "driving"
     },
     NO_PICTURE: 'assets/img/theme/no-photo.png',
-    NO_PICTURE_WITH_ADD_BUTTON: 'assets/img/zappp/no-photo.png'
+    NO_PICTURE_WITH_ADD_BUTTON: 'assets/img/zappp/no-photo.png',
+    DELIVERY_STATUS: {
+        ACCEPTED: "Accepted",
+        CANCELED: "Canceled",
+        COMPLETED: "Completed",
+        EXPIRED: "Expired",
+        NEW: "New",
+        DELIVERING: "Delivering",
+        PENDING: "Pending",
+        REJECTED: "Rejected",
+        TIMEOUT: "Timeout"
+    },
+    PAYMENT_STATUS: {
+        FAILED: "failed",
+        PENDING: "pending",
+        SETTLED: "settled",
+		SUCCEEDED: "succeeded"
+    }
 };

@@ -17,6 +17,17 @@
 .form-group .picture-group {
     margin: auto;
 }
+.register-with-captcha.auth-block {
+    width: 366px;
+    form {
+        .form-group.with-error-text {
+            min-height: 55px;
+        }
+        button.btn-auth {
+            margin-top: 10px;
+        }
+    }
+}
 @media (max-width: 767px) {
     #inputSwiftCode {
         margin-bottom: 15px;

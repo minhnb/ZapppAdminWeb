@@ -112,7 +112,7 @@
         "TRACK": "Track",
         "DELIVERERS": "Deliverers",
         "LOCALIZATION": "Localization",
-        "PAY_OUT_TO_ZAPPPER": "Pay out to Zappper",
+        "PAY_OUT_TO_ZAPPPER": "Pay Out",
         "PAY_OUT_DETAILS": "Pay out details"
     },
     "BUTTONS": {
@@ -124,7 +124,9 @@
         "IMPORT": "Import",
         "EXPORT": "Export",
         "SUBMIT": "Submit",
-        "RESEND": "Resend"
+        "RESEND": "Resend",
+        "CANCEL": "Cancel",
+        "REFUND": "Refund"
     },
     "REPORTS": {
         "SENDER_NAME": "Sender Name",
@@ -186,7 +188,9 @@
         "ZAPPPER_NAME_OR_PHONE_NUMBER": "Zappper name or phone number",
         "CURRENT_JOB": "Current job (accepted)",
         "AVAILABLE": "Available",
-        "WORKING": "Working"
+        "WORKING": "Working",
+        "REASON": "Reason",
+        "CANCEL_REQUEST": "Cancel request"
     },
     "STATISTIC": {
         "DELIVERERS": "Deliverers",
@@ -215,7 +219,9 @@
     },
     "INFORM": {
         "NO_RESULT_FOUND": "No result found",
-        "IMPORT_DATA_SUCCESSFULLY": "Import data successfully"
+        "IMPORT_DATA_SUCCESSFULLY": "Import data successfully",
+        "REFUND_SUCCESS_TITLE": "Refund",
+        "REFUND_SUCCESS_MESSAGE": "Refund sent"
     },
     "LOCALIZATION": {
         "ZAPPPER": "Zappper",

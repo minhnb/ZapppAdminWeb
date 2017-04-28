@@ -2,11 +2,15 @@ import { Component, Injector, ViewEncapsulation, ViewChild, ElementRef } from '@
 import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { EmailValidator, EqualPasswordsValidator } from '../../theme/validators';
 
+import { AppConfig } from '../../app.config';
 import { ZapppBaseComponent } from '../baseComponent/base.component';
 import { UserService } from '../../services/user';
 import { ZapppConstant } from '../../helper/zapppConstant';
 import { DateTimePicker } from '../../helper/datetimepicker';
 import { BaPictureUploader } from '../../theme/components/baPictureUploader';
+
+import { RecaptchaComponent } from 'ng-recaptcha';
+
 
 var moment = require('moment');
 
@@ -49,6 +53,7 @@ export class Register extends ZapppBaseComponent {
 	@ViewChild('inputUsername') inputUsername: ElementRef;
 	@ViewChild('birthdayDateTimePicker') birthdayDateTimePicker: DateTimePicker;
 	@ViewChild('photoPreview') photoPreview: BaPictureUploader;
+	@ViewChild('reCaptchaRef') reCaptchaRef: RecaptchaComponent;
 
 	public submitted: boolean = false;
 	public birthdayDay: Date;
@@ -71,6 +76,9 @@ export class Register extends ZapppBaseComponent {
 		USERNAME_EXISTED: "UsernameExisted"
 	}
 
+	RECAPTCHA_KEY = AppConfig.RECAPTCHA_KEY;
+	recaptchaResponse: string;
+
 	constructor(private injector: Injector, private userService: UserService, private formBuilder: FormBuilder) {
         super(injector);
 
@@ -85,7 +93,7 @@ export class Register extends ZapppBaseComponent {
 	}
 
 	checkPhoneNumber(): void {
-		if (this.checkPhoneNumberForm.valid) {
+		if (this.checkPhoneNumberForm.valid && this.recaptchaResponse) {
 			let phoneNumber = this.phoneNumber.value;
 			let countryCode = this.phoneNumberCountryCode.value;
 			this.userService.checkAccountByPhoneNumber(phoneNumber, countryCode).subscribe(
@@ -308,6 +316,10 @@ export class Register extends ZapppBaseComponent {
 		this.phoneNumber = this.checkPhoneNumberForm.controls['phoneNumber'];
 		this.phoneNumberCountryCode = this.checkPhoneNumberForm.controls['phoneNumberCountryCode'];
 		this.phoneNumberCountryCode.setValue("HK");
+		if (this.reCaptchaRef) {
+			this.reCaptchaRef.reset();
+			this.recaptchaResponse = null;
+		}
 	}
 
 	initSenderLoginForm() {
@@ -363,4 +375,11 @@ export class Register extends ZapppBaseComponent {
 		this.email.disable();
 		this.setFocusInput(this.inputUsername);
 	}
+
+	recaptchaResolved(captchaResponse: string) {
+		this.recaptchaResponse = captchaResponse;
+		if (this.recaptchaResponse && this.checkPhoneNumberForm.valid) {
+			this.checkPhoneNumber();
+		}
+    }
 }
