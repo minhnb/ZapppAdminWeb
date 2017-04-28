@@ -139,6 +139,7 @@
             </div>
           </div>
         </div>
+        <button [hidden]="!isCancelableRequest()" type="button" class="btn btn-danger" (click)="showCancelRequestPrompt()">{{ 'BUTTONS.CANCEL' | translate }}</button>
       </ba-card>
     </div>
   </div>

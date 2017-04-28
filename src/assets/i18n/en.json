@@ -124,7 +124,9 @@
         "IMPORT": "Import",
         "EXPORT": "Export",
         "SUBMIT": "Submit",
-        "RESEND": "Resend"
+        "RESEND": "Resend",
+        "CANCEL": "Cancel",
+        "REFUND": "Refund"
     },
     "REPORTS": {
         "SENDER_NAME": "Sender Name",
@@ -186,7 +188,9 @@
         "ZAPPPER_NAME_OR_PHONE_NUMBER": "Zappper name or phone number",
         "CURRENT_JOB": "Current job (accepted)",
         "AVAILABLE": "Available",
-        "WORKING": "Working"
+        "WORKING": "Working",
+        "REASON": "Reason",
+        "CANCEL_REQUEST": "Cancel request"
     },
     "STATISTIC": {
         "DELIVERERS": "Deliverers",

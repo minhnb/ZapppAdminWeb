@@ -176,3 +176,9 @@ span.help-block.sub-little-text {
 .bold-text {
     font-weight: bold;
 }
+.modal-dialog {
+    input.form-control {
+        color: #333333;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+    }
+}

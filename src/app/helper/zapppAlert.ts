@@ -84,4 +84,28 @@ export class ZapppAlert {
 			})
 			.then((dialog: any) => dialog.result);
     }
+
+    showPrompt(message: string, title?: string, okButtonText?: string, cancelButtonText?: string): any {
+        if (!title) {
+            title = this.translate.instant('DIALOG.WARNING');
+        }
+        if (!okButtonText) {
+            okButtonText = this.translate.instant('DIALOG.OK');
+        }
+        if (!cancelButtonText) {
+            cancelButtonText = this.translate.instant('DIALOG.CANCEL');
+        }
+        return this.modal.prompt()
+			.size('lg')
+            .showClose(true)
+            .title(title)
+            .body(message)
+            .okBtn(okButtonText)
+            .cancelBtn(cancelButtonText)
+            .open()
+            .catch(err => {
+				console.log(err);
+			})
+			.then((dialog: any) => dialog.result);
+    }
 }
