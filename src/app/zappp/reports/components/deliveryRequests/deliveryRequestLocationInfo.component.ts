@@ -6,32 +6,32 @@ import { Component, ViewEncapsulation, Input} from '@angular/core';
     template: `
 	<div class="col-xs-12 request-info" *ngIf="locationInfo">
 		<div class="row user-info">
-			<div class="col-xs-4 col-sm-3 col-md-2">{{ 'GLOBAL.ADDRESS' | translate }}</div>
-			<div class="col-xs-8 col-sm-9 col-md-10">{{ locationInfo.full_address }}</div>
+			<div class="col-xs-6 col-lg-4 col-xlg-3">{{ 'GLOBAL.ADDRESS' | translate }}</div>
+			<div class="col-xs-6 col-lg-8 col-xlg-9">{{ locationInfo.full_address }}</div>
 		</div>
 		<div class="row user-info">
-			<div class="col-xs-4 col-sm-3 col-md-2">Longitude</div>
-			<div class="col-xs-8 col-sm-9 col-md-10">{{ locationInfo.long }}</div>
+			<div class="col-xs-6 col-lg-4 col-xlg-3">Longitude</div>
+			<div class="col-xs-6 col-lg-8 col-xlg-9">{{ locationInfo.long }}</div>
 		</div>
 		<div class="row user-info">
-			<div class="col-xs-4 col-sm-3 col-md-2">Latitude</div>
-			<div class="col-xs-8 col-sm-9 col-md-10">{{ locationInfo.lat }}</div>
+			<div class="col-xs-6 col-lg-4 col-xlg-3">Latitude</div>
+			<div class="col-xs-6 col-lg-8 col-xlg-9">{{ locationInfo.lat }}</div>
 		</div>
 		<div class="row user-info">
-			<div class="col-xs-4 col-sm-3 col-md-2">{{ 'REPORTS.USER_NAME' | translate }}</div>
-			<div class="col-xs-8 col-sm-9 col-md-10">{{ locationInfo.user_name }}</div>
+			<div class="col-xs-6 col-lg-4 col-xlg-3">{{ 'REPORTS.USER_NAME' | translate }}</div>
+			<div class="col-xs-6 col-lg-8 col-xlg-9">{{ locationInfo.user_name }}</div>
 		</div>
 		<div class="row user-info">
-			<div class="col-xs-4 col-sm-3 col-md-2">{{ 'REPORTS.USER_PHONE_NUMBER' | translate }}</div>
-			<div class="col-xs-8 col-sm-9 col-md-10">{{ locationInfo.user_phone_number }}</div>
+			<div class="col-xs-6 col-lg-4 col-xlg-3">{{ 'REPORTS.USER_PHONE_NUMBER' | translate }}</div>
+			<div class="col-xs-6 col-lg-8 col-xlg-9">{{ locationInfo.user_phone_number }}</div>
 		</div>
 		<div class="row user-info">
-			<div class="col-xs-4 col-sm-3 col-md-2">{{ 'REPORTS.USER_COMPANY' | translate }}</div>
-			<div class="col-xs-8 col-sm-9 col-md-10">{{ locationInfo.user_company }}</div>
+			<div class="col-xs-6 col-lg-4 col-xlg-3">{{ 'REPORTS.USER_COMPANY' | translate }}</div>
+			<div class="col-xs-6 col-lg-8 col-xlg-9">{{ locationInfo.user_company }}</div>
 		</div>
 		<div class="row user-info">
-			<div class="col-xs-4 col-sm-3 col-md-2">{{ 'GLOBAL.NOTE' | translate }}</div>
-			<div class="col-xs-8 col-sm-9 col-md-10">{{ locationInfo.note }}</div>
+			<div class="col-xs-6 col-lg-4 col-xlg-3">{{ 'GLOBAL.NOTE' | translate }}</div>
+			<div class="col-xs-6 col-lg-8 col-xlg-9">{{ locationInfo.note }}</div>
 		</div>
 	</div>
   `
