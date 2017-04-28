@@ -111,6 +111,13 @@ table.table {
   tr.function-row {
     cursor: pointer;
   }
+  & > tbody > tr > td {
+      padding: 5px 8px;
+      line-height: 20px;
+  }
+  td.button-cell {
+      vertical-align: middle;
+  }
 }
 
 form.table-search {
@@ -168,4 +175,10 @@ span.help-block.sub-little-text {
 }
 .bold-text {
     font-weight: bold;
+}
+.modal-dialog {
+    input.form-control {
+        color: #333333;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+    }
 }

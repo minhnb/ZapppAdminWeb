@@ -139,6 +139,8 @@
             </div>
           </div>
         </div>
+        <button [disabled]="!isCancelableRequest()" type="button" class="btn btn-danger" (click)="showCancelRequestPrompt()">{{ 'BUTTONS.CANCEL' | translate }}</button>
+        <button [disabled]="!isRefundableRequest()" type="button" class="btn btn-danger" (click)="refund()">{{ 'BUTTONS.REFUND' | translate }}</button>
       </ba-card>
     </div>
   </div>
