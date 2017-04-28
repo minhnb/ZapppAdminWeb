@@ -67,6 +67,21 @@ export class DeliveryRequestDetails extends ZapppBaseComponent {
 			},
 			error => {
 				this.zapppAlert.showError(error.message);
+				this.getDeliveryRequestById(deliveryRequestId);
+			}
+		);
+	}
+
+	refundDeliveryRequest(deliveryRequestId: string, callback?: (res: any) => void) {
+		this.deliveryService.refundDeliveyRequest(deliveryRequestId).subscribe(
+			res => {
+				if (callback) {
+					callback(res);
+				}
+			},
+			error => {
+				this.zapppAlert.showError(error.message);
+				this.getDeliveryRequestById(deliveryRequestId);
 			}
 		);
 	}
@@ -80,7 +95,7 @@ export class DeliveryRequestDetails extends ZapppBaseComponent {
 				}
 				let reason = result;
 				this.cancelDeliveryRequest(this.deliveryRequestId, reason, res => {
-					this.getDeliveryRequestById(this.deliveryRequestId);
+					this.selectedDeliveryRequest = res;
 				});
 			})
 			.catch(err => {
@@ -100,5 +115,37 @@ export class DeliveryRequestDetails extends ZapppBaseComponent {
 		];
 		let currentStatus = this.selectedDeliveryRequest.current_status.status;
 		return cancelableStatus.indexOf(currentStatus) > -1;
+	}
+
+	isRefundableRequest(): Boolean {
+		if (this.selectedDeliveryRequest.refunded) {
+			return false;
+		}
+		if (!this.selectedDeliveryRequest.current_status) {
+			return false;
+		}
+		if (!this.selectedDeliveryRequest.payment_status) {
+			return false;
+		}
+		let refundableStatus = [
+			ZapppConstant.DELIVERY_STATUS.CANCELED,
+			ZapppConstant.DELIVERY_STATUS.COMPLETED,
+			ZapppConstant.DELIVERY_STATUS.EXPIRED
+		];
+		let refundablePaymentStatus = [
+			ZapppConstant.PAYMENT_STATUS.SUCCEEDED,
+			ZapppConstant.PAYMENT_STATUS.SETTLED,
+			ZapppConstant.PAYMENT_STATUS.PENDING
+		];
+		let currentStatus = this.selectedDeliveryRequest.current_status.status;
+		let currentPaymentStatus = this.selectedDeliveryRequest.payment_status.status;
+		return refundableStatus.indexOf(currentStatus) > -1 && refundablePaymentStatus.indexOf(currentPaymentStatus) > -1;
+	}
+
+	refund() {
+		this.refundDeliveryRequest(this.deliveryRequestId, res => {
+			this.selectedDeliveryRequest = res;
+			this.zapppAlert.showInfo(this.translate.instant('INFORM.REFUND_SUCCESS_MESSAGE'), this.translate.instant('INFORM.REFUND_SUCCESS_TITLE'));
+		});
 	}
 }

@@ -85,4 +85,9 @@ export class DeliveryService {
 		let url = this.serviceUrl + '/delivery_requests/' + deliveryRequestId + '/status';
 		return this.zapppHttp.post(url, body);
 	}
+
+	refundDeliveyRequest(deliveryRequestId: string): Observable<any> {
+		let url = this.serviceUrl + '/delivery_requests/' + deliveryRequestId + '/refund';
+		return this.zapppHttp.post(url, {});
+	}
 }

@@ -219,7 +219,9 @@
     },
     "INFORM": {
         "NO_RESULT_FOUND": "No result found",
-        "IMPORT_DATA_SUCCESSFULLY": "Import data successfully"
+        "IMPORT_DATA_SUCCESSFULLY": "Import data successfully",
+        "REFUND_SUCCESS_TITLE": "Refund",
+        "REFUND_SUCCESS_MESSAGE": "Refund sent"
     },
     "LOCALIZATION": {
         "ZAPPPER": "Zappper",

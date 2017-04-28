@@ -54,5 +54,11 @@ export const ZapppConstant = {
         PENDING: "Pending",
         REJECTED: "Rejected",
         TIMEOUT: "Timeout"
+    },
+    PAYMENT_STATUS: {
+        FAILED: "failed",
+        PENDING: "pending",
+        SETTLED: "settled",
+		SUCCEEDED: "succeeded"
     }
 };
