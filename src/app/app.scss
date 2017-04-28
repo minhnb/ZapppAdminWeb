@@ -111,6 +111,13 @@ table.table {
   tr.function-row {
     cursor: pointer;
   }
+  & > tbody > tr > td {
+      padding: 5px 8px;
+      line-height: 20px;
+  }
+  td.button-cell {
+      vertical-align: middle;
+  }
 }
 
 form.table-search {

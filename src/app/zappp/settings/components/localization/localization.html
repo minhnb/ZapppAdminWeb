@@ -68,7 +68,7 @@ aria-labelledby="exportHistoryModalLabel" aria-hidden="true" (onShow)="onShowExp
                           <td>{{ i + 1 }}</td>
                           <td>{{ item.formated_created_at }}</td>
                           <td>{{ item.version }}</td>
-                          <td><button type="button" class="btn btn-primary" (click)="exportLocalizationData(exportItem.appKey, item.version, exportItem.localizationKey)">{{ 'BUTTONS.EXPORT' | translate }}</button></td>
+                          <td class="button-cell"><button type="button" class="btn btn-primary" (click)="exportLocalizationData(exportItem.appKey, item.version, exportItem.localizationKey)">{{ 'BUTTONS.EXPORT' | translate }}</button></td>
                       </tr>
                     </table>
                   </div>

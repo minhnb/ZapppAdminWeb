@@ -48,10 +48,10 @@
               <td>{{ item.name }}</td>
               <td>{{ item.phone }}</td>
               <td>{{ item.formated_created_at }}</td>
-              <td>
+              <td class="button-cell">
                 <button class="btn btn-xs status-button" [ngClass]="item.approved ? 'btn-success' : 'btn-danger'">{{ (item.approved ? 'REPORTS.ACTIVATED' : 'REPORTS.DEACTIVATED') | translate }}</button>
               </td>
-              <td>
+              <td class="button-cell">
                 <div class="button-wrapper" [hidden]="item.approved">
                   <button type="button" class="btn btn-default action-button" [disabled]="item.approved" (click)="activateDeliverer(item)">{{ 'BUTTONS.ACTIVATE' | translate }}</button>
                 </div>
