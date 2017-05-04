@@ -43,11 +43,12 @@ export class DeliveryRequests extends ZapppBaseComponent {
 	formatDateTime: String;
 	fromDate: Date;
 	toDate: Date;
-	senderQuery: String;
-	delivererQuery: String;
-	receiverQuery: String;
+	senderQuery: String = '';
+	delivererQuery: String = '';
+	receiverQuery: String = '';
 	deliveryStatus: String = '';
 	paymentStatus: String = '';
+	deliveryId: String = '';
 	searchQuery: any = {};
 
 	defaultPicture = ZapppConstant.NO_PICTURE;
@@ -416,6 +417,7 @@ export class DeliveryRequests extends ZapppBaseComponent {
 		this.receiverQuery = '';
 		this.deliveryStatus = '';
 		this.paymentStatus = '';
+		this.deliveryId = '';
 
 		if (Object.keys(this.searchQuery).length > 0) {
 			this.searchQuery = {};
@@ -450,6 +452,9 @@ export class DeliveryRequests extends ZapppBaseComponent {
 		}
 		if (this.paymentStatus) {
 			search.payment_status = this.paymentStatus;
+		}
+		if (this.deliveryId) {
+			search.delivery_id = this.deliveryId;
 		}
 		return search;
 	}
