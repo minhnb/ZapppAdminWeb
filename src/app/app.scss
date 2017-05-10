@@ -71,6 +71,10 @@ select.form-control {
   }
 }
 
+select.form-control:not([size]):not([multiple]) {
+    height: auto;
+}
+
 .phone-number-group {
   position: relative;
 
