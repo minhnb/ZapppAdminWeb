@@ -2,6 +2,7 @@ import { Routes, RouterModule }  from '@angular/router';
 
 import { Reports } from './reports.component';
 import { DelivererAccounts } from './components/delivererAccounts';
+import { DelivererDetails } from './components/delivererDetails';
 import { DeliveryRequests } from './components/deliveryRequests';
 import { DeliveryRequestDetails } from './components/deliveryRequestDetails';
 import { PayOut } from './components/payOut';
@@ -13,6 +14,7 @@ const routes: Routes = [
 		component: Reports,
 		children: [
 			{ path: 'deliverer-accounts', component: DelivererAccounts },
+			{ path: 'deliverer/:delivererId', component: DelivererDetails },
 			{ path: 'delivery-requests', component: DeliveryRequests },
 			{ path: 'delivery-request-details/:deliveryRequestId', component: DeliveryRequestDetails },
 			{ path: 'pay-out-to-zappper', component: PayOut },

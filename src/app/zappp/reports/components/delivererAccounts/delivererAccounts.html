@@ -43,7 +43,7 @@
               <th>{{ 'REPORTS.STATUS' | translate }}</th>
               <th></th>
             </tr>
-            <tr *ngFor="let item of tableData | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalItem }; let i = index">
+            <tr class="function-row" *ngFor="let item of tableData | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalItem }; let i = index" (click)="goToDetailsPage(item.id)">
               <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
               <td>{{ item.name }}</td>
               <td>{{ item.phone }}</td>
@@ -53,10 +53,10 @@
               </td>
               <td class="button-cell">
                 <div class="button-wrapper" [hidden]="item.approved">
-                  <button type="button" class="btn btn-default action-button" [disabled]="item.approved" (click)="activateDeliverer(item)">{{ 'BUTTONS.ACTIVATE' | translate }}</button>
+                  <button type="button" class="btn btn-default action-button" [disabled]="item.approved" (click)="activateDeliverer(item, $event)">{{ 'BUTTONS.ACTIVATE' | translate }}</button>
                 </div>
                 <div class="button-wrapper" [hidden]="!item.approved">
-                  <button type="button" class="btn btn-default action-button" [disabled]="!item.approved" (click)="deactivateDeliverer(item)">{{ 'BUTTONS.DEACTIVATE' | translate }}</button>
+                  <button type="button" class="btn btn-default action-button" [disabled]="!item.approved" (click)="deactivateDeliverer(item, $event)">{{ 'BUTTONS.DEACTIVATE' | translate }}</button>
                 </div>
               </td>
             </tr>

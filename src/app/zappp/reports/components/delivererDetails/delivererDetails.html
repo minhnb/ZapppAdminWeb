@@ -1,0 +1,77 @@
+<div class="widgets">
+  <div class="row">
+    <div class="col-md-12">
+      <div baCardBlur class="animated fadeIn card details-panel" zoom-in *ngIf="selectedDeliverer">
+        <div class="card-header clearfix header-with-button">
+          <h3 class="card-title inline">
+              {{ selectedDeliverer.name }}
+              <button class="btn btn-xs status-button" [ngClass]="isActiveDeliverer() ? 'btn-success' : 'btn-danger'">{{ (isActiveDeliverer() ? 'REPORTS.ACTIVATED' : 'REPORTS.DEACTIVATED') | translate }}</button>
+          </h3>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-xs-12 header">{{ 'REPORTS.DETAILS' | translate }}</div>
+            <div class="col-xs-12 col-md-3 col-lg-2 user-img">
+              <img *ngIf="selectedDeliverer.avatar && selectedDeliverer.avatar.url" src="{{ selectedDeliverer.avatar.url }}">
+              <img *ngIf="!(selectedDeliverer.avatar && selectedDeliverer.avatar.url)" src="{{ defaultPicture }}">
+            </div>
+            <div class="col-xs-12 col-md-5 col-lg-5">
+              <div class="row user-info">
+                <div class="col-xs-4 col-lg-3">{{ 'GLOBAL.NAME' | translate }}</div>
+                <div class="col-xs-8 col-lg-9">{{ selectedDeliverer.name }}</div>
+              </div>
+              <div class="row user-info">
+                <div class="col-xs-4 col-lg-3">{{ 'GLOBAL.EMAIL' | translate }}</div>
+                <div class="col-xs-8 col-lg-9 ellipsis-text">{{ selectedDeliverer.email_profile ? selectedDeliverer.email_profile.email : '' }}</div>
+              </div>
+              <div class="row user-info">
+                <div class="col-xs-4 col-lg-3">{{ 'GLOBAL.USERNAME' | translate }}</div>
+                <div class="col-xs-8 col-lg-9">{{ selectedDeliverer.username }}</div>
+              </div>
+              <div class="row user-info">
+                <div class="col-xs-4 col-lg-3">{{ 'GLOBAL.BIRTHDAY' | translate }}</div>
+                <div class="col-xs-8 col-lg-9">{{ selectedDeliverer.profile ? displayBirthday(selectedDeliverer.profile.birthday) : '' }}</div>
+              </div>
+              <div class="row user-info">
+                <div class="col-xs-4 col-lg-3">{{ 'GLOBAL.PERSONAL_ID' | translate }}</div>
+                <div class="col-xs-8 col-lg-9">{{ selectedDeliverer.profile ? selectedDeliverer.profile.citizen_id : '' }}</div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-4 col-lg-5">
+              <div class="row user-info">
+                <div class="col-xs-4 col-lg-3">{{ 'GLOBAL.GENDER' | translate }}</div>
+                <div class="col-xs-8 col-lg-9 capitalize-text">{{ selectedDeliverer.profile ? selectedDeliverer.profile.gender : '' }}</div>
+              </div>
+              <div class="row user-info">
+                <div class="col-xs-4 col-lg-3">{{ 'REPORTS.PHONE' | translate }}</div>
+                <div class="col-xs-8 col-lg-9">{{ selectedDeliverer.phone_profile ? selectedDeliverer.phone_profile.number : '' }}</div>
+              </div>
+              <div class="row user-info">
+                <div class="col-xs-4 col-lg-3">{{ 'GLOBAL.COUNTRY' | translate }}</div>
+                <div class="col-xs-8 col-lg-9">{{ selectedDeliverer.profile ? selectedDeliverer.profile.country : '' }}</div>
+              </div>
+              <div class="row user-info">
+                <div class="col-xs-4 col-lg-3">{{ 'REPORTS.HOME' | translate }}</div>
+                <div class="col-xs-8 col-lg-9">{{ selectedDeliverer.profile ? selectedDeliverer.profile.address : '' }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 header">{{ 'GLOBAL.AVAILABLE_TRANSPORTATION' | translate }}</div>
+            <div class="col-xs-12 capitalize-text">{{ selectedDeliverer.profile ? displayVehicle(selectedDeliverer.profile.vehicles) : '' }}</div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 header">{{ 'GLOBAL.BANK_ACCOUNT_INFO' | translate }}</div>
+            <div class="col-xs-12">{{ 'GLOBAL.SWIFT_CODE' | translate }}: {{ selectedDeliverer.bank_account ? selectedDeliverer.bank_account.swift_code : '' }}</div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">{{ 'GLOBAL.ACCOUNT_NUMBER' | translate }}: {{ selectedDeliverer.bank_account ? selectedDeliverer.bank_account.bank_account_number : '' }}</div>
+          </div>
+          <br/>
+          <button type="button" [hidden]="isActiveDeliverer()" class="btn btn-default" (click)="activateDeliverer(selectedDeliverer.id)">{{ 'BUTTONS.ACTIVATE' | translate }}</button>
+          <button type="button" [hidden]="!isActiveDeliverer()" class="btn btn-default" (click)="deactivateDeliverer(selectedDeliverer.id)">{{ 'BUTTONS.DEACTIVATE' | translate }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
