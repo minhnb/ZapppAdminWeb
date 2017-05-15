@@ -62,5 +62,5 @@ npm-debug.log
 .idea/
 *.swp
 
-#App Config
+# App Config #
 /src/app/app.config.ts
