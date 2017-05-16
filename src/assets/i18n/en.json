@@ -10,6 +10,7 @@
         "PHONE_NUMBER": "Phone number",
         "BIRTHDAY": "Birthday",
         "IDENTIFICATION_NUMBER": "Identification number",
+        "PERSONAL_ID": "Personal ID",
         "GENDER": "Gender",
         "PHOTO": "Photo",
         "PIN": "PIN",
@@ -113,7 +114,8 @@
         "DELIVERERS": "Deliverers",
         "LOCALIZATION": "Localization",
         "PAY_OUT_TO_ZAPPPER": "Pay Out",
-        "PAY_OUT_DETAILS": "Pay out details"
+        "PAY_OUT_DETAILS": "Pay out details",
+        "DELIVERER": "Deliverer"
     },
     "BUTTONS": {
         "ACTIVATE": "Activate",
@@ -190,7 +192,8 @@
         "AVAILABLE": "Available",
         "WORKING": "Working",
         "REASON": "Reason",
-        "CANCEL_REQUEST": "Cancel request"
+        "CANCEL_REQUEST": "Cancel request",
+        "HOME": "Home"
     },
     "STATISTIC": {
         "DELIVERERS": "Deliverers",
@@ -257,8 +260,11 @@
         "STR_ERR_COUNTRY_IS_REQUIRED": "Country is required.",
         "STR_ERR_HOME_ADDRESS_IS_REQUIRED": "Home address is required.",
         "STR_ERR_MISSING_VEHICLE": "Please select at least 1.",
+        "STR_ERR_MISSING_BANK_INFO": "Account number is required.",
+        "STR_ERR_MISSING_SWIFT_CODE": "Swift code is required.",
+        "STR_ERR_SWIFT_CODE_LONG": "Swift code should be 8 or 11 characters long.",
+        "STR_ERR_SWIFT_CODE_FIRST_6_LETTERS": "First 6 letters must be A-Z.",
 
-        "STR_ERR_MISSING_BANK_INFO": "Swift code and account number are required.",
         "STR_SERVER_ERR_EMAIL_IS_IN_USE": "Email is already in use. Please try another one.",
         "STR_SERVER_ERR_ID_IS_IN_USE": "ID is already in use.",
         "STR_SERVER_ERR_PHONE_NUMBER_IS_IN_USE": "Your phone number is already in use. Please try another one or login with the account which is associated with this phone number.",

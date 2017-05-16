@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation, Injector, ViewChild } from '@angular/core
 import { ZapppBaseComponent } from '../../../baseComponent/base.component';
 import { DeliveryService } from '../../../../services/admin/delivery';
 import { ZapppConstant } from '../../../../helper/zapppConstant';
+import { ZapppUtil } from '../../../../helper/zapppUtil';
 import { DateTimePicker } from '../../../../helper/datetimepicker';
 var moment = require('moment');
 
@@ -63,18 +64,10 @@ export class DelivererAccounts extends ZapppBaseComponent {
 	}
 
 	isApprovedDeliverer(delivererAccount: any): Boolean {
-		if (delivererAccount.roles) {
-			for (let i = 0; i < delivererAccount.roles.length; i++) {
-				let role = delivererAccount.roles[i];
-				if (role.name == ZapppConstant.USER_ROLE.DELIVERER) {
-					return role.approved;
-				}
-			}
-		}
-		return false;
+		return ZapppUtil.userHasRole(delivererAccount.roles, ZapppConstant.USER_ROLE.DELIVERER);
 	}
 
-	activateDeliverer(deliverer: any) {
+	activateDeliverer(deliverer: any, event: any) {
 		let delivererId = deliverer.id;
 		this.deliveryService.approveDeliverer(delivererId, true).subscribe(
 			res => {
@@ -83,10 +76,11 @@ export class DelivererAccounts extends ZapppBaseComponent {
 			error => {
 				this.zapppAlert.showError(error.message);
 			}
-		)
+		);
+		event.stopPropagation();
 	}
 
-	deactivateDeliverer(deliverer: any) {
+	deactivateDeliverer(deliverer: any, event: any) {
 		this.zapppAlert.showConfirm(this.translate.instant('CONFIRM.DEACTIVATE_DELIVERER', { "name": deliverer.name }))
 			.then(result => {
 				let delivererId = deliverer.id;
@@ -101,7 +95,8 @@ export class DelivererAccounts extends ZapppBaseComponent {
 			})
 			.catch(err => {
 
-			})
+			});
+		event.stopPropagation();
 	}
 
 	pageChanged(event) {
@@ -145,5 +140,11 @@ export class DelivererAccounts extends ZapppBaseComponent {
 			search.approved = this.status;
 		}
 		return search;
+	}
+
+	goToDetailsPage(delivererId: string) {
+		let linkArray = ['reports/deliverer', delivererId];
+		let link = linkArray.join('/');
+		window.open(link);
 	}
 }

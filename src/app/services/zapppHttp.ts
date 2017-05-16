@@ -77,7 +77,9 @@ export class ZapppHttp {
     extractData(res: Response) {
         this._spinner.hide();
         let response = res.json() || {};
-        console.log(response);
+        if (ENV != 'production') {
+            console.log(response);
+        }
 		return response;
     }
 
@@ -92,7 +94,9 @@ export class ZapppHttp {
 
     jsonError(error: Response | any): any {
         let errMsg: any;
-        console.log(error);
+        if (ENV != 'production') {
+            console.log(error);
+        }
 		if (error instanceof Response) {
             if (error.status == 0) {
                 let message = this.translate.instant('ERROR.CONNECTION');

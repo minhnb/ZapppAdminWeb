@@ -1,0 +1,9 @@
+@import '../deliveryRequestDetails/deliveryRequestDetails.scss';
+@import '../delivererAccounts/delivererAccounts.scss';
+
+.card-title > button.status-button {
+    margin-left: 5px;
+}
+.capitalize-text {
+    text-transform: capitalize;
+}

@@ -155,7 +155,7 @@ export class Register extends ZapppBaseComponent {
 		let country = this.country.value;
 		let homeAddress = this.homeAddress.value;
 		let vehicles = this.getAvailableTransportation();
-		let swiftCode = this.swiftCode.value;
+		let swiftCode = this.swiftCode.value.toUpperCase();
 		let bankAccountNumber = this.accountNumber.value;
 		let user: any = {
 			username: username,
@@ -266,7 +266,7 @@ export class Register extends ZapppBaseComponent {
 			'gender': ['', Validators.compose([Validators.required])],
 			'country': ['', Validators.compose([Validators.required])],
 			'homeAddress': ['', Validators.compose([Validators.required])],
-			'swiftCode': ['', Validators.compose([Validators.required])],
+			'swiftCode': ['', Validators.compose([Validators.required, Validators.pattern(ZapppConstant.PATTERN.VALID_SWIFTCODE)])],
 			'accountNumber': ['', Validators.compose([Validators.required])],
 		};
 		if (!this.hasUserInfo) {

@@ -10,6 +10,7 @@ import { DateTimePickerModule } from '../../helper/datetimepicker';
 import { routing } from './reports.routing';
 import { Reports } from './reports.component';
 import { DelivererAccounts } from './components/delivererAccounts';
+import { DelivererDetails } from './components/delivererDetails';
 import { DeliveryRequests } from './components/deliveryRequests';
 import { DeliveryRequestUserInfo } from './components/deliveryRequests/deliveryRequestUserInfo.component';
 import { DeliveryRequestLocationInfo } from './components/deliveryRequests/deliveryRequestLocationInfo.component';
@@ -31,6 +32,7 @@ import { PayOutDetails } from './components/payOutDetails';
 	declarations: [
 		Reports,
 		DelivererAccounts,
+		DelivererDetails,
 		DeliveryRequests,
 		DeliveryRequestUserInfo,
 		DeliveryRequestLocationInfo,

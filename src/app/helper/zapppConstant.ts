@@ -10,7 +10,8 @@ export const ZapppConstant = {
     },
     PATTERN: {
         ONLY_DIGIT: '^[0-9]*$',
-        VALID_USERNAME: '^[a-zA-Z][0-9a-zA-Z_.]+$'
+        VALID_USERNAME: '^[a-zA-Z][0-9a-zA-Z_.]+$',
+        VALID_SWIFTCODE: '^[a-zA-Z]{6}[a-zA-Z0-9]{2}([a-zA-Z0-9]{3})?$'
     },
     KEYCODE: {
         UP: 38,
