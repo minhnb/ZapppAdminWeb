@@ -264,6 +264,7 @@
         "STR_ERR_MISSING_SWIFT_CODE": "Swift code is required.",
         "STR_ERR_SWIFT_CODE_LONG": "Swift code should be 8 or 11 characters long.",
         "STR_ERR_SWIFT_CODE_FIRST_6_LETTERS": "First 6 letters must be A-Z.",
+        "STR_ERR_PROFILE_PICTURE_TOO_LARGE": "Profile picture size exceeded. (Max. {{ number }} MB)",
 
         "STR_SERVER_ERR_EMAIL_IS_IN_USE": "Email is already in use. Please try another one.",
         "STR_SERVER_ERR_ID_IS_IN_USE": "ID is already in use.",
