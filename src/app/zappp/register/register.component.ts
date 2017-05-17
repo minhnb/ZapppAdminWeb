@@ -46,6 +46,7 @@ export class Register extends ZapppBaseComponent {
 
 	hasUserInfo: boolean = false;
 	public registerFormStepCount: number = 1;
+	profilePictureMaxSize: number = ZapppConstant.PICTURE_MAX_SIZE_MB;
 
 	@ViewChild('inputPhoneNumber') inputPhoneNumber: ElementRef;
 	@ViewChild('inputSenderPassword') inputSenderPassword: ElementRef;
@@ -382,4 +383,8 @@ export class Register extends ZapppBaseComponent {
 			this.checkPhoneNumber();
 		}
     }
+
+	profilePictureSizeExceeded(event) {
+		this.zapppAlert.showError(this.translate.instant('SYNC.STR_ERR_PROFILE_PICTURE_TOO_LARGE', { number: this.profilePictureMaxSize }));
+	}
 }

@@ -45,6 +45,7 @@ export const ZapppConstant = {
     },
     NO_PICTURE: 'assets/img/theme/no-photo.png',
     NO_PICTURE_WITH_ADD_BUTTON: 'assets/img/zappp/no-photo.png',
+    PICTURE_MAX_SIZE_MB: 5,
     DELIVERY_STATUS: {
         ACCEPTED: "Accepted",
         CANCELED: "Canceled",
