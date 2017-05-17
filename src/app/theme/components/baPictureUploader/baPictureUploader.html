@@ -12,5 +12,5 @@
   </div>
   <i class="ion-ios-close-outline" (click)="removePicture();" *ngIf="picture && canDelete"></i>
   <a href class="change-picture" (click)="bringFileSelector();">{{ (picture ? 'PROFILE_PICTURE.CHANGE' : 'PROFILE_PICTURE.ADD') | translate }}</a>
-  <input #fileUpload type="file" hidden="true" id="uploadFile" (change)="onFiles()">
+  <input #fileUpload type="file" accept="image/*" hidden="true" id="uploadFile" (change)="onFiles()">
 </div>

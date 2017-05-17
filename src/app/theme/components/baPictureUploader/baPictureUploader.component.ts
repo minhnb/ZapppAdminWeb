@@ -1,5 +1,5 @@
-import {Component, ViewChild, Input, Output, EventEmitter, ElementRef, Renderer, ViewEncapsulation} from '@angular/core';
-import {Ng2Uploader} from 'ng2-uploader/ng2-uploader';
+import { Component, ViewChild, Input, Output, EventEmitter, ElementRef, Renderer, ViewEncapsulation } from '@angular/core';
+import { Ng2Uploader } from 'ng2-uploader/ng2-uploader';
 
 @Component({
 	selector: 'ba-picture-uploader',
@@ -12,7 +12,9 @@ export class BaPictureUploader {
 
 	@Input() defaultPicture: string = '';
 	@Input() picture: string = '';
+	@Input() maxSize: number = 0;
 	@Output() pictureChange: EventEmitter<{}> = new EventEmitter();
+	@Output() pictureSizeExceeded: EventEmitter<{}> = new EventEmitter();
 
 	@Input() uploaderOptions: any = {};
 	@Input() canDelete: boolean = true;
@@ -48,6 +50,11 @@ export class BaPictureUploader {
 
 		if (files.length) {
 			const file = files[0];
+			var maxFileSize = this.maxSize * 1024 * 1024;
+			if (this.maxSize > 0 && file.size > maxFileSize) {
+				this.pictureSizeExceeded.emit(file.size);
+				return;
+			}
 			this._changePicture(file);
 
 			if (this._canUploadOnServer()) {

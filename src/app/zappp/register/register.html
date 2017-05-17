@@ -54,7 +54,8 @@
       <div class="row">
         <div class="col-md-4 col-xs-12">
           <div class="form-group text-center" [ngClass]="{'has-error': (!avatarBase64 && (photoPreview.touched || submitted))}">
-            <ba-picture-uploader #photoPreview [(picture)]="avatarBase64" [canDelete]="false" [defaultPicture]="defaultPicture"></ba-picture-uploader>
+            <ba-picture-uploader #photoPreview [(picture)]="avatarBase64" [canDelete]="false" [defaultPicture]="defaultPicture"
+            [maxSize]="profilePictureMaxSize" (pictureSizeExceeded)="profilePictureSizeExceeded(event)"></ba-picture-uploader>
             <span *ngIf="!avatarBase64 && (photoPreview.touched || submitted)" class="help-block sub-little-text">{{ 'SYNC.STR_ERR_PHOTO_IS_REQUIRED' | translate }}</span>
           </div>
         </div>
